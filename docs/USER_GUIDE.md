@@ -2,7 +2,7 @@
 
 This guide takes you from your first visit to exam day with LSSGB Exam Trainer. Read [First visit](#first-visit) once, then follow the [study plan](#a-study-plan-for-2-to-4-weeks). [Reading the feedback](#reading-the-feedback) and [How Review mistakes works](#how-review-mistakes-works) explain what the app shows you. [Exam mode tips](#exam-mode-tips), [Moving your progress](#moving-your-progress), [FAQ](#faq) and the [glossary](#glossary) come last.
 
-Open the app at <https://themathub.github.io/lssgb-exam-trainer/>. It runs in any current browser, on a computer or a phone.
+Open the app at <https://thematthub.github.io/lssgb-exam-trainer/>. It runs in any current browser, on a computer or a phone.
 
 ## First visit
 

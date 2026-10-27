@@ -2,7 +2,7 @@
 
 Practise for the IASSC Lean Six Sigma Green Belt exam with 502 fact-checked multiple-choice questions, each option explained.
 
-**[Open the app](https://themathub.github.io/lssgb-exam-trainer/)** · [Learner guide](docs/USER_GUIDE.md)
+**[Open the app](https://thematthub.github.io/lssgb-exam-trainer/)** · [Learner guide](docs/USER_GUIDE.md)
 
 <p align="center"><img src="docs/screenshots/home.png" alt="Home page on a first visit: a welcome card and tiles for Random, By topic, Exam, Review mistakes, Learn and Resources" width="800"></p>
 
@@ -24,7 +24,7 @@ Practise for the IASSC Lean Six Sigma Green Belt exam with 502 fact-checked mult
 
 ## Use it
 
-- **Online:** open <https://themathub.github.io/lssgb-exam-trainer/>.
+- **Online:** open <https://thematthub.github.io/lssgb-exam-trainer/>.
 - **From disk:** download or clone the repo and double-click `index.html`. You need no install, server or internet connection.
 - **Local server:** run `python -m http.server 8000` in the repo folder, then open <http://localhost:8000>.
 
