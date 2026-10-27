@@ -217,7 +217,7 @@ RES.add([
     ],
     points: [
       "Availability = downtime losses; performance = speed losses and minor stops; quality = scrap and rework.",
-      "85% is often quoted as world-class OEE."
+      "About 85% is an often-cited benchmark for good OEE, not a standard."
     ]
   },
   // ---------------------------------------------------------------- Measure
@@ -266,7 +266,7 @@ RES.add([
         ["< 0", "< 0", "> 500,000", "−", "Mean outside the specification"],
         ["0.33", "1", "158,655", "317,311", "Not capable"],
         ["0.67", "2", "22,750", "45,500", "Not capable"],
-        ["1.00", "3", "1,350", "2,700", "Barely capable: spread equals the tolerance"],
+        ["1.00", "3", "1,350", "2,700", "Barely capable: nearest limit exactly 3σ from the mean"],
         ["1.33", "4", "32", "63", "Common minimum for existing processes"],
         ["1.67", "5", "0.29", "0.57", "Target for new or critical / safety characteristics"],
         ["2.00", "6", "0.001", "0.002", "Six sigma short-term (with 1.5σ shift: 3.4 DPMO)"]
@@ -485,7 +485,7 @@ RES.add([
         ["Centre, same units before/after", "2 paired", "Paired t", "Sign or Wilcoxon test on the differences"],
         ["Centre, independent groups", "3 or more", "One-way ANOVA (then Tukey)", "Kruskal-Wallis; Mood's median if outliers"],
         ["Centre, treatment plus a blocking factor", "3 or more", "Two-way (randomised block) ANOVA", "Friedman"],
-        ["Spread vs a target", "1", "1-sample variance (χ²)", "Bonett method (valid for any continuous distribution)"],
+        ["Spread vs a target", "1", "1-sample variance (χ²)", "Bonett method (Minitab option; does not assume normality)"],
         ["Spread", "2", "F test", "Levene"],
         ["Spread", "3 or more", "Bartlett", "Levene"],
         ["Proportion vs a target", "1", "−", "1-proportion test"],
@@ -668,7 +668,7 @@ RES.add([
         ["9", "0.337", "0.184", "1.816", "2.970", "1.010", "1.032", "0.239", "1.761", "0.9693"],
         ["10", "0.308", "0.223", "1.777", "3.078", "0.975", "0.975", "0.284", "1.716", "0.9727"]
       ],
-      note: "A2 = 3 ÷ (d2√n), D3/D4 = 1 ∓ 3d3/d2 (D3 floored at 0), E2 = 3 ÷ d2, A3 = 3 ÷ (c4√n), B3/B4 = 1 ∓ 3√(1 − c4²)/c4 (B3 floored at 0). Computed from the range and c4 distributions and matching the published ASTM values."
+      note: "A2 = 3 ÷ (d2√n). D3, D4 = 1 ∓ 3d3 ÷ d2, where d3 is the standard deviation of the range in σ units (D3 set to 0 when negative). E2 = 3 ÷ d2. A3 = 3 ÷ (c4√n). B3, B4 = 1 ∓ 3√(1 − c4²) ÷ c4 (B3 set to 0 when negative). Values as commonly published; exact computation gives D4 = 2.5746 for n = 3 (some tables print 2.575) and E2 = 2.6587 for n = 2 (2.660 comes from 3 ÷ 1.128; the I chart uses 2.66)."
     },
     points: [
       "Xbar-R: X̿ ± A2·R̄; R chart D3·R̄ to D4·R̄. Xbar-S: X̿ ± A3·s̄; S chart B3·s̄ to B4·s̄.",
@@ -683,7 +683,7 @@ RES.add([
     kind: "cheatsheet",
     title: "Control limit formulas for every chart",
     topics: ["spc", "spc-rules"],
-    summary: "Centre line and limits for the eight Shewhart charts in the BoK, with the data each one needs.",
+    summary: "Centre line and limits for each Shewhart chart and the data it needs. The BoK names I-MR, Xbar-R, Xbar-S, p, np and u; the c chart is added because it pairs with u.",
     table: {
       head: ["Chart", "Plots", "Centre line", "Control limits"],
       rows: [
@@ -743,7 +743,7 @@ RES.add([
     ],
     points: [
       "p chart = defectives (whole units fail). Counting scratches or errors per unit needs a c or u chart.",
-      "Some practitioners use average n when sizes differ by less than about 25%; exact limits per point are safer."
+      "Some texts (e.g. AIAG) allow one set of limits from the average n when every n is within about ±25% of it. Limits per point are safer: a point near its limit must be judged with its own n."
     ]
   },
   {
