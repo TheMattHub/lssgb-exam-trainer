@@ -6,9 +6,9 @@ QB.add([
     id: "AN-001", topic: "multivari", level: 1,
     q: "What is the main purpose of a multi-vari chart in the Analyze phase?",
     options: [
-      { t: "To prove which input causes the defect by changing inputs on purpose", why: "Wrong: deliberately changing inputs is a designed experiment (DOE). A multi-vari study is passive: it observes the process as it runs and only points to where the variation lives." },
+      { t: "To prove the root cause by changing inputs on purpose", why: "Wrong: deliberately changing inputs is a designed experiment (DOE). A multi-vari study is passive: it observes the process as it runs and only points to where the variation lives." },
       { t: "To split variation into positional, cyclical and temporal families", why: "Correct: the multi-vari chart is a graphical screening tool that shows which family of variation (within-piece, piece-to-piece, time-to-time) is largest, so root-cause work can focus there." },
-      { t: "To compare the spread of the process with the specification limits", why: "Wrong: comparing process spread with specification limits is capability analysis (Cp, Cpk), a Measure-phase tool." },
+      { t: "To compare process spread with the specification limits", why: "Wrong: comparing process spread with specification limits is capability analysis (Cp, Cpk), a Measure-phase tool." },
       { t: "To rank defect categories from the most to the least frequent", why: "Wrong: ranking categories by frequency is a Pareto chart." }
     ],
     answer: 1, ref: "Lesson 4.3"
@@ -73,7 +73,7 @@ QB.add([
     q: "A multi-vari study shows that most of the variation is piece-to-piece, with little positional or temporal variation. What should the team do next?",
     options: [
       { t: "Look at what changes from piece to piece and verify suspect Xs", why: "Correct: multi-vari narrows the search to the dominant family; the team then lists Xs that differ between consecutive pieces and confirms them with hypothesis tests or regression." },
-      { t: "Adjust the machine every hour to remove the time-to-time effect", why: "Wrong: time-to-time (temporal) variation is small here, and adjusting a process for common variation (tampering) adds variation." },
+      { t: "Adjust the machine hourly to remove the time-to-time effect", why: "Wrong: time-to-time (temporal) variation is small here, and adjusting a process for common variation (tampering) adds variation." },
       { t: "Declare the root cause proven and move to the Control phase", why: "Wrong: multi-vari is a screening tool. It shows where variation is, not which X causes it; causes still need verification." },
       { t: "Study tool wear across the positions measured on each part", why: "Wrong: that targets positional (within-piece) variation, which the study found to be small." }
     ],
@@ -83,7 +83,7 @@ QB.add([
     id: "AN-008", topic: "multivari", level: 2,
     q: "Which statement about the 5 Whys technique is correct?",
     options: [
-      { t: "Always stop at exactly five questions so analyses are comparable", why: "Wrong: five is a rule of thumb. Some problems reach a root cause in three whys, others need more." },
+      { t: "Always stop at exactly five questions", why: "Wrong: five is a rule of thumb. Some problems reach a root cause in three whys, others need more." },
       { t: "It is a statistical test that confirms the root cause", why: "Wrong: 5 Whys is a qualitative questioning method. A suspected cause should still be checked with data." },
       { t: "The analysis ends when it reaches the person responsible", why: "Wrong: problems usually come from the process, not from a person; stopping at blame hides the process cause that can be fixed." },
       { t: "Keep asking why until a process cause you can act on appears", why: "Correct: each answer becomes the next question, moving from symptom to a root cause that, once removed, stops the problem recurring." }
@@ -94,7 +94,7 @@ QB.add([
     id: "AN-009", topic: "multivari", level: 2,
     q: "A team has six months of complaint counts by category and wants to choose which category to attack first. Then it wants to organise the possible causes of that category. Which pair of tools fits these two tasks?",
     options: [
-      { t: "Fishbone diagram to rank the categories, then Pareto chart for causes", why: "Wrong: the tools are swapped. A fishbone does not rank anything; a Pareto chart ranks categories by count." },
+      { t: "Fishbone to rank the categories, then Pareto chart for causes", why: "Wrong: the tools are swapped. A fishbone does not rank anything; a Pareto chart ranks categories by count." },
       { t: "Pareto chart to pick the category, then fishbone diagram for causes", why: "Correct: the Pareto chart shows the vital few categories; the fishbone (Ishikawa) diagram organises possible causes by category (6M). Neither proves a cause: data must verify it." },
       { t: "Multi-vari chart for the ranking and for the causes", why: "Wrong: a multi-vari chart needs a continuous Y measured by position and time; it neither ranks complaint categories nor lists causes." },
       { t: "Histogram to rank the categories, then scatter plot for causes", why: "Wrong: a histogram shows the shape of one continuous variable and a scatter plot the relation between two continuous variables." }
@@ -102,7 +102,7 @@ QB.add([
     answer: 1, ref: "Lesson 4.2"
   },
   {
-    id: "AN-010", topic: "multivari", level: 2,
+    id: "AN-010", topic: "hyp-normal", level: 2,
     q: "Which pairing of hypothesis test and the distribution its test statistic follows (under H0) is correct?",
     options: [
       { t: "One-way ANOVA and the t distribution", why: "Wrong: the ANOVA statistic is a ratio of two variance estimates and follows the F distribution." },
@@ -143,7 +143,7 @@ QB.add([
       { t: "Every sampled part may come from the same spindle", why: "Correct: systematic sampling is biased when the process has a cycle with the same period as the sampling interval; here it may sample one spindle only." },
       { t: "The sample becomes too large to analyse", why: "Wrong: the interval sets which parts are taken, not an excessive sample size." },
       { t: "It turns into stratified sampling by spindle", why: "Wrong: stratified sampling would deliberately sample every spindle; this plan may sample just one." },
-      { t: "Systematic samples can never be used for inference", why: "Wrong: systematic sampling is a valid technique when the order has no cycle matching the interval." }
+      { t: "Systematic samples cannot support inference", why: "Wrong: systematic sampling is a valid technique when the order has no cycle matching the interval." }
     ],
     answer: 0, ref: "Web: iassc.org GB BoK 3.2.2"
   },
@@ -165,7 +165,7 @@ QB.add([
       { t: "A mistake made when recording or measuring the data", why: "Wrong: recording and measurement mistakes are non-sampling errors; they occur even if the whole population is measured." },
       { t: "Bias from choosing only the units that are easy to reach", why: "Wrong: that is selection bias. It does not shrink with a larger sample; sampling error does." },
       { t: "The gap between a statistic and the parameter it estimates", why: "Correct: because only part of the population is measured, x̄ differs from μ by chance. This random error gets smaller as n grows." },
-      { t: "The gap between the sample mean and the specification target", why: "Wrong: distance from target describes process centring, not error from sampling." }
+      { t: "The gap between the sample mean and the target", why: "Wrong: distance from target describes process centring, not error from sampling." }
     ],
     answer: 2, ref: "Lesson 4.1"
   },
@@ -206,7 +206,7 @@ QB.add([
     id: "AN-019", topic: "inferential", level: 2,
     q: "A 95% confidence interval for the mean cycle time is 12.1 to 13.5 minutes. Which interpretation is correct?",
     options: [
-      { t: "95% of individual cycle times fall between 12.1 and 13.5 minutes", why: "Wrong: a CI for the mean describes where the mean is, not where individual values fall; individuals spread far wider." },
+      { t: "95% of individual cycle times fall in this range", why: "Wrong: a CI for the mean describes where the mean is, not where individual values fall; individuals spread far wider." },
       { t: "We are 95% confident the interval contains the true process mean", why: "Correct: the method captures the true mean μ in about 95% of repeated samples, so we are 95% confident this interval contains it." },
       { t: "The sample mean has a 95% chance of lying in this range", why: "Wrong: the sample mean is known exactly; it is the centre of the interval. The uncertainty is about μ." },
       { t: "Any future sample mean will fall between 12.1 and 13.5", why: "Wrong: future sample means vary; a CI makes no promise about them." }
@@ -309,7 +309,7 @@ QB.add([
     options: [
       { t: "0.85: the chance of detecting a real difference", why: "Correct: power = 1 − β = 1 − 0.15 = 0.85, the probability of rejecting H0 when the specified difference really exists." },
       { t: "0.95: the chance of not raising a false alarm", why: "Wrong: 0.95 is 1 − α (the confidence level) when α = 0.05, not the power." },
-      { t: "0.15: the chance of detecting a real difference", why: "Wrong: 0.15 is β, the chance of missing a real difference." },
+      { t: "0.15: the chance of detecting a real effect", why: "Wrong: 0.15 is β, the chance of missing a real difference." },
       { t: "0.85: the probability that H0 is true", why: "Wrong: the value 0.85 is right, but power is not a probability that H0 is true; it is the chance of detecting a real effect." }
     ],
     answer: 0, ref: "Lesson 4.1"
@@ -320,8 +320,8 @@ QB.add([
     options: [
       { t: "Fail to reject H0, because p is below α", why: "Wrong: the rule is reversed. When p is below α, H0 is rejected ('if p is low, H0 must go')." },
       { t: "Reject H0: the means differ significantly", why: "Correct: p = 0.03 ≤ α = 0.05, so H0 is rejected; the difference is statistically significant." },
-      { t: "Accept H0: the two supplier means are equal", why: "Wrong: p is below α, so H0 is rejected; and a test never proves H0 in any case." },
-      { t: "No conclusion, because p is not below 0.01", why: "Wrong: α was set at 0.05 before the test; changing it after seeing the p-value is not valid." }
+      { t: "Accept H0: the supplier means are equal", why: "Wrong: p is below α, so H0 is rejected; and a test never proves H0 in any case." },
+      { t: "No conclusion until p is below 0.01", why: "Wrong: α was set at 0.05 before the test; changing it after seeing the p-value is not valid." }
     ],
     answer: 1, ref: "Lesson 4.1"
   },
@@ -330,9 +330,9 @@ QB.add([
     q: "A test of whether new training lowers the error rate gives p = 0.12, with α = 0.05. Which conclusion is worded correctly?",
     options: [
       { t: "Accept H0: the training has no effect", why: "Wrong: a non-significant result does not prove H0; the test may lack power to detect a real but small effect." },
-      { t: "Reject H0, because 0.12 is greater than 0.05", why: "Wrong: the rule is reversed. A p-value above α means H0 is not rejected." },
+      { t: "Reject H0, because 0.12 > 0.05", why: "Wrong: the rule is reversed. A p-value above α means H0 is not rejected." },
       { t: "Fail to reject H0: no significant difference", why: "Correct: p = 0.12 > α = 0.05, so the data do not provide enough evidence of a difference." },
-      { t: "Reject H0 at 90% confidence, since p is near α", why: "Wrong: at 90% confidence α = 0.10, and p = 0.12 is still above it, so H0 is still not rejected." }
+      { t: "Reject H0 at 90% confidence instead", why: "Wrong: at 90% confidence α = 0.10, and p = 0.12 is still above it, so H0 is still not rejected." }
     ],
     answer: 2, ref: "Lesson 4.1"
   },
@@ -352,9 +352,9 @@ QB.add([
     q: "A study of 20,000 calls finds that a new script cuts mean handling time from 300.0 s to 299.4 s, p = 0.001. Rolling the script out costs €80,000. What is the best interpretation?",
     options: [
       { t: "Significant, but a 0.6 s gain may not justify the cost", why: "Correct: very large samples make tiny differences significant. Practical significance asks whether a 0.6 s gain justifies €80,000." },
-      { t: "The script must be rolled out, because p is below 0.05", why: "Wrong: p < α shows the difference is probably real, not that it is large enough to pay off." },
+      { t: "Roll the script out, because p is below 0.05", why: "Wrong: p < α shows the difference is probably real, not that it is large enough to pay off." },
       { t: "The result is invalid because the sample is too large", why: "Wrong: a large sample is not invalid; it just detects very small effects, which is why practical significance must be judged too." },
-      { t: "Not significant, because the difference is under 1 second", why: "Wrong: statistical significance comes from the p-value, not from the size of the difference; p = 0.001 is significant." }
+      { t: "Not significant: the difference is under 1 second", why: "Wrong: statistical significance comes from the p-value, not from the size of the difference; p = 0.001 is significant." }
     ],
     answer: 0, ref: "Lesson 4.1"
   },
@@ -385,9 +385,9 @@ QB.add([
     q: "A test gives p = 0.02. What does this p-value mean?",
     options: [
       { t: "There is a 2% probability that H0 is true", why: "Wrong: the p-value is computed assuming H0 is true; it is not the probability that H0 is true." },
-      { t: "There is a 98% probability that the alternative Ha is true", why: "Wrong: 1 − p is not the probability of the alternative hypothesis." },
+      { t: "There is a 98% probability that Ha is true", why: "Wrong: 1 − p is not the probability of the alternative hypothesis." },
       { t: "The observed difference is 2% of the mean", why: "Wrong: the p-value is a probability, not the size of the effect." },
-      { t: "A 2% chance of a result this extreme if H0 is true", why: "Correct: the p-value is the probability, assuming H0 is true, of getting a result at least as extreme as the one observed. Small p = evidence against H0." }
+      { t: "A 2% chance of a result at least this extreme if H0 is true", why: "Correct: the p-value is the probability, assuming H0 is true, of getting a result at least as extreme as the one observed. Small p = strong evidence against H0; it says nothing directly about the size of the effect." }
     ],
     answer: 3, ref: "Lesson 4.1; Web: NIST e-Handbook"
   },
@@ -474,7 +474,7 @@ QB.add([
     id: "AN-043", topic: "hyp-normal", level: 1,
     q: "Which set lists the assumptions of one-way ANOVA?",
     options: [
-      { t: "Equal sample sizes in every group and no outliers in any group", why: "Wrong: equal group sizes help robustness but are not required." },
+      { t: "Equal group sizes and no outliers in any group", why: "Wrong: equal group sizes help robustness but are not required, and outliers should be investigated but are not one of the formal assumptions." },
       { t: "Attribute data with expected counts of at least 5", why: "Wrong: that is the condition for a χ² test on counts." },
       { t: "Paired observations with symmetric differences", why: "Wrong: pairing applies to the paired t-test; symmetry is an assumption of the 1-sample Wilcoxon test." },
       { t: "Independent samples, normal residuals, equal variances", why: "Correct: ANOVA assumes independent observations, normally distributed residuals and roughly equal variances across groups (check with Bartlett or Levene)." }
@@ -576,7 +576,7 @@ QB.add([
     q: "Call handling times from five call centres are non-normal and contain several extreme outliers. Which test is the most robust choice for comparing the medians?",
     options: [
       { t: "Mood's median test", why: "Correct: Mood's median counts values above and below the overall median, so outliers have little effect. It is less powerful than Kruskal-Wallis when there are no outliers." },
-      { t: "Kruskal-Wallis test", why: "Wrong: Kruskal-Wallis also compares several medians but, using ranks of all values, is less robust to outliers than Mood's median." },
+      { t: "Kruskal-Wallis test", why: "Wrong: Kruskal-Wallis compares several medians and is the more powerful choice without outliers, but because it uses the ranks of all values it is less robust to extreme outliers than Mood's median (Minitab guidance)." },
       { t: "One-way ANOVA", why: "Wrong: ANOVA compares means and assumes normal residuals; outliers distort it." },
       { t: "Friedman test", why: "Wrong: Friedman is for a randomized block design (each block sees every treatment), not independent groups." }
     ],
@@ -619,7 +619,7 @@ QB.add([
     id: "AN-056", topic: "hyp-nonnormal", level: 1,
     q: "Compared with the 1-sample sign test, the 1-sample Wilcoxon signed-rank test:",
     options: [
-      { t: "Is less powerful but makes no shape assumptions", why: "Wrong: that describes the sign test, which only uses whether values are above or below the target." },
+      { t: "Is less powerful but needs no symmetry", why: "Wrong: that describes the sign test, which only uses whether values are above or below the target." },
       { t: "Is more powerful but assumes symmetric data", why: "Correct: Wilcoxon also uses the size of each deviation (ranks), giving more power, but it needs a symmetric distribution." },
       { t: "Compares two independent medians", why: "Wrong: two independent groups are compared with Mann-Whitney." },
       { t: "Requires normally distributed data", why: "Wrong: normality is an assumption of the 1-sample t-test; Wilcoxon is non-parametric." }
@@ -674,7 +674,7 @@ QB.add([
     id: "AN-061", topic: "hyp-nonnormal", level: 2,
     q: "In a χ² contingency analysis, three cells have expected counts below 5, one of them 1.8. What should the analyst do?",
     options: [
-      { t: "Ignore it, because the rule is about observed counts", why: "Wrong: the rule of thumb applies to expected counts, which drive the χ² approximation." },
+      { t: "Ignore it: the rule is about observed counts", why: "Wrong: the rule of thumb applies to expected counts, which drive the χ² approximation." },
       { t: "Delete the rows that contain the small cells", why: "Wrong: deleting data distorts the comparison; merge categories instead." },
       { t: "Combine sparse categories or collect more data", why: "Correct: χ² is unreliable when expected counts fall below 5; merging similar categories or adding data raises them." },
       { t: "Switch to a one-way ANOVA on the counts", why: "Wrong: ANOVA compares means of a continuous response, not frequencies in a table." }

@@ -14,7 +14,7 @@ LEARN.add([
       "Multi-vari is a screening tool: it does not prove a root cause.",
       "Pareto chart ranks categories by count or cost to pick what to attack first; fishbone (6M) organises possible causes; neither proves a cause.",
       "5 Whys: keep asking why until a process cause you can act on appears; five is a guideline, and the answer is a process, not a person.",
-      "Test statistics follow known distributions: t (means, σ unknown), χ² (one variance, counts in tables), F (two variances, ANOVA)."
+      "Phase placement: multi-vari is an Analyze tool; the IASSC BoK lists fishbone (with the X-Y matrix and FMEA) under Measure."
     ],
     table: {
       title: "Multi-vari families of variation",
@@ -111,8 +111,10 @@ LEARN.add([
     topic: "hyp-normal",
     summary: "Parametric tests compare means and variances of continuous, roughly normal data. Pick the test from what is compared (mean or variance), how many groups, and whether data are paired. Check normality first, and equal variances before a pooled t-test or ANOVA.",
     points: [
+      "Check normality first: Anderson-Darling (or Ryan-Joiner) has H0 = data are normal. p > 0.05 → fail to reject, treat as normal; p ≤ 0.05 → not normal, consider a transformation or a non-parametric test.",
+      "Test statistics follow known distributions: t (means, σ unknown), χ² (one variance), F (two variances, ANOVA).",
       "1-sample Z when σ is known; 1-sample t when σ is estimated by s (df = n − 1).",
-      "2-sample t for two independent groups; pooled df = n₁ + n₂ − 2 when variances are equal.",
+      "2-sample t for two independent groups; pooled df = n₁ + n₂ − 2 when variances are equal; with unequal variances use the unpooled (Welch) t.",
       "Paired t for two measurements on the same units (before/after, two gages on the same parts); it tests the mean difference and removes unit-to-unit variation, so it has more power.",
       "1-sample variance test: χ² = (n − 1)s²/σ₀² with n − 1 df.",
       "F-test compares two variances of normal data; Bartlett compares two or more (normal data); Levene works for two or more and is robust to non-normal data.",
@@ -145,7 +147,8 @@ LEARN.add([
       "Using a 2-sample t on paired data throws away power; using a paired t on independent groups is invalid.",
       "ANOVA tests means, not variances; a significant F does not say which means differ.",
       "For small n with σ unknown, compare with the t critical value, not 1.96.",
-      "Bartlett needs normal data; with skewed data use Levene."
+      "Bartlett needs normal data; with skewed data use Levene.",
+      "In a normality test, a high p-value is the 'good' result: H0 is normality, so p > α means no evidence against normal data."
     ],
     terms: [
       { term: "Degrees of freedom", def: "Number of values free to vary after estimating parameters, e.g. n − 1 for one sample." },
