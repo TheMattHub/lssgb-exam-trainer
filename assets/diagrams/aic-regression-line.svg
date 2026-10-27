@@ -45,7 +45,7 @@
 <text x="74" y="319.2" font-size="15" text-anchor="start" fill="#4353c9" font-weight="600">b₀ = 2.5: intercept (ŷ at x = 0)</text>
 <path d="M429.6,141.3 L541.6,141.3 L541.6,96.4" fill="none" stroke="#4353c9" stroke-width="1.5"/>
 <text x="485.6" y="161.3" font-size="14" text-anchor="middle" fill="#4353c9">run = 2</text>
-<text x="549.6" y="123.8" font-size="14" text-anchor="start" fill="#4353c9">rise = 1.6</text>
+<text x="549.6" y="123.8" font-size="14" text-anchor="start" fill="#4353c9">rise = 1.58</text>
 <text x="485.6" y="183.3" font-size="15" text-anchor="middle" fill="#4353c9" font-weight="600">slope b₁ = rise ÷ run = 0.79</text>
 <line x1="379.2" y1="115.4" x2="379.2" y2="155.4" stroke="#c9373f" stroke-width="2"/>
 <circle cx="379.2" cy="161.4" r="5" fill="#ffffff" stroke="#4353c9" stroke-width="2.5"/>

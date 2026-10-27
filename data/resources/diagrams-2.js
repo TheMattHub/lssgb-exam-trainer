@@ -60,7 +60,7 @@ RES.add([
     topics: ["hyp-concepts", "inferential"],
     summary: "Where α sits in one- and two-tailed tests, and how the p-value compares with it.",
     img: "assets/diagrams/aic-p-value-tails.svg",
-    alt: "Top: two-tailed test with α = 0.05 split into two red tails of 0.025 beyond −1.96 and +1.96; the middle is the fail-to-reject region. Bottom: one-tailed test (Hₐ: μ > μ₀) with a red tail of 0.05 beyond 1.645; a test statistic z = 2.20 cuts off a blue area, the p-value 0.014, which is smaller than α, so H₀ is rejected.",
+    alt: "Top: two-tailed test with α = 0.05 split into two red tails of 0.025 beyond −1.96 and +1.96; the middle is the fail-to-reject region. Bottom: one-tailed test (Hₐ: μ > μ₀) with α = 0.05 as the whole tail beyond 1.645; a test statistic z = 2.20 cuts off a smaller blue tail, the p-value 0.014, which is less than α, so H₀ is rejected.",
     points: [
       "Two-tailed (≠) splits α in two: critical z = ±1.96 at α = 0.05. One-tailed (> or <) puts all of α in one tail: z = 1.645.",
       "The p-value is the area beyond the test statistic: the chance of a result this extreme if H₀ were true.",
@@ -92,7 +92,7 @@ RES.add([
     topics: ["regression"],
     summary: "Intercept, slope, fitted value and residual on a simple least-squares line.",
     img: "assets/diagrams/aic-regression-line.svg",
-    alt: "Scatter of 12 points with fitted line ŷ = 2.5 + 0.79x. The line meets x = 0 at the intercept b₀ = 2.5, drawn dashed because it lies outside the data. A slope triangle shows run 2 and rise 1.6, so b₁ = 0.79. One point at x = 5.7 lies above the line; the vertical gap between the observed y and the fitted value ŷ on the line is the residual e = y − ŷ. Least squares minimises the sum of squared residuals.",
+    alt: "Scatter of 12 points with fitted line ŷ = 2.5 + 0.79x. The line meets x = 0 at the intercept b₀ = 2.5, drawn dashed because it lies outside the data. A slope triangle shows run 2 and rise 1.58, so b₁ = 0.79. One point at x = 5.7 lies above the line; the vertical gap between the observed y and the fitted value ŷ on the line is the residual e = y − ŷ. Least squares minimises the sum of squared residuals.",
     points: [
       "b₁ = change in ŷ for a one-unit increase in x; b₀ = ŷ when x = 0.",
       "Residual = observed − fitted; least squares picks the line with the smallest Σe².",

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img">
 <title>Control chart zones and signals</title>
 <desc>Individuals control chart with centre line, plus and minus 1, 2 and 3 sigma lines and zones A, B and C. Annotated signals: one point beyond 3 sigma, 2 of 3 points in zone A on the same side, 9 points in a row on one side of the centre line, and 7 points in a row rising.</desc>
-<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker><marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4353c9"/></marker></defs>
 <rect width="640" height="470" fill="#ffffff"/>
 <line x1="74" y1="64" x2="596" y2="64" stroke="#c9373f" stroke-width="2"/>
 <text x="66" y="69" font-size="15" text-anchor="end" fill="#c9373f" font-weight="600">UCL</text>
@@ -64,7 +64,7 @@
 <path d="M296.1,122.6 L296.1,114.6 L439.8,114.6 L439.8,122.6" fill="none" stroke="#9a5c00" stroke-width="1.8"/>
 <circle cx="367.9" cy="98.6" r="11" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
 <text x="367.9" y="103.6" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">3</text>
-<line x1="464.7" y1="284.4" x2="567.5" y2="134.8" stroke="#4353c9" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="464.7" y1="284.4" x2="567.5" y2="134.8" stroke="#4353c9" stroke-width="2" marker-end="url(#ahb)"/>
 <circle cx="554.6" cy="245.6" r="11" fill="#4353c9" stroke="none" stroke-width="1.5"/>
 <text x="554.6" y="250.6" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">4</text>
 <circle cx="31" cy="362" r="11" fill="#c9373f" stroke="none" stroke-width="1.5"/>

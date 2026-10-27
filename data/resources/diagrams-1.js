@@ -11,9 +11,9 @@ RES.add([
     topics: ["ss-overview"],
     summary: "The five DMAIC phases with the question each one answers and the tools most often used in it.",
     img: "assets/diagrams/dm-dmaic-roadmap.svg",
-    alt: "Five stacked phases. Define: what is the problem and why does it matter; charter, SIPOC, VOC to CTQ tree, stakeholder map. Measure: how big is the problem today, baseline the Y; process map, data plan, Gage R&R, capability. Analyze: which root causes drive the Y; fishbone, 5 Whys, multi-vari, hypothesis tests. Improve: find, test and implement the fix; solution matrix, DOE or regression, pilot, lean tools. Control: hold the gain and hand over; control plan, SPC charts, poka-yoke, standard work.",
+    alt: "Five stacked phases. Define: what is the problem and why does it matter; charter, SIPOC, VOC to CTQ tree, stakeholder map. Measure: how big is the problem today, baseline the Y; process map, fishbone, data plan, Gage R&R, capability. Analyze: which root causes (vital Xs) drive the Y; 5 Whys, multi-vari, hypothesis tests. Improve: find, test and implement the fix; solution matrix, DOE or regression, pilot, lean tools. Control: hold the gain and hand over; control plan, SPC charts, poka-yoke, standard work.",
     points: [
-      "Exam questions often name a tool and ask for its phase: charter and SIPOC → Define; MSA and capability → Measure; hypothesis tests → Analyze; DOE and pilots → Improve; SPC and control plan → Control.",
+      "Exam questions often name a tool and ask for its phase: charter and SIPOC → Define; fishbone, MSA and capability → Measure (IASSC BoK); hypothesis tests → Analyze; DOE and pilots → Improve; SPC and control plan → Control.",
       "Measure establishes the baseline of Y; Analyze finds the vital Xs, so Y = f(X) is the thread through the roadmap.",
       "Each phase closes with a tollgate review where the sponsor decides to go on, rework or stop."
     ]
@@ -30,7 +30,7 @@ RES.add([
     alt: "Tree from left to right. Need: reliable home grocery delivery. Drivers: on time, complete order, fresh goods. CTQs: arrival inside the booked 1-hour slot; delay notice sent at least 30 minutes before the slot; at most 1 missing item per 100 orders; substitutions only if the customer agreed; chilled temperature at most 5 °C at handover; at least 3 days of shelf life left on delivery.",
     points: [
       "Read left to right: general need → drivers → specific, measurable CTQs.",
-      "A CTQ is only useful when it has a unit and a limit; \"fast delivery\" is a driver, \"inside the 1-h slot\" is a CTQ.",
+      "A CTQ is only useful when it has a unit and a limit; \"on time\" is a driver, \"inside the booked 1-h slot\" is a CTQ.",
       "CTQs come from VOC (surveys, complaints, interviews) and become the Y the project measures."
     ]
   },
