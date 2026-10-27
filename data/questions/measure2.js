@@ -119,7 +119,7 @@ QB.add([
     q: "A Gage R&R study gives σ_part = 0.50 and σ_GRR = 0.10. What is the number of distinct categories (ndc)?",
     options: [
       { t: "5", why: "Wrong: this is the ratio 0.50 / 0.10 without the 1.41 factor (√2) in the ndc formula." },
-      { t: "35", why: "Wrong: this uses the ratio of variances (0.25 / 0.01 = 25) instead of standard deviations." },
+      { t: "35", why: "Wrong: this applies 1.41 to the ratio of variances (1.41 × 0.25 / 0.01 = 35.25); ndc uses the ratio of standard deviations." },
       { t: "3", why: "Wrong: this divides the ratio by 1.41 instead of multiplying (5 / 1.41 = 3.5)." },
       { t: "7", why: "Correct: ndc = 1.41 × σ_part / σ_GRR = 1.41 × 5 = 7.05, truncated to 7, which meets the ndc ≥ 5 guideline." }
     ],
@@ -371,12 +371,12 @@ QB.add([
   },
   {
     id: "M2-034", topic: "capability", level: 2,
-    q: "Minitab reports a two-sided Z.Bench of 2.8 while the Z to the nearer specification limit is 3.0. Why is Z.Bench lower?",
+    q: "A Minitab capability report (within σ) shows Z.LSL = 3.03, Z.USL = 3.00 and Z.Bench = 2.80. Why is Z.Bench lower than both Z.LSL and Z.USL?",
     options: [
       { t: "Z.Bench subtracts the 1.5σ shift", why: "Wrong: 3.0 − 1.5 = 1.5, not 2.8; Z.Bench does not apply the shift." },
-      { t: "Z.Bench uses the overall σ instead of within σ", why: "Wrong: both Z values in the question come from the same σ; the difference is in how the tails are combined." },
-      { t: "Z.Bench is the average of the two Z values", why: "Wrong: averaging would give a value between the two Z values, which can be well above the nearer one." },
-      { t: "Z.Bench adds the out-of-spec risk from the two tails", why: "Correct: Z.Bench is the Z for the total probability outside both limits; adding the far tail raises the defect rate, so Z.Bench is below the nearer-limit Z." }
+      { t: "Z.Bench uses the overall σ instead of within σ", why: "Wrong: all three values come from the same within-σ report; Minitab gives a separate overall Z.Bench. The difference is in how the tails are combined." },
+      { t: "Z.Bench is the average of the two Z values", why: "Wrong: the average of 3.03 and 3.00 is about 3.02, above Z.USL, not below it." },
+      { t: "Z.Bench converts the combined out-of-spec rate to one Z", why: "Correct: Z.Bench is the Z for the total probability outside both limits (0.00122 + 0.00135 ≈ 0.00257, Z ≈ 2.80); adding the far tail raises the defect rate, so Z.Bench is below the nearer-limit Z." }
     ],
     answer: 3, ref: "Web: support.minitab.com"
   },

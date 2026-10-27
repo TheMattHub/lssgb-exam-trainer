@@ -29,13 +29,13 @@ LEARN.add([
       { name: "Kappa", f: "κ = (P_observed − P_chance) / (1 − P_chance)" }
     ],
     table: {
-      title: "Gage R&R acceptance guidelines (AIAG)",
+      title: "MSA acceptance guidelines (AIAG; ndc bands and kappa ≥ 0.9 from Minitab)",
       head: ["Metric", "Acceptable", "Marginal", "Unacceptable"],
       rows: [
         ["%Study Var or %Tolerance", "< 10%", "10–30%", "> 30%"],
         ["%Contribution", "< 1%", "1–9%", "> 9%"],
         ["ndc", "≥ 5", "2–4 (limited)", "< 2"],
-        ["Kappa (attribute)", "≥ 0.75 (≥ 0.9 excellent)", "0.40–0.75", "< 0.40"]
+        ["Kappa (attribute)", "≥ 0.75 (≥ 0.9 excellent)", "0.40–0.75 (fair to good, improve)", "< 0.40 (poor)"]
       ]
     },
     traps: [
@@ -62,6 +62,7 @@ LEARN.add([
       "Cp/Cpk use within-subgroup σ (short-term, e.g. R̄/d₂ or pooled s). Pp/Ppk use overall σ of all data (long-term, includes shifts between subgroups).",
       "Cpk ≤ Cp always; Cpk = Cp only when the process is centred; Cpk < 0 when the mean is outside a limit.",
       "Large Cp, small Cpk → re-centre the mean. Both small → reduce variation. Cpk much larger than Ppk → the process drifts between subgroups; look for special causes.",
+      "Cp = 1 on a centred normal process: the ±3σ spread (99.73%) exactly fills the tolerance, about 2,700 PPM out of spec.",
       "Benchmarks: Cpk ≥ 1.33 common minimum (nearest limit 4σ away); 1.67 for new or critical processes; Cp = 2 means ±6σ fits the tolerance (six sigma short-term).",
       "One-sided specs: report Cpu (only USL) or Cpl (only LSL); Cp is undefined.",
       "Sigma level: Z_ST ≈ 3 × Cpk; Z_LT = Z_ST − 1.5 (1.5σ shift convention). Z.Bench combines the out-of-spec probability of both tails, so it is lower than the Z to the nearer limit.",
