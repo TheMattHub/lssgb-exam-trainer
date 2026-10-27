@@ -119,9 +119,9 @@ QB.add([
     q: "Energy use was regressed on line speed using speeds from 50 to 150 m/min (R² = 92%). The manager wants to predict energy use at 400 m/min. What is the best advice?",
     options: [
       { t: "Use the model, since an R² of 92% guarantees accuracy", why: "Wrong: R² describes the fit inside the data range; it says nothing about how the process behaves far outside it." },
-      { t: "Use the model, but widen the confidence interval by 10%", why: "Wrong: there is no such correction; intervals computed from the model assume the same relationship holds, which is the doubtful part." },
-      { t: "Use the model, since a linear relationship holds at any speed", why: "Wrong: a relationship that looks linear over 50-150 m/min can bend or change completely at higher speeds." },
-      { t: "Avoid it: 400 lies outside the range used to build the model", why: "Correct: this is extrapolation; collect data near 400 m/min or test it before relying on a prediction there." }
+      { t: "Widen the model's confidence interval by 10% and use it", why: "Wrong: there is no such correction; intervals computed from the model assume the same relationship holds, which is the doubtful part." },
+      { t: "Trust it: a linear relationship holds at any speed", why: "Wrong: a relationship that looks linear over 50-150 m/min can bend or change completely at higher speeds." },
+      { t: "Do not rely on it: 400 is outside the data range", why: "Correct: this is extrapolation; collect data near 400 m/min or test it before relying on a prediction there." }
     ],
     answer: 3, ref: "Lesson 4.3"
   },

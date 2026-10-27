@@ -107,7 +107,7 @@ QB.add([
     q: "Why does a Green Belt document standard work at the end of a project?",
     options: [
       { t: "To fix the method permanently so it is never changed again", why: "Wrong: standard work is the current best method and the baseline for the next improvement, not a frozen rule." },
-      { t: "So everyone does the improved method the same way", why: "Correct: standard work (sequence, takt time, standard WIP) removes person-to-person variation and makes deviations visible." },
+      { t: "To make everyone use the improved method the same way", why: "Correct: standard work (sequence, takt time, standard WIP) removes person-to-person variation and makes deviations visible." },
       { t: "To replace on-the-job training of new operators", why: "Wrong: standard work is the content that training teaches; it does not replace the training." },
       { t: "To set the specification limits for the process output", why: "Wrong: specification limits come from the customer, not from the work method." }
     ],

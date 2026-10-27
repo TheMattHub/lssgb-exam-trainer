@@ -534,7 +534,7 @@ QB.add([
       { t: "When an existing process has a few special causes to remove", why: "Wrong: removing causes in an existing process is classic DMAIC work." },
       { t: "When the team needs quick results within weeks", why: "Wrong: DFSS projects are usually longer, since they design something new." },
       { t: "When the root cause is already known", why: "Wrong: a known cause suggests a just-do-it fix or DMAIC, not a redesign." },
-      { t: "For a new product or a full process redesign", why: "Correct: DFSS designs something new or redesigns a process whose current design limits capability." }
+      { t: "When designing a new product or redesigning a process", why: "Correct: DFSS designs something new or redesigns a process whose current design limits capability." }
     ],
     answer: 3, ref: "Lesson 1.3"
   },
