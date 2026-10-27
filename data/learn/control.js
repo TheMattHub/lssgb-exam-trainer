@@ -14,6 +14,7 @@ LEARN.add([
       "Control hierarchy, strongest first: remove the cause by design, mistake-proofing, SPC, inspection, training and written instructions.",
       "Standard work records the current best method (sequence, takt time, standard WIP). It is the baseline for the next improvement, not a frozen rule.",
       "TPM keeps equipment able to run the improved process; autonomous maintenance gives operators daily cleaning, inspection and lubrication.",
+      "The eight TPM pillars: autonomous maintenance, planned maintenance, focused improvement, quality maintenance, early equipment management, training and education, safety/health/environment, and TPM in administration (office TPM).",
       "SMED gains are held with a standard changeover sheet, pre-staged kits and changeover time tracked on a chart."
     ],
     formulas: [
@@ -48,7 +49,8 @@ LEARN.add([
       "Defectives (unit is good or bad, binomial): p chart (proportion, n may vary) or np chart (count, n constant).",
       "Defects (several per unit possible, Poisson): c chart (count, constant area of opportunity) or u chart (defects per unit, area may vary).",
       "CUSUM plots the cumulative sum of deviations from target; EWMA weights recent points (λ often 0.2). Both catch small sustained shifts (< 1.5σ) faster; Shewhart charts are best for large, sudden shifts.",
-      "Negative lower limits on R, p, np, c and u charts are set to 0."
+      "Negative lower limits on p, np, c and u charts are set to 0 (the R chart LCL is D₃R̄, which is 0 for n ≤ 6).",
+      "Constants for n = 5 (the most common subgroup): A₂ = 0.577, D₃ = 0, D₄ = 2.114, d₂ = 2.326. For n = 2 (moving range): d₂ = 1.128, so E₂ = 3/d₂ = 2.66 and D₄ = 3.267."
     ],
     formulas: [
       { name: "Xbar chart (R)", f: "X̿ ± A₂R̄" },
@@ -144,7 +146,7 @@ LEARN.add([
     traps: [
       "The Green Belt does not own the control plan after closure; the process owner does.",
       "A response plan that says only \"fix it\" is incomplete: it needs a trigger, an owner, containment and escalation.",
-      "Inspection is a valid control but a weak one (often around 80% effective); mistake-proofing acts at the source.",
+      "Inspection is a valid control but a weak one (100% visual inspection is often cited as only about 80% effective); mistake-proofing acts at the source.",
       "A control plan is not static or one-off: it is revised when the process, risks or specs change."
     ],
     terms: [

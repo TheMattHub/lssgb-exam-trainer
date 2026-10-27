@@ -12,7 +12,7 @@ QB.add([
       { t: "Fixed-value method", why: "Correct: a fixed-value (constant number) method verifies that a set number of parts or movements has been completed, here six screws." },
       { t: "Warning method", why: "Wrong: warning versus control (shutdown) describes how a poka-yoke reacts, not how it senses the error; a warning only alerts the operator." }
     ],
-    answer: 2, ref: "Web: asq.org (mistake-proofing)"
+    answer: 2, ref: "Web: en.wikipedia.org (Poka-yoke)"
   },
   {
     id: "CT-002", topic: "lean-control", level: 2,
@@ -23,7 +23,7 @@ QB.add([
       { t: "A final inspector checking every connector by eye", why: "Wrong: human inspection is not mistake-proofing at all; it is detection with typically far below 100% effectiveness." },
       { t: "A camera that stops the conveyor after a missing label", why: "Wrong: stopping the line is a control-type reaction, but the label is already missing, so the device detects rather than prevents." }
     ],
-    answer: 1, ref: "Web: asq.org (mistake-proofing)"
+    answer: 1, ref: "Web: en.wikipedia.org (Poka-yoke)"
   },
   {
     id: "CT-003", topic: "lean-control", level: 2,
@@ -40,7 +40,7 @@ QB.add([
     id: "CT-004", topic: "lean-control", level: 1,
     q: "What is the role of a kanban in a pull system?",
     options: [
-      { t: "A signal from the downstream process that authorises production or replenishment", why: "Correct: a kanban is a visual pull signal; with no kanban nothing is made, which caps work in progress." },
+      { t: "A downstream signal that authorises making or moving parts", why: "Correct: a kanban is a visual pull signal; with no kanban nothing is made, which caps work in progress." },
       { t: "A forecast-based schedule released to every work centre", why: "Wrong: forecast schedules pushed to each station describe a push (MRP) system, the opposite of pull." },
       { t: "A board that displays daily KPIs for the team", why: "Wrong: that is a visual management board; it informs but does not authorise production." },
       { t: "A method for cutting changeover time on a machine", why: "Wrong: cutting changeover time is SMED, not kanban." }
@@ -54,9 +54,9 @@ QB.add([
       { t: "8", why: "Wrong: 400 × 0.5 ÷ 25 = 8 leaves out the 20% safety factor." },
       { t: "9", why: "Wrong: 9.6 was rounded down; rounding down leaves too few containers to cover demand during the lead time." },
       { t: "10", why: "Correct: N = demand × lead time × (1 + safety) ÷ container size = 400 × 0.5 × 1.2 ÷ 25 = 9.6, rounded up to 10." },
-      { t: "20", why: "Wrong: 400 × 1.2 ÷ 25 = 19.2 ignores the half-day lead time, which roughly doubles the count." }
+      { t: "20", why: "Wrong: 400 × 1.2 ÷ 25 = 19.2, rounded to 20, treats the lead time as a full day instead of 0.5 day, doubling the count." }
     ],
-    answer: 2, ref: "Web: iSixSigma (kanban sizing)"
+    answer: 2, ref: "Web: kanbanbox.com (number of kanban cards)"
   },
   {
     id: "CT-006", topic: "lean-control", level: 1,
@@ -164,7 +164,7 @@ QB.add([
     q: "A bottle filler has four heads. The team will run an Xbar-R chart on fill volume, sampling once an hour. Which plan gives rational subgroups?",
     options: [
       { t: "Five consecutive bottles from the same head each hour", why: "Correct: consecutive units from one stream contain only short-term common-cause variation, so shifts between hours show up on the Xbar chart." },
-      { t: "One bottle from each head, plus one more, each hour", why: "Wrong: mixing heads puts head-to-head differences inside the subgroup, inflating R̄ and widening the limits." },
+      { t: "One bottle from each of the four heads each hour", why: "Wrong: mixing heads puts head-to-head differences inside the subgroup, inflating R̄ and widening the limits." },
       { t: "Five bottles taken at random over the shift and pooled at shift end", why: "Wrong: spreading the subgroup over hours puts time-to-time shifts inside the subgroup, so the chart cannot see them." },
       { t: "The first five bottles after each product changeover", why: "Wrong: start-up bottles do not represent normal running, and the timing is irregular." }
     ],
@@ -197,7 +197,7 @@ QB.add([
     q: "An accounts team records each day how many invoices were paid late out of all invoices processed; the daily total varies from 150 to 320. Which chart fits?",
     options: [
       { t: "np chart", why: "Wrong: an np chart plots a count of defectives and needs a constant sample size." },
-      { t: "u chart", why: "Wrong: a u chart is for defects per unit (several possible per item); a late invoice is a defective item, late or not." },
+      { t: "u chart", why: "Wrong: a u chart is for defects per unit (several possible per item); each invoice is either late or not, so it is a defective item with one possible failure." },
       { t: "p chart", why: "Correct: pass/fail (defective) data with a varying sample size calls for a p chart of the proportion late." },
       { t: "c chart", why: "Wrong: a c chart counts defects in a constant area of opportunity." }
     ],
@@ -385,12 +385,12 @@ QB.add([
     id: "CT-035", topic: "spc-rules", level: 2,
     q: "A stable process is adjusted after every reading to bring it back to target. What does Deming's funnel experiment show will happen?",
     options: [
-      { t: "Variation increases, because the adjustments react to common-cause noise", why: "Correct: this is tampering; compensating for random variation adds the adjustment error to the process noise." },
+      { t: "Variation increases, because the adjustments react to common-cause noise", why: "Correct: this is tampering; compensating for random variation adds the adjustment error to the process noise; adjusting by the last error (funnel rule 2) doubles the variance." },
       { t: "Variation decreases, because each error is corrected straight away", why: "Wrong: correcting random noise does not remove it; it adds a second source of variation." },
       { t: "The mean shifts but the spread stays the same", why: "Wrong: the main effect of tampering is extra spread, not a stable shift of the mean." },
       { t: "Nothing changes, because the process was already stable", why: "Wrong: the adjustments themselves change the process, making it worse." }
     ],
-    answer: 0, ref: "Web: deming.org (funnel experiment)"
+    answer: 0, ref: "Web: qualityamerica.com (tampering effects)"
   },
   {
     id: "CT-036", topic: "spc-rules", level: 2,
@@ -489,7 +489,7 @@ QB.add([
       { t: "Inspection cannot be listed in a control plan", why: "Wrong: inspection is a valid control method in a control plan; it is just weaker." },
       { t: "Mistake-proofing removes the need for any response or reaction plan", why: "Wrong: every control, including a poka-yoke, needs a check that it works and a reaction if it fails." },
       { t: "Mistake-proofing is always cheaper to install", why: "Wrong: a fixture may cost more up front; the case rests on effectiveness and running cost." },
-      { t: "It acts at the source; inspection acts later and misses some", why: "Correct: human inspection is often around 80% effective and adds cost per unit; a poka-yoke prevents or catches the error where it starts." }
+      { t: "It acts at the source; inspection acts later and misses some", why: "Correct: 100% human inspection is often cited as only about 80% effective and adds cost per unit; a poka-yoke prevents or catches the error where it starts." }
     ],
     answer: 3, ref: "Lesson 6.2"
   },
@@ -520,8 +520,8 @@ QB.add([
     q: "Which documents should be updated before a project is closed?",
     options: [
       { t: "Work instructions, training material, FMEA and control plan", why: "Correct: these hold the new method in the organisation; the FMEA is updated to show the new controls and revised RPNs." },
-      { t: "Only the project charter", why: "Wrong: the charter is a project document; the process documents are what hold the gain." },
-      { t: "Only the final presentation to the Champion", why: "Wrong: a presentation reports results; it does not tell operators how to run the process." },
+      { t: "The project charter and its milestone dates", why: "Wrong: the charter is a project document; the process documents are what hold the gain." },
+      { t: "The final presentation to the Champion", why: "Wrong: a presentation reports results; it does not tell operators how to run the process." },
       { t: "The supplier contracts for all inputs", why: "Wrong: contracts change only if the solution involves a supplier; they are not a standard closure item." }
     ],
     answer: 0, ref: "Lesson 6.2"
