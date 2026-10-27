@@ -94,9 +94,9 @@ QB.add([
   },
   {
     id: "C2-009", topic: "lean-control", level: 2,
-    q: "A capping machine has frequent stops of 10 to 30 seconds when a cap jams; the operator clears each one without calling maintenance. In OEE, which factor do these losses reduce?",
+    q: "A capping machine has frequent stops of 10 to 30 seconds when a cap jams; the operator clears each one without calling maintenance. The plant follows the common OEE convention that stops shorter than 5 minutes are not logged as downtime. Which OEE factor do these losses reduce?",
     options: [
-      { t: "Availability, because the machine is not running", why: "Wrong: availability losses are breakdowns and setups/adjustments; brief stops cleared by the operator are classed as minor stops." },
+      { t: "Availability, because the machine is not running", why: "Wrong: availability counts logged downtime (breakdowns, setups and adjustments); stops below the plant's 5-minute threshold are minor stops, a performance loss." },
       { t: "Quality, because jammed caps may be scrapped", why: "Wrong: quality loss counts parts made that are not good; the stop time itself is not a quality loss." },
       { t: "Performance, as idling and minor stops", why: "Correct: in the six big losses, idling and minor stops (with reduced speed) are performance losses: the machine makes fewer parts in its run time than the ideal cycle allows." },
       { t: "None, because planned stops are excluded from OEE", why: "Wrong: jams are unplanned; only planned downtime such as scheduled breaks is excluded from planned production time." }
@@ -107,10 +107,10 @@ QB.add([
     id: "C2-010", topic: "lean-control", level: 3,
     q: "A packing line shows availability 95%, performance 70% and quality 99%. The plant manager proposes a SMED project to cut changeovers. What is the best assessment?",
     options: [
-      { t: "Sound, because changeovers are the largest loss in any OEE breakdown", why: "Wrong: changeovers (setup and adjustment) reduce availability, and here availability is already 95%; no loss is the largest on every line." },
+      { t: "Sound, because changeovers are usually the biggest OEE loss", why: "Wrong: changeovers (setup and adjustment) reduce availability, and here availability is already 95%; no loss is the largest on every line." },
       { t: "Weak, because performance (70%) is the main loss, not availability", why: "Correct: OEE = 0.95 × 0.70 × 0.99 = 65.8%; the 30-point gap in performance (minor stops, reduced speed) dwarfs the 5-point availability gap that SMED would address." },
       { t: "Sound, because SMED raises performance by shortening the cycle time", why: "Wrong: SMED shortens changeovers, which are availability losses; it does not change the ideal cycle time." },
-      { t: "Weak, because quality is the factor that should always be improved first", why: "Wrong: at 99% quality has little room left; there is no rule that quality always comes first, the largest gap does." }
+      { t: "Weak, because quality is the factor to improve first", why: "Wrong: at 99% quality has little room left; no factor has priority by rule; the largest gap does. }
     ],
     answer: 1, ref: "Web: oee.com (six big losses)"
   },
@@ -132,7 +132,7 @@ QB.add([
     q: "Each subgroup of an Xbar-R chart holds one part from each of three machines, and the machines run at clearly different means. For 25 subgroups the Xbar points all sit close to the centre line. What is the most likely explanation?",
     options: [
       { t: "The process is highly stable, so the limits could now be tightened", why: "Wrong: limits are calculated, not chosen; the narrow scatter here comes from the subgroup design, not from a better process." },
-      { t: "Machine differences inflate R̄, so the Xbar limits are too wide", why: "Correct: the between-machine difference sits inside every subgroup, which inflates R̄ and widens the Xbar limits (stratification); chart each machine separately." },
+      { t: "Mixed streams inflate R̄, so the Xbar limits are too wide", why: "Correct: the between-machine difference sits inside every subgroup, which inflates R̄ and widens the Xbar limits (stratification); chart each machine separately." },
       { t: "Measurement resolution is too coarse to see the variation", why: "Wrong: poor resolution shows as few distinct values and an R chart with many zero ranges, not as wide R̄ from mixed machines." },
       { t: "Subgroups are too small, and n should be raised to 10", why: "Wrong: larger subgroups from the same three machines would keep the same mixing; the fix is to subgroup by machine." }
     ],
@@ -265,10 +265,10 @@ QB.add([
     options: [
       { t: "5 subgroups, enough to estimate the centre line", why: "Wrong: 5 subgroups give unreliable estimates of both the centre line and the spread, so limits would be misleading." },
       { t: "One week of data, whatever the production volume", why: "Wrong: what matters is the number of subgroups and values, not calendar time." },
-      { t: "20 to 25 subgroups, about 100 individual values", why: "Correct: 20–25 subgroups (about 100 values) of stable data give reasonably reliable limits." },
+      { t: "20 to 25 subgroups, about 100 individual values", why: "Correct: 20–25 subgroups (about 100 values) of stable data give reasonably reliable limits; this is the AIAG SPC manual guidance." },
       { t: "30 subgroups taken after the specification is agreed", why: "Wrong: the specification plays no part in control limits; the issue is enough data from a stable process." }
     ],
-    answer: 2, ref: "Lesson 6.1"
+    answer: 2, ref: "Web: AIAG SPC manual (25 subgroups, about 100 readings)"
   },
 
   // ---------- spc-rules ----------
@@ -300,7 +300,7 @@ QB.add([
     options: [
       { t: "Stratification: the limits were computed from mixed streams", why: "Wrong: stratification (Test 7) is 15 points in a row hugging the centre line within 1σ; here the points avoid the centre." },
       { t: "Over-adjustment, shown by points swinging between the zones", why: "Wrong: tampering usually shows as points alternating up and down (Test 4, 14 in a row), not as a gap around the centre line." },
-      { t: "A mixture: the two operators produce different process means", why: "Correct: Test 8 (8 in a row beyond 1σ either side) flags a mixture of two distributions, which fits two operators running at different levels; chart them separately." },
+      { t: "A mixture: the points come from two levels with different means", why: "Correct: Test 8 (8 in a row beyond 1σ either side) flags a mixture of two distributions, which fits two operators running at different levels; chart them separately." },
       { t: "A gradual drift in the mean from wear in the equipment", why: "Wrong: a drift shows as a trend (Test 3, 6 rising or falling points), not as points split on both sides." }
     ],
     answer: 2, ref: "Web: support.minitab.com (tests for special causes)"
@@ -309,7 +309,7 @@ QB.add([
     id: "C2-028", topic: "spc-rules", level: 2,
     q: "A chart shows exactly 8 consecutive points above the centre line; none is beyond the control limits. Which statement is correct?",
     options: [
-      { t: "It signals under Western Electric and Nelson alike, as each uses 7 in a row", why: "Wrong: neither standard set uses 7 in a row on one side; Western Electric uses 8 and Nelson/Minitab uses 9." },
+      { t: "It signals under Western Electric and Nelson alike, as each uses 7 in a row", why: "Wrong: 7 in a row is the AIAG SPC manual rule; Western Electric uses 8 and Nelson/Minitab uses 9, so 8 points do not signal under both." },
       { t: "It is a signal under neither rule set, as no point is beyond 3σ", why: "Wrong: run rules can signal without any point beyond the limits; Western Electric flags this run." },
       { t: "It is a signal under Nelson/Minitab Test 2 but not under Western Electric", why: "Wrong: the thresholds are the other way round: Nelson/Minitab Test 2 needs 9 in a row, Western Electric 8." },
       { t: "It is a signal under Western Electric but not yet under Nelson/Minitab", why: "Correct: Western Electric flags 8 in a row on one side; Minitab Test 2 needs 9, so one more point above the line would make it a signal under both." }
@@ -318,14 +318,14 @@ QB.add([
   },
   {
     id: "C2-029", topic: "spc-rules", level: 3,
-    q: "A stable process has σ = 2.0 mm. After each part, the operator moves the setting by the full amount the last part missed target (Deming's funnel rule 2). What is the long-run σ?",
+    q: "A stable process has σ = 2.0 mm. After each part, the operator moves the setting from where it is by the last part's error, in the opposite direction (Deming's funnel rule 2). What is the long-run σ?",
     options: [
       { t: "About 2.0 mm, as adjustments average out", why: "Wrong: each adjustment adds the last part's random error back into the setting, so variation grows; it does not average out." },
       { t: "About 1.0 mm, as each correction halves the error", why: "Wrong: correcting for pure noise cannot reduce variation; the next error is independent of the last." },
       { t: "About 4.0 mm, as the spread doubles", why: "Wrong: rule 2 doubles the variance, not σ; σ grows by √2, not by 2." },
       { t: "About 2.8 mm, as the variance doubles", why: "Correct: funnel rule 2 doubles the variance: σ = 2.0 × √2 = 2.83 mm, a 41% rise caused by tampering." }
     ],
-    answer: 3, ref: "Web: support.minitab.com (Deming funnel macro)"
+    answer: 3, ref: "Web: support.minitab.com (Deming funnel experiment macro)"
   },
   {
     id: "C2-030", topic: "spc-rules", level: 2,
@@ -377,12 +377,12 @@ QB.add([
     id: "C2-034", topic: "control-plan", level: 2,
     q: "How should a process owner set how often each line of the control plan is audited on the floor?",
     options: [
-      { t: "By risk: more often for severe or changed items, less once proven stable", why: "Correct: audit effort should follow risk (FMEA severity, recent changes, past findings) and can be relaxed once the controls are proven to work." },
+      { t: "By risk: more often for severe or changed items, less once proven stable", why: "Correct: audit effort should follow risk (FMEA severity, recent changes, past findings) and can be relaxed once the controls are proven to work; AIAG CQI-8 leaves frequency to the organisation, set by risk." },
       { t: "Once, at project closure, since later audits belong to the quality department", why: "Wrong: a one-time check cannot show that controls are still followed; the owner keeps auditing after handoff." },
       { t: "At the same fixed interval for every line, so the audit stays simple to schedule", why: "Wrong: a flat interval spends effort on low-risk items and too little on critical ones." },
       { t: "Only after a customer complaint, so audit time is spent where problems exist", why: "Wrong: this is reactive; the audit should find drift before it reaches the customer." }
     ],
-    answer: 0, ref: "Lesson 6.2"
+    answer: 0, ref: "Lesson 6.2; Web: AIAG CQI-8 (layered process audits)"
   },
   {
     id: "C2-035", topic: "control-plan", level: 3,
@@ -390,7 +390,7 @@ QB.add([
     options: [
       { t: "Close now, as six good points already prove the gain", why: "Wrong: six points cannot show the new level is stable; early results can reflect extra attention after go-live (a Hawthorne effect)." },
       { t: "Close now and let the process owner collect the data later", why: "Wrong: handing over an unproven change shifts the risk to the owner and leaves the savings unverified." },
-      { t: "Keep monitoring until about 20–25 points show the gain is stable", why: "Correct: closure needs evidence that the gain holds: enough post-change data to set new limits and confirm stability, plus finance validation of savings." },
+      { t: "Keep monitoring until enough points (commonly 20–25) show a stable gain", why: "Correct: closure needs evidence that the gain holds: enough post-change data to set new limits and confirm stability, plus finance validation of savings." },
       { t: "Restart the Measure phase to set a new baseline first", why: "Wrong: the baseline already exists; the task is to confirm the new level, which is Control work, not a restart." }
     ],
     answer: 2, ref: "Lesson 6.4"
@@ -426,7 +426,7 @@ QB.add([
       { t: "Pilot it on line 2 with its owner, verify, then roll out", why: "Correct: replication adapts the proven solution with the receiving owner, confirms it works there with data, then extends it with updated documents." },
       { t: "Keep the Green Belt running all three lines until results match", why: "Wrong: the process owners must own the change; the Green Belt cannot stay as the control." }
     ],
-    answer: 2, ref: "Lesson 6.2"
+    answer: 2, ref: "BoK 5.3 (Six Sigma control plans)"
   },
   {
     id: "C2-039", topic: "control-plan", level: 2,
