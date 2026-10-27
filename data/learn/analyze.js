@@ -14,7 +14,8 @@ LEARN.add([
       "Multi-vari is a screening tool: it does not prove a root cause.",
       "Pareto chart ranks categories by count or cost to pick what to attack first; fishbone (6M) organises possible causes; neither proves a cause.",
       "5 Whys: keep asking why until a process cause you can act on appears; five is a guideline, and the answer is a process, not a person.",
-      "Phase placement: multi-vari is an Analyze tool; the IASSC BoK lists fishbone (with the X-Y matrix and FMEA) under Measure."
+      "Phase placement: multi-vari is an Analyze tool; the IASSC BoK lists fishbone (with the X-Y matrix and FMEA) under Measure.",
+      "Plan the study: several consecutive units at set intervals, several positions per unit, over long enough to see the usual range; confirm the gage (MSA) first. Xs that did not vary during the study cannot show up."
     ],
     table: {
       title: "Multi-vari families of variation",
@@ -50,14 +51,15 @@ LEARN.add([
       "CLT: sample means approach a normal distribution as n grows (n ≥ 30 rule of thumb), whatever the population shape, with mean μ and standard error σ/√n.",
       "A 95% CI means the method captures μ in about 95% of repeated samples; it is not where 95% of individual values fall.",
       "Higher confidence → wider interval. Larger n → narrower interval. Four times the n halves the width.",
-      "Use z when σ is known; use t with n − 1 df when σ is estimated by s (always wider than z)."
+      "Use z when σ is known; use t with n − 1 df when σ is estimated by s (always wider than z).",
+      "Proportional stratified allocation: sample every stratum at the same fraction n/N (200 of 4,000 → 5% of each shift)."
     ],
     formulas: [
       { name: "Standard error of the mean", f: "SE = σ / √n" },
       { name: "CI for the mean, σ known", f: "x̄ ± z(α/2) × σ / √n   (z = 1.645 for 90%, 1.96 for 95%, 2.576 for 99%)" },
       { name: "CI for the mean, σ unknown", f: "x̄ ± t(α/2, n − 1) × s / √n" },
       { name: "Sample size for a mean", f: "n = (z × σ / E)², round up" },
-      { name: "Sample size for a proportion", f: "n = z² × p(1 − p) / E², round up" }
+      { name: "Sample size for a proportion", f: "n = z² × p(1 − p) / E², round up; use p = 0.5 if no estimate (95%, ±5 points → 385)" }
     ],
     traps: [
       "Dividing σ by n instead of √n is the most common calculation slip.",
@@ -85,7 +87,8 @@ LEARN.add([
       "Power = 1 − β, the chance of detecting a real difference of the planned size; 0.80 to 0.90 is common.",
       "For a fixed n, lowering α raises β. Only a larger n lowers both.",
       "Required n grows with σ, confidence and power, and falls when the difference to detect is larger.",
-      "Statistical significance is not practical significance: with large samples tiny differences become significant."
+      "Statistical significance is not practical significance: with large samples tiny differences become significant.",
+      "Running many tests inflates false alarms: P(at least one) = 1 − (1 − α)^k, e.g. 10 tests at 0.05 → 0.40."
     ],
     table: {
       title: "Decision outcomes",
@@ -121,7 +124,8 @@ LEARN.add([
       "One-way ANOVA tests three or more means at once; running many t-tests inflates α (6 pairs at 0.05 → about 26% chance of a false alarm).",
       "ANOVA assumptions: independent samples, normal residuals, equal variances.",
       "F = MS between ÷ MS within; df = k − 1 and N − k. A significant F says at least one mean differs; Tukey or similar shows which.",
-      "Reading a table: MS = SS ÷ DF, then F = MS factor ÷ MS error, then compare p with α."
+      "Reading a table: MS = SS ÷ DF, then F = MS factor ÷ MS error, then compare p with α.",
+      "Unequal variances (Levene/F p ≤ α): use the unpooled (Welch) 2-sample t. Tukey intervals for differences that exclude 0 mark the pairs that differ."
     ],
     formulas: [
       { name: "1-sample t", f: "t = (x̄ − μ₀) / (s / √n), df = n − 1" },
