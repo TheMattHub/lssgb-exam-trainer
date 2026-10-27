@@ -151,6 +151,7 @@ Facts below are standard; writers can rely on them. Sources at the end of each b
 **Metrics (worked forms).**
 - DPU = defects ÷ units. DPO = defects ÷ (units × opportunities per unit). DPMO = DPO × 1,000,000.
 - FTY (first-time yield) = units passing a step first time with no rework ÷ units entering. Using Poisson, FTY ≈ e^(−DPU).
+  - Naming conflict: some sources use "FTY" for final yield (units out ÷ units in, reworked units counted good) and "FPY" for no-rework yield. Questions state what to count instead of relying on the label.
 - RTY = FTY₁ × FTY₂ × … × FTYₙ. Example: 0.95 × 0.90 × 0.98 = 0.8379 → 83.8%.
 - Final (traditional) yield = units out ÷ units in; it hides rework, so it is higher than RTY.
 - Takt time = available production time ÷ customer demand. Cycle time = time to complete one unit at a step. Lead time = total time a unit spends in the process.
