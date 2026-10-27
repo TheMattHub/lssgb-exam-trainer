@@ -64,7 +64,7 @@ QB.add([
     q: "Which statement best reflects the Y = f(X) way of thinking?",
     options: [
       { t: "Inspecting Y more often is the surest way to improve it", why: "Wrong: inspecting the output only sorts results; it does not change the causes that produce them." },
-      { t: "Y and X are equally important to monitor in Control", why: "Wrong: the point of the equation is that X drives Y, so the critical Xs deserve the control effort." },
+      { t: "Y and X are equally important to monitor in Control", why: "Wrong: Y is still tracked, but the equation says the Xs drive Y, so the main control effort goes on the critical Xs." },
       { t: "Setting tighter targets for Y will move Y", why: "Wrong: a target on an output does not change the process that generates it." },
       { t: "To control Y, find and control the vital few Xs", why: "Correct: Y is a result of the Xs, so a project narrows many possible Xs to the vital few and controls those." }
     ],
@@ -195,12 +195,12 @@ QB.add([
   },
   {
     id: "D1-018", topic: "lean-basics", level: 2,
-    q: "A final inspection step is required by a regulator. How is it best classified in value stream analysis?",
+    q: "Regulations oblige a plant to carry out a final inspection on every unit. How is this step best classified in value stream analysis?",
     options: [
       { t: "Value-added, because it protects the customer", why: "Wrong: inspection does not change the product's form, fit or function, so it is not value-added." },
       { t: "Pure waste, to be eliminated at once", why: "Wrong: it cannot simply be removed while the regulation requires it; it is necessary for now." },
       { t: "Overproduction, because it duplicates work", why: "Wrong: overproduction means making more, or earlier, than the customer needs." },
-      { t: "Required non-value-added activity", why: "Correct: required inspection adds no customer value but must stay for now; minimise it and seek to make it unnecessary." }
+      { t: "Non-value-added but necessary (business value-added)", why: "Correct: the inspection adds no customer value but must stay for now; minimise it and seek to make it unnecessary." }
     ],
     answer: 3, ref: "Lesson 1.2"
   },
@@ -305,12 +305,12 @@ QB.add([
   },
   {
     id: "D1-028", topic: "lean-basics", level: 3,
-    q: "In a claims office, completed claims sit in a manager's in-tray for two days awaiting signature. They are then printed and carried to another building for filing. Which two wastes dominate?",
+    q: "In a claims office, completed claims lie in a manager's in-tray for two days until they are signed. A courier then carries them to another building for filing. Which two wastes dominate?",
     options: [
-      { t: "Overproduction and inventory", why: "Wrong: nothing is produced beyond demand; the claims are needed, they are just held up." },
-      { t: "Motion and correction", why: "Wrong: no rework is described, and carrying documents between buildings moves the item, which is conveyance rather than motion." },
+      { t: "Overproduction and inventory", why: "Wrong: a pile of claims can be seen as inventory, but nothing is produced beyond demand, so overproduction is absent; from the claim's view the delay is waiting." },
+      { t: "Motion and correction", why: "Wrong: no rework is described, and carrying claims between buildings moves the item, which is conveyance rather than motion of people at a workstation." },
       { t: "Waiting and conveyance", why: "Correct: claims idle in the in-tray (waiting) and are then physically moved between buildings (conveyance or transport)." },
-      { t: "Overprocessing and waiting", why: "Wrong: waiting is right, but printing for filing is a minor issue next to moving claims between buildings, which is conveyance." }
+      { t: "Overprocessing and waiting", why: "Wrong: waiting is right, but no extra work is done on the claims; moving them between buildings is conveyance, not overprocessing." }
     ],
     answer: 2, ref: "Lesson 1.2"
   },
@@ -351,18 +351,18 @@ QB.add([
   },
   {
     id: "D1-032", topic: "ss-metrics", level: 3,
-    q: "A process step receives 500 units. 440 pass inspection first time, 45 are reworked and then pass, and 15 are scrapped. What is the first-time yield (FTY) of the step?",
+    q: "A process step receives 500 units. 440 pass inspection first time, 45 are reworked and then pass, and 15 are scrapped. What is the first-pass yield of the step, counting only units that pass with no rework?",
     options: [
       { t: "97.0%", why: "Wrong: (440 + 45) ÷ 500 = 97% is the final (traditional) yield, which counts reworked units as good and hides the rework." },
       { t: "90.7%", why: "Wrong: 440 ÷ 485 divides by the good output instead of the 500 units that entered the step." },
-      { t: "88.0%", why: "Correct: FTY = units passing first time with no rework ÷ units entering = 440 ÷ 500 = 0.88 = 88%." },
+      { t: "88.0%", why: "Correct: first-pass yield = units passing first time with no rework ÷ units entering = 440 ÷ 500 = 0.88 = 88%." },
       { t: "91.0%", why: "Wrong: 1 − 45 ÷ 500 = 91% counts only the rework as loss and forgets the 15 scrapped units." }
     ],
     answer: 2, ref: "Lesson 2.5"
   },
   {
     id: "D1-033", topic: "ss-metrics", level: 3,
-    q: "A three-step process has first-time yields of 97%, 92% and 95%. What is the rolled throughput yield (RTY)?",
+    q: "A three-step process has first-pass yields (no rework) of 97%, 92% and 95%. What is the rolled throughput yield (RTY)?",
     options: [
       { t: "84.8%", why: "Correct: RTY = 0.97 × 0.92 × 0.95 = 0.8924 × 0.95 = 0.8478 ≈ 84.8%." },
       { t: "94.7%", why: "Wrong: this is the average of the three yields; RTY multiplies them because a unit must pass every step." },
@@ -384,7 +384,7 @@ QB.add([
   },
   {
     id: "D1-035", topic: "ss-metrics", level: 3,
-    q: "A process has DPU = 0.2. Assuming defects follow a Poisson distribution, what is the expected first-time yield?",
+    q: "A process has DPU = 0.2. Assuming defects follow a Poisson distribution, what is the expected first-pass yield?",
     options: [
       { t: "80.0%", why: "Wrong: 1 − DPU is only an approximation for very small DPU; with Poisson, Y = e^(−DPU)." },
       { t: "18.1%", why: "Wrong: 1 − e^(−0.2) = 18.1% is the probability that a unit has at least one defect, the opposite of the yield." },
@@ -496,7 +496,7 @@ QB.add([
     id: "D1-045", topic: "ss-metrics", level: 3,
     q: "A value stream map shows 45 minutes of value-added time in a total lead time of 15 hours. What is the process cycle efficiency?",
     options: [
-      { t: "0.05%", why: "Wrong: 45 ÷ 15 ÷ 60 slips a unit conversion; 15 hours is 900 minutes, so the ratio is 45 ÷ 900." },
+      { t: "3%", why: "Wrong: 0.45 ÷ 15 = 3% treats 45 minutes as 0.45 hours; 45 minutes is 0.75 hours, and 0.75 ÷ 15 = 5%." },
       { t: "95%", why: "Wrong: 95% is the share of time that is not value-added (855 ÷ 900)." },
       { t: "20%", why: "Wrong: 900 ÷ 45 = 20 inverts the ratio; it is not a percentage." },
       { t: "5%", why: "Correct: PCE = value-added time ÷ total lead time = 45 ÷ 900 = 0.05 = 5%." }

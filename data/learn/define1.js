@@ -90,9 +90,9 @@ LEARN.add([
       "Defect = any nonconformity with a requirement. Defective = a unit with one or more defects. One unit can hold many defects but is one defective.",
       "Opportunity = a chance for a defect; count only the opportunities that matter to the customer and keep the definition fixed.",
       "DPMO lets you compare processes of different complexity; DPU does not account for opportunities.",
-      "FTY counts only units that pass first time with no rework. Final (traditional) yield counts reworked units as good, so it hides the 'hidden factory'.",
+      "First-pass yield (FPY; the IASSC BoK says first-time yield, FTY) counts only units that pass first time with no rework. Final (traditional) yield = units out ÷ units in; it counts reworked units as good, so it hides the 'hidden factory'.",
       "RTY is the probability a unit passes all steps first time: multiply the step FTYs. It is always ≤ the lowest step FTY.",
-      "Sigma table (with 1.5σ shift): 6σ = 3.4; 5σ = 233; 4σ = 6,210; 3σ = 66,807; 2σ = 308,538 DPMO. Z_LT = Z_ST − 1.5.",
+      "Sigma table (with 1.5σ shift): 6σ = 3.4; 5σ = 233; 4σ = 6,210; 3σ = 66,807; 2σ = 308,538; 1σ ≈ 690,000 DPMO. Z_LT = Z_ST − 1.5. Without the shift, ±6σ would give only about 0.002 DPMO.",
       "Takt time = available time ÷ demand. Cycle time = time to complete one unit at a step. Lead time = total time a unit spends in the process. If a step's cycle time > takt, demand cannot be met.",
       "Cost of quality (ASQ): cost of good quality = prevention + appraisal; cost of poor quality (COPQ) = internal failure + external failure. External failure is the most expensive; investing in prevention lowers the total.",
       "Pareto chart: categories in descending order plus a cumulative % line; roughly 80% of effects come from 20% of causes. A flat Pareto means re-stratify (by cost, shift, product…)."
@@ -101,7 +101,7 @@ LEARN.add([
       { name: "DPU", f: "DPU = defects ÷ units" },
       { name: "DPO", f: "DPO = defects ÷ (units × opportunities per unit)" },
       { name: "DPMO", f: "DPMO = DPO × 1,000,000" },
-      { name: "First-time yield", f: "FTY = units passing first time ÷ units entering ≈ e^(−DPU)" },
+      { name: "First-pass yield", f: "FPY (FTY) = units passing first time with no rework ÷ units entering ≈ e^(−DPU)" },
       { name: "Rolled throughput yield", f: "RTY = FTY₁ × FTY₂ × … × FTYₙ" },
       { name: "Takt time", f: "Takt = available production time ÷ customer demand" },
       { name: "Little's Law", f: "Lead time = WIP ÷ throughput" },
@@ -118,11 +118,11 @@ LEARN.add([
       ]
     },
     traps: [
-      "DPU uses defects; proportion defective uses defective units. Read which count the stem gives.",
-      "DPMO must include opportunities per unit; DPU × 10⁶ is not DPMO.",
+      "DPU uses defects; proportion defective uses defective units. DPMO must include opportunities per unit: DPU × 10⁶ is not DPMO.",
       "RTY multiplies yields; it does not average them, and adding the losses is only an approximation.",
       "Takt uses available time (minus breaks) and is set by demand; it is not a property of the process.",
-      "Appraisal (inspection, calibration) is a cost of good quality in the ASQ model, not COPQ."
+      "Appraisal (inspection, calibration) is a cost of good quality in the ASQ model, not COPQ.",
+      "Some texts use 'first-time yield' for units out ÷ units in (rework counted as good). Read the stem: if rework must be excluded, divide first-pass units by units entering."
     ],
     terms: [
       { term: "Hidden factory", def: "Rework and repair loops that do not show in final yield." },
