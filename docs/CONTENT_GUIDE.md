@@ -57,3 +57,32 @@ LEARN.add([
 ```
 
 All text is plain text (rendered with `textContent`, no HTML). In a question stem or a `why`, `\n` shows as a line break (use it for short software output); option texts stay on one line. Use Unicode for maths: σ, μ, ≤, ≥, ², √, ×, ±, x̄.
+
+## Resource format
+
+Resources are reference material: tables, diagrams, worked examples and cheat sheets, all made from scratch (original wording and drawings, no copied figures). Files: `data/resources/<file>.js`, diagrams as `assets/diagrams/<name>.svg`.
+
+```js
+RES.add([
+  {
+    id: "cpk-worked",                 // unique, kebab-case
+    phase: "measure",                 // define | measure | analyze | improve | control | general
+    kind: "example",                  // table | diagram | example | cheatsheet
+    title: "Worked example: Cp and Cpk",
+    topics: ["capability"],           // topic ids this supports (shown on those learn pages)
+    summary: "One or two sentences: what it shows and when to use it.",
+    table: { head: ["..."], rows: [["..."]], note: "optional" },        // kind table/cheatsheet
+    img: "assets/diagrams/capability-cp-cpk.svg", alt: "Text description of the figure",  // kind diagram
+    steps: [{ label: "Given", text: "USL = 10.6, LSL = 9.4, ..." }],     // kind example: given → steps → answer
+    points: ["How to read it / exam tip"]                               // optional, 2-6 bullets
+  }
+]);
+```
+
+Plain text everywhere (`\n` allowed in `text` and `summary`). One entry may combine fields (e.g. a diagram with points).
+
+### Diagram style (SVG)
+
+- Hand-written SVG, `viewBox` about 640 wide, no width/height attributes, no scripts, no external fonts, links or images. Text as real `<text>` in `font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif"`, size ≥ 14 units.
+- The app shows every figure on a white panel in both themes, so draw for a white background with this palette: ink `#1f2937`, muted `#6b7280`, grid/lines `#d1d5db`, accent `#4353c9` (tint `#e6e9fb`), good `#0a8560` (tint `#e3f4ee`), bad `#c9373f` (tint `#fbe7e8`), warn `#9a5c00` (tint `#fbf0dc`).
+- Include `<title>` and `<desc>`. Keep it uncluttered: one idea per figure, generous spacing, labels on the figure rather than legends where possible. Check it renders: open it in a browser or convert with a quick script.
