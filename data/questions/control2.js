@@ -110,7 +110,7 @@ QB.add([
       { t: "Sound, because changeovers are usually the biggest OEE loss", why: "Wrong: changeovers (setup and adjustment) reduce availability, and here availability is already 95%; no loss is the largest on every line." },
       { t: "Weak, because performance (70%) is the main loss, not availability", why: "Correct: OEE = 0.95 × 0.70 × 0.99 = 65.8%; the 30-point gap in performance (minor stops, reduced speed) dwarfs the 5-point availability gap that SMED would address." },
       { t: "Sound, because SMED raises performance by shortening the cycle time", why: "Wrong: SMED shortens changeovers, which are availability losses; it does not change the ideal cycle time." },
-      { t: "Weak, because quality is the factor to improve first", why: "Wrong: at 99% quality has little room left; no factor has priority by rule; the largest gap does. }
+      { t: "Weak, because quality is the factor to improve first", why: "Wrong: at 99% quality has little room left; no factor has priority by rule; the largest gap does." }
     ],
     answer: 1, ref: "Web: oee.com (six big losses)"
   },
