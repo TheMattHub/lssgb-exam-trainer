@@ -251,9 +251,9 @@ QB.add([
     q: "A project reports these yearly results: scrap cost down €50,000; overtime pay down €20,000; a planned €100,000 machine purchase no longer needed; 300 engineer hours freed and redeployed (no headcount change). What are the hard savings?",
     options: [
       { t: "€70,000", why: "Correct: only scrap (€50,000) and overtime (€20,000) reduce actual spending on the P&L. The avoided purchase is cost avoidance and the freed hours are capacity, both soft." },
-      { t: "€170,000", why: "Wrong: this counts the avoided machine purchase, which is cost avoidance (soft): no existing budget line goes down." },
+      { t: "€170,000", why: "Wrong: this counts the avoided machine purchase, which is cost avoidance (soft): no current spending goes down." },
       { t: "€50,000", why: "Wrong: lower overtime pay is also a real P&L reduction, so it is a hard saving too." },
-      { t: "€120,000", why: "Wrong: this adds the scrap saving to the avoided purchase and leaves out overtime; the avoided purchase is soft." }
+      { t: "€120,000", why: "Wrong: €20,000 + €100,000 adds the overtime saving to the avoided purchase and leaves out scrap; the avoided purchase is soft and the scrap saving is hard." }
     ],
     answer: 0, ref: "Web: iassc.org GB BoK 1.3.3"
   },
@@ -373,7 +373,7 @@ QB.add([
     id: "D2-034", topic: "pm-tools", level: 1,
     q: "Which statement about the critical path is true?",
     options: [
-      { t: "The longest path in the network; its activities have zero slack", why: "Correct: the longest path sets the project duration; any delay on it delays the whole project." },
+      { t: "It is the longest path; its activities have zero slack", why: "Correct: the longest path sets the project duration; any delay on it delays the whole project." },
       { t: "It is the shortest path, showing the fastest way to finish", why: "Wrong: the project cannot finish before its longest path does." },
       { t: "It contains the activities the sponsor rates most important", why: "Wrong: 'critical' refers to timing (zero slack), not to business importance." },
       { t: "Its activities can be delayed freely if resources are short", why: "Wrong: activities off the critical path have slack; those on it have none." }

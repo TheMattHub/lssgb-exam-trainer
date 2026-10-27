@@ -53,6 +53,7 @@ LEARN.add([
       "Scope: list in-scope and out-of-scope items. Too broad a scope ('boiling the ocean') is a common reason projects stall; the out-of-scope list guards against scope creep.",
       "Primary metric: the Y the project is chartered to improve, with baseline, target and units. Secondary (consequential) metric: watched so that improving the primary does not harm something else.",
       "Hard savings: visible on the P&L (less scrap, labour, overtime, material; more revenue). Soft savings: real but not on the P&L (cost avoidance, freed capacity, satisfaction).",
+      "Good metrics are tied to a CTQ, measured with a validated measurement system and tracked over time; the CTQ usually becomes the project's primary metric (Y).",
       "Finance validates the baseline and the savings; benefits are tracked after closure, often for 12 months.",
       "Stakeholder analysis: list who is affected, their current and required support and their influence. Engage high-influence resisters early."
     ],
@@ -77,7 +78,7 @@ LEARN.add([
       "A problem statement that names a cause or a solution is wrong, even if the numbers are good.",
       "ROI divides the net benefit (benefit − cost) by the cost; benefit ÷ cost is the benefit-cost ratio.",
       "Simple payback ignores the time value of money and any cash after payback; NPV includes both.",
-      "Cost avoidance counts as a soft saving, even when the avoided amount is large.",
+      "Cost avoidance counts as a soft saving, even when the avoided amount is large (the usual exam convention; some finance departments track budgeted cost avoidance as its own category).",
       "Validated root causes are an Analyze output; they are never in the Define charter."
     ],
     terms: [
