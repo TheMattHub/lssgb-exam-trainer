@@ -293,21 +293,21 @@ QB.add([
   },
   {
     id: "I2-027", topic: "regression", level: 2,
-    q: "In the model ŷ = b₀ + b₁X + b₂X², the X² term has p = 0.001 and the linear X term has p = 0.31. What should the analyst do?",
+    q: "In the model ŷ = b₀ + b₁X + b₂X², the X² term has p = 0.001 and the linear X term has p = 0.31. The team reduces models by the usual hierarchy rule. What should the analyst do?",
     options: [
       { t: "Keep X and X²: a significant X² term needs X in the model", why: "Correct: a hierarchical model keeps every lower-order term contained in a significant higher-order term, even when its own p-value is high." },
-      { t: "Drop X, as its p-value is above 0.05, and refit with X² only", why: "Wrong: removing X breaks the hierarchy and forces the curve's turning point to sit at X = 0." },
-      { t: "Drop X², since a curved model is harder to explain", why: "Wrong: X² is highly significant (p = 0.001); dropping it leaves the curvature unmodelled." },
+      { t: "Refit with X² only, as the X term has p above 0.05", why: "Wrong: removing X breaks the hierarchy and forces the curve's turning point to sit at X = 0." },
+      { t: "Keep only X, since a straight line is easier to explain", why: "Wrong: X² is highly significant (p = 0.001); dropping it leaves the curvature unmodelled." },
       { t: "Drop X and X², then fit a straight line to a log of Y", why: "Wrong: the X² term is significant, so the curve is real; dropping the terms discards that evidence instead of modelling it." }
     ],
     answer: 0, ref: "Web: Minitab Support (model reduction)"
   },
   {
     id: "I2-028", topic: "regression", level: 3,
-    q: "Two models for yield on temperature (n = 25):\nLinear:     S = 5.80   R-sq = 70.5%   R-sq(adj) = 69.2%\nQuadratic:  S = 2.60   R-sq = 94.3%   R-sq(adj) = 93.8%   p(Temp²) = 0.000\nThe linear model's residuals-versus-fits plot is U-shaped. Which model is better?",
+    q: "Two models for yield on temperature (n = 25):\nLinear:     S = 5.80   R-sq = 70.5%   R-sq(adj) = 69.2%\nQuadratic:  S = 2.61  R-sq = 94.3%   R-sq(adj) = 93.8%   p(Temp²) = 0.000\nThe linear model's residuals-versus-fits plot is U-shaped. Which model is better?",
     options: [
       { t: "Linear, because a straight line is easier to explain", why: "Wrong: the U-shaped residuals show the straight line misses the curvature; simplicity does not justify a wrong model form." },
-      { t: "Quadratic: lower S, higher R-sq(adj), significant Temp²", why: "Correct: S drops from 5.80 to 2.60, R-sq(adj) rises from 69.2% to 93.8%, and the significant Temp² term models the curve seen in the residuals." },
+      { t: "Quadratic: lower S, higher R-sq(adj), significant Temp²", why: "Correct: S drops from 5.80 to 2.61, R-sq(adj) rises from 69.2% to 93.8%, and the significant Temp² term models the curve seen in the residuals." },
       { t: "Linear, because an R-sq above 70% is already good enough", why: "Wrong: there is no fixed R-sq pass mark, and the residual pattern shows the linear form is inadequate." },
       { t: "Neither: the U shape calls for a Box-Cox transform first", why: "Wrong: a curve in residuals versus fits is a missing higher-order term, and the quadratic model already removes it." }
     ],
@@ -317,12 +317,12 @@ QB.add([
     id: "I2-029", topic: "regression", level: 2,
     q: "Waiting-time data include several values of 0 minutes. An analyst wants a Box-Cox transformation. What is the issue?",
     options: [
-      { t: "Box-Cox needs at least 100 observations", why: "Wrong: there is no such sample-size rule; the problem here is the zero values." },
+      { t: "Box-Cox needs at least 100 observations to work", why: "Wrong: there is no such sample-size rule; the problem here is the zero values." },
       { t: "Box-Cox only works on data that are close to normal", why: "Wrong: Box-Cox exists to make non-normal data closer to normal." },
       { t: "Box-Cox can be applied to X but not to Y", why: "Wrong: in regression it is usually applied to the response Y." },
-      { t: "Box-Cox needs data greater than 0; shift them or use another method", why: "Correct: powers and logs of zero or negative values are undefined or meaningless, so add a constant first or use another method such as a Johnson transformation." }
+      { t: "Box-Cox needs every value to be above zero", why: "Correct: logs and many powers of zero are undefined, so Box-Cox needs data > 0. Add a constant first, or use a Johnson transformation, which accepts zero and negative values." }
     ],
-    answer: 3, ref: "Lesson 4.3"
+    answer: 3, ref: "Web: Minitab Support (data transformations for capability analysis)"
   },
   {
     id: "I2-030", topic: "regression", level: 3,
@@ -380,15 +380,15 @@ QB.add([
     answer: 1, ref: "Web: Minitab Support (unusual observations)"
   },
   {
-    id: "I2-035", topic: "regression", level: 2,
-    q: "Which statement about multicollinearity in multiple regression is true?",
+    id: "I2-035", topic: "regression", level: 3,
+    q: "Regression of yield on X1 and X2, n = 20:\nRegression  F = 38.7   P = 0.000\nX1          P = 0.31\nX2          P = 0.27\nS = 1.9   R-sq = 82.0%   R-sq(adj) = 79.9%\nIn separate simple regressions, X1 and X2 each have p = 0.000. What is the most likely explanation?",
     options: [
-      { t: "It shows up as a funnel in the residuals-versus-fits plot", why: "Wrong: a funnel means non-constant variance; multicollinearity is detected with VIF, not residual plots." },
-      { t: "It makes coefficients unstable but does not by itself lower R²", why: "Correct: correlated Xs inflate coefficient standard errors (and can flip signs), but the overall fit and predictions are not harmed." },
-      { t: "It is removed by a Box-Cox transformation of the response", why: "Wrong: VIF depends only on the Xs, so transforming Y does not change it." },
-      { t: "It means the residuals are correlated with each other over time", why: "Wrong: that is autocorrelation, a breach of independence seen in residuals versus order." }
+      { t: "X1 and X2 are strongly correlated with each other", why: "Correct: a significant overall model with no significant single term is the classic sign of multicollinearity; each X carries much the same information, which inflates the coefficient standard errors. Check the VIFs." },
+      { t: "The model is overfit, with too many terms for the data", why: "Wrong: 2 terms on 20 observations leave 17 error degrees of freedom; overfitting would also not make each term non-significant." },
+      { t: "Neither X affects yield; the overall F-test is a false alarm", why: "Wrong: F = 38.7 with p = 0.000 and R-sq = 82% show the Xs together explain most of the variation." },
+      { t: "The residuals are not normal, so all p-values are invalid", why: "Wrong: nothing in the output points to non-normal residuals, and that would not explain why the terms are significant alone but not together." }
     ],
-    answer: 1, ref: "Web: Minitab Support (multicollinearity in regression)"
+    answer: 0, ref: "Web: Minitab Support (multicollinearity in regression)"
   },
   {
     id: "I2-036", topic: "regression", level: 2,
@@ -441,9 +441,9 @@ QB.add([
       { t: "The two intervals keep narrowing towards zero width", why: "Wrong: only the CI does; the PI must still cover the scatter of individual values." },
       { t: "The PI narrows towards zero width; the CI levels off", why: "Wrong: it is the other way round; the CI is for the mean, which more data pins down." },
       { t: "Neither interval changes, since each depends only on S", why: "Wrong: both depend on n through the uncertainty of the fitted line." },
-      { t: "The CI narrows towards zero width; the PI levels off", why: "Correct: more data estimate the mean ever more precisely, but a single new value still varies by about ±2S, so the PI cannot shrink below that." }
+      { t: "The CI narrows towards zero width; the PI levels off", why: "Correct: more data estimate the mean ever more precisely, but a single new value still scatters around that mean with standard deviation σ (estimated by S), so the 95% PI approaches about ±1.96σ, roughly ±2S, and stops shrinking." }
     ],
-    answer: 3, ref: "Lesson 4.3"
+    answer: 3, ref: "Web: Minitab Support (confidence vs prediction intervals)"
   },
   {
     id: "I2-041", topic: "regression", level: 3,
@@ -463,9 +463,9 @@ QB.add([
       { t: "Pass/fail Y, with the X values spread across the range of interest", why: "Wrong: a pass/fail Y is attribute data; least-squares linear regression needs a continuous Y (a binary Y calls for logistic regression)." },
       { t: "Continuous Y, with X values spread across the range of interest", why: "Correct: a continuous response and X values that span the region to be predicted give a stable slope and avoid extrapolation." },
       { t: "Continuous Y, with every X held at a single setting", why: "Wrong: with no variation in X the slope cannot be estimated." },
-      { t: "Continuous Y, with more predictors than observations", why: "Wrong: the model cannot be estimated (no error degrees of freedom); it would fit the data perfectly and predict nothing." }
+      { t: "Continuous Y, with more predictors than observations", why: "Wrong: with more terms than observations the coefficients cannot be estimated uniquely and no error degrees of freedom remain." }
     ],
-    answer: 1, ref: "Lesson 4.3"
+    answer: 1, ref: "Web: Minitab Support (binary logistic regression)"
   },
   {
     id: "I2-043", topic: "regression", level: 2,
