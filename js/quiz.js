@@ -210,7 +210,7 @@ var Quiz = (function () {
     others.forEach(function (o) { otherBox.appendChild(item(o, "compact")); });
     box.appendChild(otherBox);
     var t = U.topic(q.topic);
-    var foot = h("p", { class: "small muted ref" }, "Source: " + (q.ref || "-"));
+    var foot = h("p", { class: "small muted ref" }, "Question " + q.id + " · Source: " + (q.ref || "-"));
     if (withRead !== false && LEARN.get(q.topic)) {
       foot.appendChild(document.createTextNode(" · "));
       foot.appendChild(h("a", { href: "#/learn/" + encodeURIComponent(q.topic) }, "Read: " + (t ? t.name : q.topic)));

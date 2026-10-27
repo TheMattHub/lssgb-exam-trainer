@@ -146,7 +146,10 @@ var Resources = (function () {
     var list = RES.forTopic(topic);
     if (!list.length) return null;
     var r = list.find(function (x) { return x.kind === "example"; }) || list[0];
-    return h("a", { href: href(r) }, kindName(r.kind) + ": " + r.title);
+    // Some titles already start with their kind ("Worked example: ..."); don't repeat it.
+    var kind = kindName(r.kind);
+    var text = r.title.indexOf(kind) === 0 ? r.title : kind + ": " + r.title;
+    return h("a", { href: href(r) }, text);
   }
 
   // Search entries for Learn's index.
