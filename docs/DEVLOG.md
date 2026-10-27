@@ -2,7 +2,7 @@
 
 ## Current status
 
-Wave 0 research done. App shell running; wave 1 (seven packs) running.
+348 questions and 27 learn pages, all fact-checked. Modes: Random round, By topic/phase round, Exam (IASSC rules), Review mistakes (Leitner), Learn. Wave-end code review running; then publish.
 
 ## Plan
 
@@ -22,8 +22,22 @@ Wave 0 research done. App shell running; wave 1 (seven packs) running.
 
 | ID | Status | Description |
 |---|---|---|
+| C-1 | fixed | IM-011, CT-010, D1-048: correct option was the odd one out by wording (coordinator browser pass). |
 
 ## Log
 
 - 2026-10-27: repo created; content guide and topic list written.
 - 2026-10-27: research done (docs/research/iassc-gb-bok.md). IASSC GB BoK has no DOE: Improve = correlation + regression. Course-only topics flagged `bok: false` (dfss, pm-tools, teams, probability, doe, solutions): ~5 questions each, excluded from mocks. Topic names renamed to show every BoK item.
+- 2026-10-27: wave 1: seven packs written, each fact-checked by an independent agent (fixes in each pack's commit). User asked for explicit modes: Random and Topic rounds with a Confirm step, Exam per IASSC rules; shell reworked.
+- 2026-10-27: network drop stopped four agents mid-task; resumed, no work lost.
+
+## Course material errors found (not used in questions)
+
+- 1.1: sigma table misaligned (3σ paired with 6,210 DPMO); first-call success called "RTY" (it is FTY); "Champions coach MBBs".
+- 2.5: TPY/FPY definitions confused.
+- 3.4: Poisson example switches λ = 15 and λ = 3; χ² sum of k standard normals has k df, not k−1.
+- 3.5/3.6: appraiser technique listed as a repeatability cause; Cp called "long-term"; Pp/Ppk "only when control cannot be evaluated".
+- 4.1: p-value read as "probability the difference is due to chance"; non-rejection treated as proof of H0; Mann-Whitney "compares means".
+- 4.3: regression "implies causation"; log/Box-Cox called linear transformations.
+- 5.1: blocking "reduces experiment size"; replication "alters conditions".
+- 6.1: c chart "for defectives"; u chart "measures defectives". 6.3: Seiton called "Stabilize".
