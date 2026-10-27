@@ -215,11 +215,12 @@ var Mock = (function () {
     var p = U.pct(right, items.length), pass = p >= PASS;
 
     main.appendChild(h("h1", { text: MODES[m.mode].label + ": result" }));
-    main.appendChild(h("div", { class: "card summary" },
+    main.appendChild(h("div", { class: "card summary done" + (pass ? " passed" : "") },
       U.ring(right / (items.length || 1), p + "%", right + " / " + items.length),
       h("div", null,
         h("p", { class: "verdict-big " + (pass ? "pass" : "fail") },
           h("span", { "aria-hidden": "true", text: pass ? "✓ " : "✗ " }), pass ? "PASS" : "FAIL"),
+        h("p", { class: "done-msg", text: pass ? (p - PASS ? p - PASS + " points above the pass mark." : "Exactly on the pass mark.") : PASS - p + " points short of the pass mark. The review below shows where." }),
         h("p", { class: "muted", text: "Pass mark " + PASS + "%. Time used " + U.clock(m.end - m.start) + "." }))));
 
     var table = h("table", { class: "tbl" }, h("caption", { text: "Score by phase" }),
@@ -229,8 +230,9 @@ var Mock = (function () {
       var inP = items.filter(function (x) { var t = U.topic(x.q.topic); return t && t.phase === ph.id; });
       if (!inP.length) return;
       var r = inP.filter(function (x) { return m.answers[x.i] === x.q.answer; }).length;
-      tb.appendChild(h("tr", null, h("td", { text: ph.name }), h("td", { class: "num tnum", text: r + " / " + inP.length + " (" + U.pct(r, inP.length) + "%)" }),
-        h("td", { class: "bar-col" }, U.bar(r / inP.length, r / inP.length, ph.name + " " + U.pct(r, inP.length) + "%"))));
+      tb.appendChild(h("tr", null, h("td", null, h("span", { class: "phase-cell" }, U.phaseBadge(ph.id, "sm"), ph.name)),
+        h("td", { class: "num tnum", text: r + " / " + inP.length + " (" + U.pct(r, inP.length) + "%)" }),
+        h("td", { class: "bar-col" }, U.bar(r / inP.length, r / inP.length, ph.name + " " + U.pct(r, inP.length) + "%", "phased " + U.phaseClass(ph.id)))));
     });
     table.appendChild(tb);
     main.appendChild(h("div", { class: "card scroll-x" }, table));

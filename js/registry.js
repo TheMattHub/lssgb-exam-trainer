@@ -1,4 +1,4 @@
-// QB and LEARN: the registries the data packs call (see docs/CONTENT_GUIDE.md).
+// QB, LEARN and RES: the registries the data packs call (see docs/CONTENT_GUIDE.md).
 // The app trusts nothing in a pack: items that break the contract are skipped and counted,
 // so one bad question never blanks the app. tools/validate.mjs gives the full diagnosis.
 (function () {
@@ -49,6 +49,50 @@
     },
     get: function (topic) { return pages.get(topic); },
     all: function () { return Array.from(pages.values()); }
+  };
+
+  // ---------- resources (tables, diagrams, worked examples, cheat sheets) ----------
+  var resources = new Map();   // id -> resource, in file order
+  var phaseIds = new Set((topicsOk ? TOPICS.phases.map(function (p) { return p.id; }) : []).concat("general"));
+  var KINDS = ["table", "diagram", "example", "cheatsheet"];
+  // Only a plain relative path into assets/: the src never leaves the site or climbs out of it.
+  var IMG_RE = /^assets\/[A-Za-z0-9_\/-]+\.svg$/;
+
+  function validTable(t) {
+    return t && typeof t === "object" && Array.isArray(t.head) && t.head.length > 0 && t.head.every(str) &&
+      Array.isArray(t.rows) && t.rows.every(function (r) {
+        return Array.isArray(r) && r.length === t.head.length && r.every(function (c) { return typeof c === "string"; });
+      }) && (t.note === undefined || str(t.note));
+  }
+
+  function validResource(r) {
+    if (!r || typeof r !== "object" || !str(r.id) || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(r.id) || !phaseIds.has(r.phase) ||
+      KINDS.indexOf(r.kind) < 0 || !str(r.title) || !str(r.summary) || !strList(r.points)) return false;
+    if (!Array.isArray(r.topics) || !r.topics.every(function (t) { return topicIds.has(t); })) return false;
+    if (r.table !== undefined && !validTable(r.table)) return false;
+    if (r.img !== undefined && !(typeof r.img === "string" && IMG_RE.test(r.img) && str(r.alt))) return false;
+    if (r.steps !== undefined && !(Array.isArray(r.steps) && r.steps.length > 0 &&
+      r.steps.every(function (s) { return s && str(s.label) && str(s.text); }))) return false;
+    // Each kind needs the field that makes it what it is.
+    if (r.kind === "table" && !r.table) return false;
+    if (r.kind === "cheatsheet" && !r.table && !(r.points && r.points.length)) return false;
+    if (r.kind === "diagram" && !r.img) return false;
+    if (r.kind === "example" && !r.steps) return false;
+    return true;
+  }
+
+  window.RES = {
+    add: function (list) {
+      if (!Array.isArray(list)) return;
+      list.forEach(function (r) {
+        if (!validResource(r)) { skipped.push("resource " + (r && r.id)); return; }
+        if (resources.has(r.id)) { skipped.push("duplicate resource id " + r.id); return; }
+        resources.set(r.id, r);
+      });
+    },
+    all: function () { return Array.from(resources.values()); },
+    get: function (id) { return resources.get(id); },
+    forTopic: function (topic) { return this.all().filter(function (r) { return r.topics.indexOf(topic) >= 0; }); }
   };
 
   window.DATA_STATUS = { topicsOk: topicsOk, skipped: skipped };

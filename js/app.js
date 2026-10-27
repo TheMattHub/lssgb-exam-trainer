@@ -20,6 +20,7 @@ var App = (function () {
     "exam/run": [Mock.renderRun, "Exam", "exam"],
     "exam/result": [Mock.renderResult, "Exam result", "exam"],
     "learn": [Learn.renderIndex, "Learn", "learn"],
+    "resources": [Resources.renderIndex, "Resources", "resources"],
     "settings": [renderSettings, "Settings", "settings"]
   };
 
@@ -34,6 +35,9 @@ var App = (function () {
     else if (parts[0] === "learn" && parts.length === 2) {
       view = function (m) { Learn.renderTopic(m, parts[1]); };
       var t = U.topic(parts[1]); title = t ? t.name : "Learn"; nav = "learn";
+    } else if (parts[0] === "resources" && parts.length === 2) {
+      view = function (m) { Resources.renderDetail(m, parts[1]); };
+      var r = RES.get(parts[1]); title = r ? r.title : "Resources"; nav = "resources";
     } else if ((parts[0] === "topic" && U.topic(parts[1]) || parts[0] === "phase" && U.phase(parts[1])) && parts.length === 2) {
       var roundKey = parts[0].charAt(0) + ":" + parts[1];
       view = function (m) { Quiz.renderRound(m, roundKey); };
@@ -86,52 +90,83 @@ var App = (function () {
     var s = stats(all);
     var due = Quiz.dueMistakes().length;
     var streak = Store.streak();
+    var rs = Quiz.roundStatus("all");
+    var fresh = s.seen === 0 && !Store.get().mocks.length && !Store.get().activeMock;
 
     m.appendChild(h("h1", { class: "sr", text: "LSSGB Exam Trainer" }));
-    m.appendChild(h("section", { class: "card summary", "aria-label": "Your progress" },
-      U.ring(s.total ? s.mastered / s.total : 0, U.pct(s.mastered, s.total) + "%", "mastered"),
-      h("dl", { class: "facts" },
-        h("dt", { text: "Streak" }), h("dd", { class: "tnum" }, streak + (streak === 1 ? " day" : " days"),
-          streak && !Store.studiedToday() ? h("span", { class: "small muted", text: " · answer one today to keep it" }) : null),
-        h("dt", { text: "Seen" }), h("dd", { class: "tnum", text: s.seen + " of " + s.total + " questions" }),
-        h("dt", { text: "Accuracy" }), h("dd", { class: "tnum", text: s.right + s.wrong ? U.pct(s.right, s.right + s.wrong) + "%" : "–" }))));
+    if (!all.length) { m.appendChild(Quiz.emptyData()); return; }
+    if (fresh) m.appendChild(welcome(rs.total));
+    else m.appendChild(summary(s, due, streak, rs));
 
     var tiles = h("nav", { class: "tiles", "aria-label": "Modes" });
-    var rs = Quiz.roundStatus("all");
-    tiles.appendChild(tile("#/random", "Random", rs.started ? rs.answered + " / " + rs.total + " answered in this round" : "All " + rs.total + " questions in random order"));
-    tiles.appendChild(tile("#/topics", "By topic", "One topic or phase at a time, with your score per topic"));
-    tiles.appendChild(tile("#/exam", "Exam (IASSC rules)", Store.get().activeMock ? "Exam in progress: resume" : "100 questions, 3 hours, pass mark 70%"));
-    tiles.appendChild(tile("#/review", "Review mistakes", due ? due + " due now" : "Nothing due", due ? String(due) : null));
-    tiles.appendChild(tile("#/learn", "Learn", "Notes, formulas and exam traps by topic", null, "wide"));
+    tiles.appendChild(tile("#/random", "shuffle", "Random", rs.started && rs.answered < rs.total ? rs.answered + " / " + rs.total + " answered in this round" : "All " + rs.total + " questions in random order, each answer explained"));
+    tiles.appendChild(tile("#/topics", "layers", "By topic", "One topic or a whole DMAIC phase"));
+    tiles.appendChild(tile("#/exam", "clock", "Exam (IASSC rules)", Store.get().activeMock ? "Exam in progress: resume" : "100 questions, 3 hours, 70% to pass"));
+    tiles.appendChild(tile("#/review", "redo", "Review mistakes", due ? "Questions you got wrong, ready again" : "Questions you miss come back here, then at longer intervals", due ? String(due) : null));
+    tiles.appendChild(tile("#/learn", "book", "Learn", "Notes, formulas and exam traps per topic"));
+    tiles.appendChild(tile("#/resources", "grid", "Resources", RES.all().length ? "Tables, diagrams and worked examples" : "Tables and diagrams, coming soon"));
     m.appendChild(tiles);
 
-    var phases = h("section", { class: "card" }, h("h2", { text: "Progress by phase" }));
+    if (!fresh) m.appendChild(phaseProgress(all));
+    var hist = Mock.history(5);
+    if (hist) m.appendChild(hist);
+  }
+
+  // First visit: one place to start. The tiles below explain each mode in one line, so this card does not repeat them.
+  function welcome(total) {
+    return h("section", { class: "card welcome", "aria-labelledby": "welcome-title" },
+      h("h2", { id: "welcome-title", class: "welcome-title", text: "Practise for the IASSC Green Belt exam, one question at a time" }),
+      h("p", { class: "prose", text: "Start with a random question: after each answer you see why every option is right or wrong. Questions you miss come back for review. Or pick a mode below." }),
+      h("a", { class: "btn", href: "#/random" }, "Start with a random question"),
+      h("p", { class: "small muted fine", text: total + " questions. Your progress stays in this browser; Settings can export it." }));
+  }
+
+  // Returning visit: the numbers that matter and the one next step (mistakes due first, then the open round).
+  function summary(s, due, streak, rs) {
+    var next = due
+      ? h("a", { class: "btn", href: "#/review" }, "Review " + due + (due === 1 ? " mistake" : " mistakes"))
+      : h("a", { class: "btn", href: "#/random" }, rs.started && rs.answered < rs.total ? "Continue random round" : "Practise random questions");
+    return h("section", { class: "card summary", "aria-label": "Your progress" },
+      U.ring(s.total ? s.mastered / s.total : 0, U.pct(s.mastered, s.total) + "%", "mastered"),
+      h("div", { class: "summary-body" },
+        h("dl", { class: "facts" },
+          h("dt", { text: "Seen" }), h("dd", { class: "tnum", text: s.seen + " of " + s.total + " questions" }),
+          h("dt", { text: "Accuracy" }), h("dd", { class: "tnum", text: s.right + s.wrong ? U.pct(s.right, s.right + s.wrong) + "%" : "–" }),
+          h("dt", { text: "Streak" }), h("dd", { class: "tnum streak" + (streak ? " on" : "") }, streak ? U.icon("flame") : null,
+            streak + (streak === 1 ? " day" : " days"),
+            streak && !Store.studiedToday() ? h("span", { class: "small muted", text: " · answer one today to keep it" }) : null)),
+        next));
+  }
+
+  function phaseProgress(all) {
+    var sec = h("section", { class: "card" }, h("h2", { text: "Progress by phase" }));
     var list = h("div", { class: "phase-rows" });
     U.phases().forEach(function (p) {
       var ids = new Set(U.topicsOf(p.id).map(function (t) { return t.id; }));
       var ps = stats(all.filter(function (q) { return ids.has(q.topic); }));
       var acc = ps.right + ps.wrong ? U.pct(ps.right, ps.right + ps.wrong) + "% right" : "not started";
       list.appendChild(h("div", { class: "phase-row" },
-        h("div", { class: "row between" }, h("strong", { text: p.name }),
-          h("span", { class: "small muted tnum", text: ps.total ? ps.seen + "/" + ps.total + " seen · " + acc + " · " + ps.mastered + " mastered" : "no questions yet" })),
-        U.bar(ps.total ? ps.mastered / ps.total : 0, ps.total ? ps.seen / ps.total : 0,
-          p.name + ": " + ps.mastered + " mastered, " + ps.seen + " seen of " + ps.total)));
+        U.phaseBadge(p.id),
+        h("div", { class: "phase-main" },
+          h("div", { class: "row between" },
+            ps.total ? h("a", { class: "phase-name", href: "#/phase/" + encodeURIComponent(p.id) }, p.name) : h("strong", { text: p.name }),
+            h("span", { class: "small muted tnum", text: ps.total ? ps.seen + "/" + ps.total + " seen · " + acc + " · " + ps.mastered + " mastered" : "no questions yet" })),
+          U.bar(ps.total ? ps.mastered / ps.total : 0, ps.total ? ps.seen / ps.total : 0,
+            p.name + ": " + ps.mastered + " mastered, " + ps.seen + " seen of " + ps.total, "phased " + U.phaseClass(p.id)))));
     });
-    phases.appendChild(list);
-    phases.appendChild(h("p", { class: "legend small muted" },
+    sec.appendChild(list);
+    sec.appendChild(h("p", { class: "legend small muted" },
       h("span", { class: "sw sw-a", "aria-hidden": "true" }), "mastered (right 3+ times in a row) ",
       h("span", { class: "sw sw-b", "aria-hidden": "true" }), "seen"));
-    m.appendChild(phases);
-
-    var hist = Mock.history(5);
-    if (hist) m.appendChild(hist);
-    if (!all.length) m.appendChild(Quiz.emptyData());
+    return sec;
   }
 
-  function tile(href, title, sub, badge, extra) {
-    return h("a", { class: "tile" + (extra ? " " + extra : ""), href: href },
-      h("span", { class: "tile-title" }, title, badge ? h("span", { class: "badge", text: badge }) : null),
-      h("span", { class: "tile-sub", text: sub }));
+  function tile(href, ic, title, sub, badge) {
+    return h("a", { class: "tile", href: href },
+      h("span", { class: "tile-icon" }, U.icon(ic)),
+      h("span", { class: "tile-text" },
+        h("span", { class: "tile-title" }, title, badge ? h("span", { class: "badge", text: badge }) : null),
+        h("span", { class: "tile-sub", text: sub })));
   }
 
   // ---------- Settings ----------
@@ -184,7 +219,7 @@ var App = (function () {
 
     var skipped = DATA_STATUS.skipped.length;
     m.appendChild(h("section", { class: "card" }, h("h2", { text: "Question bank" }),
-      h("p", { class: "muted tnum", text: QB.all().length + " questions and " + LEARN.all().length + " learn pages loaded" +
+      h("p", { class: "muted tnum", text: QB.all().length + " questions, " + LEARN.all().length + " learn pages and " + RES.all().length + " resources loaded" +
         (skipped ? "; " + skipped + " items skipped because they break the content format (run node tools/validate.mjs)." : ".") })));
   }
 

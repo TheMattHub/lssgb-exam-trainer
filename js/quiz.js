@@ -9,6 +9,7 @@ var Quiz = (function () {
   var card = null;      // question on screen: { ctx, id, perm, sel, chosen, anim }
   var review = null;    // review session: { ids, i, card, results, title, startedAt, endedAt }
   var backHref = "";    // where "Back to questions" on a learn page returns to
+  var inARow = 0;       // right answers in a row in this tab (rounds and review); shown from 3 as a small cheer
 
   // ---------- rounds ----------
 
@@ -96,6 +97,7 @@ var Quiz = (function () {
     card.chosen = card.perm[card.sel];
     card.anim = true;
     var ok = card.chosen === q.answer;
+    inARow = ok ? inARow + 1 : 0;
     Store.record(q.id, ok);
     if (card.ctx === "review") review.results.push({ id: q.id, topic: q.topic, ok: ok });
     else { var r = getRound(card.ctx); r.done[q.id] = ok ? 1 : 0; }
@@ -126,7 +128,10 @@ var Quiz = (function () {
     main.appendChild(U.bar(share, shareAfter, headText));
 
     var box = h("section", { class: "card qcard", "aria-labelledby": "qtext" });
-    box.appendChild(h("p", { class: "chip-row" }, h("span", { class: "chip", text: t ? t.name : q.topic }), U.bonusTag(t),
+    var ph = t && U.phase(t.phase);
+    box.appendChild(h("p", { class: "chip-row" },
+      ph ? h("span", { class: "chip phase-chip " + U.phaseClass(ph.id) }, h("span", { class: "dot", "aria-hidden": "true" }), ph.name) : null,
+      h("span", { class: "chip", text: t ? t.name : q.topic }), U.bonusTag(t),
       h("span", { class: "chip dim", text: "Level " + q.level })));
     box.appendChild(h("h2", { id: "qtext", class: "qtext", text: q.q }));
     var opts = h("div", { class: "opts", role: "group", "aria-label": "Options" });
@@ -155,13 +160,29 @@ var Quiz = (function () {
       go));
 
     var fb = h("div", { class: "feedback", "aria-live": "polite" });
-    if (done) fb.appendChild(explain(q, card.perm, card.chosen, true));
+    if (done) {
+      var right = card.chosen === q.answer;
+      fb.appendChild(explain(q, card.perm, card.chosen, true, scheduleNote(q.id, right), right && inARow >= 3 ? inARow + " in a row" : null));
+    }
     box.appendChild(fb);
     main.appendChild(box);
   }
 
+  // What the answer did to the question's Leitner schedule, in words: the payoff of answering right
+  // is visible without a separate stats screen. Questions never missed have no review date to show.
+  function scheduleNote(id, ok) {
+    var e = Store.entry(id);
+    if (!e) return null;
+    if (!ok) return "Saved to Review mistakes";
+    if (Store.isMastered(id)) return "Mastered: right " + e.box + " times in a row";
+    if (!e.missed) return null;
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var days = Math.round((e.due - today.getTime()) / 864e5);
+    return days <= 0 ? "Back in review later today" : "Back in review in " + days + (days === 1 ? " day" : " days");
+  }
+
   // Explanation block, shared with the exam review. perm maps displayed position -> original index.
-  function explain(q, perm, chosen, withRead) {
+  function explain(q, perm, chosen, withRead, note, cheer) {
     var pos = function (orig) { return U.letter(perm.indexOf(orig)); };
     var ok = chosen === q.answer;
     var box = h("div", { class: "explain" + (ok ? " ok" : " bad") });
@@ -169,7 +190,9 @@ var Quiz = (function () {
     box.appendChild(h("p", { class: "verdict" },
       h("span", { class: "verdict-icon", "aria-hidden": "true", text: ok ? "✓" : "✗" }),
       h("strong", { text: verdict }),
-      ok ? null : h("span", { text: " · the answer is " + pos(q.answer) })));
+      ok ? null : h("span", { text: " · the answer is " + pos(q.answer) }),
+      cheer ? h("span", { class: "cheer", text: cheer }) : null,
+      note ? h("span", { class: "sched small muted", text: note }) : null));
     function item(orig, cls) {
       return h("div", { class: "why " + cls },
         h("span", { class: "why-key", text: pos(orig) }),
@@ -188,6 +211,8 @@ var Quiz = (function () {
       foot.appendChild(document.createTextNode(" · "));
       foot.appendChild(h("a", { href: "#/learn/" + encodeURIComponent(q.topic) }, "Read: " + (t ? t.name : q.topic)));
     }
+    var res = withRead !== false ? Resources.relatedLink(q.topic) : null;
+    if (res) { foot.appendChild(document.createTextNode(" · ")); foot.appendChild(res); }
     box.appendChild(foot);
     return box;
   }
@@ -212,19 +237,20 @@ var Quiz = (function () {
         .then(function (yes) { if (yes) { newRound(key); card = null; App.render(); } });
     } }, "New round");
     var answeredNow = s.answered - (card.chosen >= 0 ? 1 : 0);
-    renderQuestion(main, QB.get(card.id), title + " · " + s.answered + " / " + s.total + " answered",
+    renderQuestion(main, QB.get(card.id), title + " · " + s.answered + " / " + s.total + " answered" + (s.answered ? " · " + s.right + " right" : ""),
       answeredNow / s.total, s.answered / s.total, restart);
   }
 
   function renderRoundDone(main, key, r, s) {
     card = null;
+    var p = U.pct(s.right, s.total);
     main.appendChild(h("h1", { text: roundTitle(key) + ": round complete" }));
-    main.appendChild(h("div", { class: "card summary" },
-      U.ring(s.total ? s.right / s.total : 0, U.pct(s.right, s.total) + "%", s.right + " / " + s.total),
-      h("dl", { class: "facts" },
+    main.appendChild(h("div", { class: "card summary done" },
+      U.ring(s.total ? s.right / s.total : 0, p + "%", s.right + " / " + s.total),
+      h("div", { class: "summary-body" }, h("p", { class: "done-msg", text: doneMessage(p) }), h("dl", { class: "facts" },
         h("dt", { text: "Right" }), h("dd", { class: "tnum", text: String(s.right) }),
         h("dt", { text: "Wrong" }), h("dd", { class: "tnum", text: String(s.total - s.right) }),
-        h("dt", { text: "Mistakes due" }), h("dd", { class: "tnum", text: String(dueMistakes().length) }))));
+        h("dt", { text: "Mistakes due" }), h("dd", { class: "tnum", text: String(dueMistakes().length) })))));
     var results = scope(key).filter(function (q) { return q.id in r.done; }).map(function (q) { return { topic: q.topic, ok: r.done[q.id] === 1 }; });
     if (key.charAt(0) !== "t") main.appendChild(topicTable(results));
     var due = dueMistakes().length;
@@ -232,6 +258,13 @@ var Quiz = (function () {
       h("button", { class: "btn", type: "button", onclick: function () { newRound(key); App.render(); } }, "Start new round"),
       due ? h("a", { class: "btn ghost", href: "#/review" }, "Review mistakes (" + due + ")") : null,
       h("a", { class: "btn ghost", href: key === "all" ? "#/" : "#/topics" }, key === "all" ? "Home" : "All topics")));
+  }
+
+  // One line on the round score against the exam's 70% pass mark: encouraging, never vague.
+  function doneMessage(p) {
+    if (p >= 90) return "Excellent: " + p + "% right, well above the 70% pass mark.";
+    if (p >= 70) return "Above the 70% pass mark. Review the misses to lock it in.";
+    return (70 - p) + " points below the 70% pass mark. Your misses are waiting in Review mistakes.";
   }
 
   function topicTable(results) {
@@ -283,8 +316,8 @@ var Quiz = (function () {
       var topics = U.topicsOf(p.id);
       var inPhase = all.filter(function (q) { var t = U.topic(q.topic); return t && t.phase === p.id; });
       var ps = topicStats(inPhase);
-      var sec = h("section", { class: "card" },
-        h("div", { class: "row between wrap phase-head" }, h("h2", { text: p.name }),
+      var sec = h("section", { class: "card phase-card " + U.phaseClass(p.id) },
+        h("div", { class: "row between wrap phase-head" }, h("h2", null, U.phaseBadge(p.id), p.name),
           inPhase.length ? h("a", { class: "btn ghost small", href: "#/phase/" + encodeURIComponent(p.id) }, "Whole phase (" + inPhase.length + ")") : null),
         h("p", { class: "small muted tnum", text: statText(ps) }));
       var ul = h("ul", { class: "topic-stats" });
@@ -340,11 +373,13 @@ var Quiz = (function () {
     var r = review.results, right = r.filter(function (x) { return x.ok; }).length;
     var missed = r.filter(function (x) { return !x.ok; }).map(function (x) { return x.id; });
     main.appendChild(h("h1", { text: review.title + ": done" }));
-    main.appendChild(h("div", { class: "card summary" },
+    main.appendChild(h("div", { class: "card summary done" },
       U.ring(r.length ? right / r.length : 0, U.pct(right, r.length) + "%", right + " / " + r.length),
-      h("dl", { class: "facts" },
-        h("dt", { text: "Time" }), h("dd", { class: "tnum", text: U.clock(review.endedAt - review.startedAt) }),
-        h("dt", { text: "Missed" }), h("dd", { class: "tnum", text: String(missed.length) }))));
+      h("div", { class: "summary-body" },
+        h("p", { class: "done-msg", text: missed.length ? right + " moved up to a longer interval; " + missed.length + " to try again." : "All right: every question moved up to a longer interval." }),
+        h("dl", { class: "facts" },
+          h("dt", { text: "Time" }), h("dd", { class: "tnum", text: U.clock(review.endedAt - review.startedAt) }),
+          h("dt", { text: "Missed" }), h("dd", { class: "tnum", text: String(missed.length) })))));
     if (r.length) main.appendChild(topicTable(r));
     main.appendChild(h("div", { class: "row wrap" },
       missed.length ? h("button", { class: "btn", type: "button", onclick: function () { startReview(U.shuffle(missed), "Retry missed"); } },

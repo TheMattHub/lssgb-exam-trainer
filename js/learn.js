@@ -1,4 +1,4 @@
-// Learn: phases -> topics -> topic page, plus a search across learn text, terms and question stems.
+// Learn: phases -> topics -> topic page, plus a search across learn text, terms, resources and question stems.
 var Learn = (function () {
   "use strict";
   var h = U.h;
@@ -22,6 +22,7 @@ var Learn = (function () {
       var t = U.topic(p.topic);
       index.push({ kind: "topic", topic: p.topic, title: t ? t.name : p.topic, texts: [t ? t.name : ""].concat(pageText(p)) });
     });
+    Resources.searchEntries().forEach(function (e) { index.push(e); });
     QB.all().forEach(function (q) { index.push({ kind: "question", topic: q.topic, title: q.q, texts: [q.q] }); });
   }
 
@@ -42,7 +43,7 @@ var Learn = (function () {
   function renderIndex(main) {
     main.appendChild(h("h1", { text: "Learn" }));
     var results = h("div", { class: "results", "aria-live": "polite" });
-    var input = h("input", { type: "search", id: "search", class: "search", placeholder: "Search notes, terms and questions", value: query,
+    var input = h("input", { type: "search", id: "search", class: "search", placeholder: "Search notes, terms, resources and questions", value: query,
       "aria-label": "Search", autocomplete: "off",
       oninput: function () { query = input.value; showResults(); } });
     var browse = h("div", { class: "browse" });
@@ -58,11 +59,13 @@ var Learn = (function () {
       hits.forEach(function (r) {
         var t = U.topic(r.e.topic);
         var hasPage = !!LEARN.get(r.e.topic);
-        var head = r.e.kind === "topic" ? h("strong", { text: r.e.title }) : h("span", { text: r.e.title });
+        var isQ = r.e.kind === "question", isRes = r.e.kind === "resource";
+        var head = isQ ? h("span", { text: r.e.title }) : h("strong", { text: r.e.title });
+        var link = isRes ? "#/resources/" + encodeURIComponent(r.e.id) : hasPage ? "#/learn/" + encodeURIComponent(r.e.topic) : "";
         var li = h("li", { class: "card result" },
-          h("p", { class: "chip-row" }, h("span", { class: "chip dim", text: r.e.kind === "topic" ? "Notes" : "Question" }), t && r.e.kind === "question" ? h("span", { class: "small muted", text: t.name }) : null),
-          hasPage ? h("a", { href: "#/learn/" + encodeURIComponent(r.e.topic) }, head) : head,
-          r.e.kind === "topic" && r.snippet !== r.e.title ? h("p", { class: "small muted snippet", text: r.snippet }) : null);
+          h("p", { class: "chip-row" }, h("span", { class: "chip dim", text: isRes ? r.e.label : isQ ? "Question" : "Notes" }), t && isQ ? h("span", { class: "small muted", text: t.name }) : null),
+          link ? h("a", { href: link }, head) : head,
+          !isQ && r.snippet !== r.e.title ? h("p", { class: "small muted snippet", text: r.snippet }) : null);
         ul.appendChild(li);
       });
       results.appendChild(ul);
@@ -82,7 +85,7 @@ var Learn = (function () {
           h("span", null, has ? h("a", { href: "#/learn/" + encodeURIComponent(t.id) }, t.name) : h("span", { class: "muted", text: t.name }), " ", U.bonusTag(t)),
           h("span", { class: "count", text: (has ? "" : "no notes yet · ") + n + " q" })));
       });
-      browse.appendChild(h("section", { class: "card" }, h("h2", { text: p.name }), ul));
+      browse.appendChild(h("section", { class: "card phase-card " + U.phaseClass(p.id) }, h("h2", null, U.phaseBadge(p.id), p.name), ul));
     });
     main.appendChild(browse);
     showResults();
@@ -98,7 +101,7 @@ var Learn = (function () {
     if (!p) { main.appendChild(h("p", { class: "card muted", text: "No notes for this topic yet." })); }
     else {
       var art = h("article", { class: "card learn" });
-      art.appendChild(h("p", { class: "lead", text: p.summary }));
+      art.appendChild(h("p", { class: "lead prose", text: p.summary }));
       if (p.points && p.points.length) art.appendChild(section("Key points", list(p.points)));
       if (Array.isArray(p.formulas) && p.formulas.length) {
         var fl = h("dl", { class: "formulas" });
@@ -121,15 +124,17 @@ var Learn = (function () {
       }
       main.appendChild(art);
     }
+    var res = Resources.sectionFor(id);
+    if (res) main.appendChild(res);
     var n = QB.all().filter(function (q) { return q.topic === id; }).length;
     main.appendChild(h("div", { class: "row wrap" },
       h("button", { class: "btn", type: "button", disabled: n === 0, onclick: function () { location.hash = "#/topic/" + encodeURIComponent(id); } },
-        n ? "Practice this topic (" + n + ")" : "No questions yet"),
+        n ? "Practise this topic (" + n + ")" : "No questions yet"),
       h("a", { class: "btn ghost", href: "#/learn" }, "All topics")));
   }
 
   function section(title, body) { return h("section", null, h("h2", { text: title }), body); }
-  function list(items) { return h("ul", null, items.map(function (x) { return h("li", { text: x }); })); }
+  function list(items) { return h("ul", { class: "prose" }, items.map(function (x) { return h("li", { text: x }); })); }
 
   return { renderIndex: renderIndex, renderTopic: renderTopic };
 })();

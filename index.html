@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Everything is local: scripts and styles from this folder only, no network, no inline code. -->
+  <!-- Everything is local: scripts, styles and images (the resource diagrams) from this folder only, no network, no inline code. -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; object-src 'none'">
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="Practise IASSC Lean Six Sigma Green Belt questions and learn from your mistakes.">
@@ -15,6 +15,8 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <!-- DMAIC strip: the five phase colours in order, the app's one decorative element. -->
+  <div class="dmaic-strip" aria-hidden="true"><span class="ph-define"></span><span class="ph-measure"></span><span class="ph-analyze"></span><span class="ph-improve"></span><span class="ph-control"></span></div>
   <header class="topbar">
     <a class="brand" href="#/"><span class="brand-mark" aria-hidden="true">GB</span>LSSGB Exam Trainer</a>
     <nav class="nav" aria-label="Main">
@@ -22,6 +24,7 @@
       <a href="#/topics" data-nav="topics">Topics</a>
       <a href="#/exam" data-nav="exam">Exam</a>
       <a href="#/learn" data-nav="learn">Learn</a>
+      <a href="#/resources" data-nav="resources">Resources</a>
       <a href="#/settings" data-nav="settings">Settings</a>
     </nav>
   </header>
@@ -52,6 +55,11 @@
   <script src="data/questions/analyze.js"></script>
   <script src="data/questions/improve.js"></script>
   <script src="data/questions/control.js"></script>
+  <script src="data/questions/define3.js"></script>
+  <script src="data/questions/measure3.js"></script>
+  <script src="data/questions/analyze2.js"></script>
+  <script src="data/questions/improve2.js"></script>
+  <script src="data/questions/control2.js"></script>
 
   <!-- Learn pages, same packs. -->
   <script src="data/learn/define1.js"></script>
@@ -62,9 +70,15 @@
   <script src="data/learn/improve.js"></script>
   <script src="data/learn/control.js"></script>
 
+  <!-- Resources: tables, diagrams (assets/diagrams/*.svg), worked examples, cheat sheets. -->
+  <script src="data/resources/tables.js"></script>
+  <script src="data/resources/diagrams-1.js"></script>
+  <script src="data/resources/diagrams-2.js"></script>
+
   <!-- App -->
   <script src="js/dom.js"></script>
   <script src="js/store.js"></script>
+  <script src="js/resources.js"></script>
   <script src="js/quiz.js"></script>
   <script src="js/mock.js"></script>
   <script src="js/learn.js"></script>
