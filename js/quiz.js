@@ -6,10 +6,10 @@
 var Quiz = (function () {
   "use strict";
   var h = U.h;
-  var card = null;      // question on screen: { ctx, id, perm, sel, chosen, anim }
+  var card = null;      // question on screen: { ctx, id, perm, sel, chosen, anim, inARow, at }
   var review = null;    // review session: { ids, i, card, results, title, startedAt, endedAt }
   var backHref = "";    // where "Back to questions" on a learn page returns to
-  var inARow = 0;       // right answers in a row in this tab (rounds and review); shown from 3 as a small cheer
+  var inARow = 0;       // right answers in a row in this tab (rounds and review); copied to the card, shown from 3
 
   // ---------- rounds ----------
 
@@ -98,6 +98,9 @@ var Quiz = (function () {
     card.anim = true;
     var ok = card.chosen === q.answer;
     inARow = ok ? inARow + 1 : 0;
+    // Kept on the card, so a confirmed card shown again later (the review keeps its own) shows its own count.
+    card.inARow = inARow;
+    card.at = Date.now();
     Store.record(q.id, ok);
     if (card.ctx === "review") review.results.push({ id: q.id, topic: q.topic, ok: ok });
     else { var r = getRound(card.ctx); r.done[q.id] = ok ? 1 : 0; }
@@ -107,7 +110,8 @@ var Quiz = (function () {
   }
 
   function next() {
-    if (!card || card.chosen < 0) return;
+    // Next takes Confirm's place: the second click of a double-click on Confirm must not skip the explanations.
+    if (!card || card.chosen < 0 || Date.now() - card.at < 500) return;
     if (card.ctx === "review") {
       if (review.i + 1 >= review.ids.length) review.endedAt = Date.now(); else review.i++;
     }
@@ -162,7 +166,7 @@ var Quiz = (function () {
     var fb = h("div", { class: "feedback", "aria-live": "polite" });
     if (done) {
       var right = card.chosen === q.answer;
-      fb.appendChild(explain(q, card.perm, card.chosen, true, scheduleNote(q.id, right), right && inARow >= 3 ? inARow + " in a row" : null));
+      fb.appendChild(explain(q, card.perm, card.chosen, true, scheduleNote(q.id, right), right && card.inARow >= 3 ? card.inARow + " in a row" : null));
     }
     box.appendChild(fb);
     main.appendChild(box);

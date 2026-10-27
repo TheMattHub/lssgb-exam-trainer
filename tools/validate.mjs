@@ -160,8 +160,14 @@ for (const { pack, item: r } of resources) {
     else if (!existsSync(join(root, r.img))) err(where, `img file ${r.img} does not exist`);
     else {
       // The "open full size" link shows the SVG as its own page, outside the app's CSP: it must be inert.
-      const svg = readFileSync(join(root, r.img), "utf8");
-      if (/<script|\son[a-z]+\s*=|javascript:|<foreignObject/i.test(svg)) err(where, `${r.img} contains script, event handlers or foreignObject`);
+      // Character references are decoded first and javascript: is matched with whitespace removed (URL parsers drop tabs
+      // and newlines), so "&#106;avascript:" or "java&#9;script:" cannot hide; a namespace prefix (<x:script>) cannot either.
+      const svg = readFileSync(join(root, r.img), "utf8")
+        .replace(/&#x([0-9a-f]+);?/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+        .replace(/&#(\d+);?/g, (_, n) => String.fromCodePoint(Number(n)));
+      if (/<!ENTITY/i.test(svg)) err(where, `${r.img} declares entities (they could hide script)`);
+      if (/<(?:[\w.-]+:)?(?:script|foreignObject|iframe|embed|object)\b|\son[a-z]+\s*=/i.test(svg) || /javascript:/i.test(svg.replace(/\s+/g, "")))
+        err(where, `${r.img} contains script, event handlers, javascript: links or embedded documents`);
       if (/(?:href|src)\s*=\s*["'](?:https?:)?\/\//i.test(svg) || /@import|url\(\s*["']?https?:/i.test(svg)) err(where, `${r.img} references an external file`);
       if (!/<title[\s>]/.test(svg)) warn(where, `${r.img} has no <title>`);
     }

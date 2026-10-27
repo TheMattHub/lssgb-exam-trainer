@@ -14,7 +14,7 @@ var Resources = (function () {
   function kindName(id) { var k = KINDS.find(function (x) { return x.id === id; }); return k ? k.one : id; }
   function href(r) { return "#/resources/" + encodeURIComponent(r.id); }
   function phaseName(id) { var p = U.phase(id); return p ? p.name : "General"; }
-  function kindChip(r) { return h("span", { class: "chip kind-" + r.kind, text: kindName(r.kind) }); }
+  function kindChip(r) { return h("span", { class: "chip", text: kindName(r.kind) }); }
 
   // ---------- index ----------
 
@@ -29,20 +29,20 @@ var Resources = (function () {
     }
     main.appendChild(h("p", { class: "muted intro", text: "Tables, diagrams, worked examples and cheat sheets to keep at hand while you practise. Search them with the rest of the notes in Learn." }));
 
+    if (!all.some(function (r) { return r.kind === filter; })) filter = "all";
     var bar = h("div", { class: "filters", role: "group", "aria-label": "Show" });
-    var list = h("div", { "aria-live": "polite" });
+    // No aria-live: it would read the whole list out at every filter change; the pressed button says what is shown.
+    var list = h("div");
     [{ id: "all", many: "All" }].concat(KINDS).forEach(function (k) {
       var n = k.id === "all" ? all.length : all.filter(function (r) { return r.kind === k.id; }).length;
       if (!n) return;
-      bar.appendChild(h("button", { type: "button", class: "filter", "data-kind": k.id, "data-fid": "f-" + k.id, "aria-pressed": String(filter === k.id),
+      bar.appendChild(h("button", { type: "button", class: "filter", "data-kind": k.id, "aria-pressed": String(filter === k.id),
         onclick: function () {
           filter = k.id;
           bar.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-kind") === filter)); });
           fill();
         } }, k.many, h("span", { class: "filter-n tnum", text: String(n) })));
     });
-    if (!all.some(function (r) { return r.kind === filter; })) filter = "all";
-    bar.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-kind") === filter)); });
 
     function fill() {
       list.replaceChildren();

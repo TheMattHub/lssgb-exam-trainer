@@ -93,8 +93,13 @@ var Learn = (function () {
 
   function renderTopic(main, id) {
     var t = U.topic(id), p = LEARN.get(id);
-    main.appendChild(h("p", { class: "crumbs" }, h("a", { href: "#/learn" }, "Learn"), " / ", t ? U.phase(t.phase).name : ""));
-    if (!t) { main.appendChild(h("p", { class: "card", text: "Unknown topic." })); return; }
+    main.appendChild(h("p", { class: "crumbs" }, h("a", { href: "#/learn" }, "Learn"), t ? " / " + U.phase(t.phase).name : ""));
+    if (!t) {
+      main.appendChild(h("h1", { text: "Topic not found" }));
+      main.appendChild(h("div", { class: "card empty" }, h("p", { text: "This topic is not in the course (it may have been renamed)." }),
+        h("a", { class: "btn ghost", href: "#/learn" }, "All topics")));
+      return;
+    }
     main.appendChild(h("h1", { text: t.name }));
     if (t.bok === false) main.appendChild(h("p", { class: "small muted" }, U.bonusTag(t), " Course topic, not on the IASSC Green Belt exam; left out of mock exams."));
     if (Quiz.backHref()) main.appendChild(h("p", null, h("a", { class: "btn ghost small", href: Quiz.backHref() }, "← Back to questions")));
