@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+<title>Gage R&amp;R variance breakdown</title>
+<desc>Tree showing total variation split into part-to-part and gage R&amp;R, with gage R&amp;R split into repeatability and reproducibility, plus acceptance bands for percent study variation and percent contribution.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="520" fill="#ffffff"/>
+<rect x="170.0" y="16.0" width="300.0" height="58.0" rx="8" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="320.0" y="40.0" font-size="15" text-anchor="middle" font-weight="bold" fill="#1f2937">Total observed variation</text>
+<text x="320.0" y="61.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">what the data show</text>
+<rect x="16.0" y="120.0" width="216.0" height="58.0" rx="8" fill="#e3f4ee" stroke="#0a8560" stroke-width="1.5"/>
+<text x="124.0" y="144.0" font-size="15" text-anchor="middle" font-weight="bold" fill="#0a8560">Part-to-part</text>
+<text x="124.0" y="165.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">real process variation</text>
+<rect x="296.0" y="120.0" width="300.0" height="58.0" rx="8" fill="#fbe7e8" stroke="#c9373f" stroke-width="1.5"/>
+<text x="446.0" y="144.0" font-size="15" text-anchor="middle" font-weight="bold" fill="#c9373f">Gage R&amp;R</text>
+<text x="446.0" y="165.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">measurement system variation</text>
+<rect x="282.0" y="224.0" width="176.0" height="58.0" rx="8" fill="#ffffff" stroke="#c9373f" stroke-width="1.5"/>
+<text x="370.0" y="248.0" font-size="15" text-anchor="middle" font-weight="bold" fill="#1f2937">Repeatability</text>
+<text x="370.0" y="269.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">same operator (EV)</text>
+<rect x="484.0" y="224.0" width="140.0" height="58.0" rx="8" fill="#ffffff" stroke="#c9373f" stroke-width="1.5"/>
+<text x="554.0" y="248.0" font-size="15" text-anchor="middle" font-weight="bold" fill="#1f2937">Reproducibility</text>
+<text x="554.0" y="269.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">operators (AV)</text>
+<path d="M320,74 C320,97.0 124,97.0 124,118" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+<path d="M320,74 C320,97.0 446,97.0 446,118" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+<path d="M446,178 C446,201.0 370,201.0 370,222" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+<path d="M446,178 C446,201.0 554,201.0 554,222" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+<text x="16.0" y="230.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">σ²total = σ²part + σ²R&amp;R</text>
+<text x="16.0" y="256.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">σ²R&amp;R = σ²repeat + σ²reprod</text>
+<text x="16.0" y="284.0" font-size="14" text-anchor="start" font-weight="normal" fill="#6b7280">Variances add; standard</text>
+<text x="16.0" y="302.0" font-size="14" text-anchor="start" font-weight="normal" fill="#6b7280">deviations do not.</text>
+<text x="16.0" y="344.0" font-size="15" text-anchor="start" font-weight="bold" fill="#1f2937">Decision bands (AIAG)</text>
+<text x="237.3" y="368.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#0a8560">Acceptable</text>
+<text x="392.0" y="368.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#9a5c00">Marginal*</text>
+<text x="546.7" y="368.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#c9373f">Unacceptable</text>
+<text x="16.0" y="401.0" font-size="15" text-anchor="start" font-weight="normal" fill="#1f2937">%Study Var</text>
+<rect x="162.0" y="378.0" width="150.7" height="32.0" rx="4" fill="#e3f4ee" stroke="#0a8560" stroke-width="1.5"/>
+<text x="237.3" y="400.0" font-size="15" text-anchor="middle" font-weight="600" fill="#0a8560">&lt; 10%</text>
+<rect x="316.7" y="378.0" width="150.7" height="32.0" rx="4" fill="#fbf0dc" stroke="#9a5c00" stroke-width="1.5"/>
+<text x="392.0" y="400.0" font-size="15" text-anchor="middle" font-weight="600" fill="#9a5c00">10–30%</text>
+<rect x="471.3" y="378.0" width="150.7" height="32.0" rx="4" fill="#fbe7e8" stroke="#c9373f" stroke-width="1.5"/>
+<text x="546.7" y="400.0" font-size="15" text-anchor="middle" font-weight="600" fill="#c9373f">&gt; 30%</text>
+<text x="16.0" y="441.0" font-size="15" text-anchor="start" font-weight="normal" fill="#1f2937">%Contribution</text>
+<rect x="162.0" y="418.0" width="150.7" height="32.0" rx="4" fill="#e3f4ee" stroke="#0a8560" stroke-width="1.5"/>
+<text x="237.3" y="440.0" font-size="15" text-anchor="middle" font-weight="600" fill="#0a8560">&lt; 1%</text>
+<rect x="316.7" y="418.0" width="150.7" height="32.0" rx="4" fill="#fbf0dc" stroke="#9a5c00" stroke-width="1.5"/>
+<text x="392.0" y="440.0" font-size="15" text-anchor="middle" font-weight="600" fill="#9a5c00">1–9%</text>
+<rect x="471.3" y="418.0" width="150.7" height="32.0" rx="4" fill="#fbe7e8" stroke="#c9373f" stroke-width="1.5"/>
+<text x="546.7" y="440.0" font-size="15" text-anchor="middle" font-weight="600" fill="#c9373f">&gt; 9%</text>
+<text x="16.0" y="482.0" font-size="14" text-anchor="start" font-weight="normal" fill="#6b7280">Also: ndc (distinct categories) ≥ 5.  *Marginal: may be OK depending on cost and use.</text>
+<text x="16.0" y="504.0" font-size="14" text-anchor="start" font-weight="normal" fill="#6b7280">Large repeatability → fix the gage; large reproducibility → train operators.</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+<title>CTQ tree</title>
+<desc>CTQ tree for home grocery delivery: one need, three drivers, six CTQs each with a measurable specification.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="520" fill="#ffffff"/>
+<text x="96.0" y="28.0" font-size="15" text-anchor="middle" font-weight="bold" fill="#4353c9">Need</text>
+<text x="276.0" y="28.0" font-size="15" text-anchor="middle" font-weight="bold" fill="#4353c9">Drivers</text>
+<text x="516.0" y="28.0" font-size="15" text-anchor="middle" font-weight="bold" fill="#4353c9">CTQs (measurable)</text>
+<text x="320.0" y="50.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">general  →  specific</text>
+<rect x="16.0" y="232.0" width="160.0" height="80.0" rx="8" fill="#4353c9" stroke="#4353c9" stroke-width="1.5"/>
+<text x="96.0" y="266.0" font-size="16" text-anchor="middle" font-weight="bold" fill="#ffffff">Reliable home</text>
+<text x="96.0" y="288.0" font-size="16" text-anchor="middle" font-weight="bold" fill="#ffffff">grocery delivery</text>
+<rect x="206.0" y="106.0" width="140.0" height="48.0" rx="8" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="276.0" y="135.0" font-size="15" text-anchor="middle" font-weight="600" fill="#1f2937">On time</text>
+<path d="M176,272.0 C191,272.0 191,130.0 206,130.0" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+<rect x="386.0" y="70.0" width="238.0" height="54.0" rx="6" fill="#ffffff" stroke="#0a8560" stroke-width="1.5"/>
+<text x="398.0" y="92.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">Arrival time</text>
+<text x="398.0" y="113.0" font-size="14" text-anchor="start" font-weight="normal" fill="#0a8560">inside the booked 1-h slot</text>
+<path d="M346,130.0 C366,130.0 366,97.0 386,97.0" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+<rect x="386.0" y="136.0" width="238.0" height="54.0" rx="6" fill="#ffffff" stroke="#0a8560" stroke-width="1.5"/>
+<text x="398.0" y="158.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">Delay notice</text>
+<text x="398.0" y="179.0" font-size="14" text-anchor="start" font-weight="normal" fill="#0a8560">sent ≥ 30 min before slot</text>
+<path d="M346,130.0 C366,130.0 366,163.0 386,163.0" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+<rect x="206.0" y="248.0" width="140.0" height="48.0" rx="8" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="276.0" y="277.0" font-size="15" text-anchor="middle" font-weight="600" fill="#1f2937">Complete order</text>
+<path d="M176,272.0 C191,272.0 191,272.0 206,272.0" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+<rect x="386.0" y="212.0" width="238.0" height="54.0" rx="6" fill="#ffffff" stroke="#0a8560" stroke-width="1.5"/>
+<text x="398.0" y="234.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">Missing items</text>
+<text x="398.0" y="255.0" font-size="14" text-anchor="start" font-weight="normal" fill="#0a8560">≤ 1 per 100 orders</text>
+<path d="M346,272.0 C366,272.0 366,239.0 386,239.0" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+<rect x="386.0" y="278.0" width="238.0" height="54.0" rx="6" fill="#ffffff" stroke="#0a8560" stroke-width="1.5"/>
+<text x="398.0" y="300.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">Substitutions</text>
+<text x="398.0" y="321.0" font-size="14" text-anchor="start" font-weight="normal" fill="#0a8560">only if customer agreed</text>
+<path d="M346,272.0 C366,272.0 366,305.0 386,305.0" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+<rect x="206.0" y="390.0" width="140.0" height="48.0" rx="8" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="276.0" y="419.0" font-size="15" text-anchor="middle" font-weight="600" fill="#1f2937">Fresh goods</text>
+<path d="M176,272.0 C191,272.0 191,414.0 206,414.0" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+<rect x="386.0" y="354.0" width="238.0" height="54.0" rx="6" fill="#ffffff" stroke="#0a8560" stroke-width="1.5"/>
+<text x="398.0" y="376.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">Chilled temperature</text>
+<text x="398.0" y="397.0" font-size="14" text-anchor="start" font-weight="normal" fill="#0a8560">≤ 5 °C at handover</text>
+<path d="M346,414.0 C366,414.0 366,381.0 386,381.0" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+<rect x="386.0" y="420.0" width="238.0" height="54.0" rx="6" fill="#ffffff" stroke="#0a8560" stroke-width="1.5"/>
+<text x="398.0" y="442.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">Shelf life left</text>
+<text x="398.0" y="463.0" font-size="14" text-anchor="start" font-weight="normal" fill="#0a8560">≥ 3 days on delivery</text>
+<path d="M346,414.0 C366,414.0 366,447.0 386,447.0" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+<text x="320.0" y="504.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">A CTQ is good when it has a unit, a target and a limit the customer would accept.</text>
+</svg>

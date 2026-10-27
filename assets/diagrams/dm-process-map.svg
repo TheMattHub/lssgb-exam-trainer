@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 476" role="img" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+<title>Process map symbols and swim lanes</title>
+<desc>Legend of five flowchart symbols, then a three-lane swim-lane flow for an IT fault ticket with one decision.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="476" fill="#ffffff"/>
+<text x="16.0" y="24.0" font-size="15" text-anchor="start" font-weight="bold" fill="#1f2937">Flowchart symbols</text>
+<ellipse cx="72" cy="52" rx="46" ry="18" fill="#e3f4ee" stroke="#0a8560" stroke-width="1.5"/>
+<text x="72.0" y="94.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Start / end</text>
+<rect x="156.0" y="34.0" width="92.0" height="36.0" rx="3" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="202.0" y="94.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Process step</text>
+<path d="M334,30 L378,52 L334,74 L290,52 Z" stroke="#9a5c00" stroke-width="1.5" fill="#fbf0dc"/>
+<text x="334.0" y="94.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Decision</text>
+<path d="M422,34 H508 V64 C486,54 444,76 422,64 Z" stroke="#6b7280" stroke-width="1.5" fill="#ffffff"/>
+<text x="465.0" y="94.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Document</text>
+<line x1="548.0" y1="52.0" x2="618.0" y2="52.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<text x="583.0" y="94.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Flow</text>
+<text x="16.0" y="140.0" font-size="15" text-anchor="start" font-weight="bold" fill="#1f2937">Swim-lane example: IT fault ticket</text>
+<rect x="16.0" y="154.0" width="608.0" height="96.0" rx="0" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<rect x="16.0" y="154.0" width="90.0" height="96.0" rx="0" fill="#e6e9fb" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="61.0" y="207.0" font-size="14" text-anchor="middle" font-weight="600" fill="#1f2937">Customer</text>
+<rect x="16.0" y="250.0" width="608.0" height="96.0" rx="0" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+<rect x="16.0" y="250.0" width="90.0" height="96.0" rx="0" fill="#e6e9fb" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="61.0" y="294.0" font-size="14" text-anchor="middle" font-weight="600" fill="#1f2937">Service</text>
+<text x="61.0" y="312.0" font-size="14" text-anchor="middle" font-weight="600" fill="#1f2937">desk</text>
+<rect x="16.0" y="346.0" width="608.0" height="96.0" rx="0" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<rect x="16.0" y="346.0" width="90.0" height="96.0" rx="0" fill="#e6e9fb" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="61.0" y="399.0" font-size="14" text-anchor="middle" font-weight="600" fill="#1f2937">Technician</text>
+<rect x="118.0" y="180.0" width="104.0" height="44.0" rx="3" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="170.0" y="207.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Report fault</text>
+<rect x="118.0" y="276.0" width="104.0" height="44.0" rx="3" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="170.0" y="303.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Log ticket</text>
+<path d="M290,268.0 L346,298.0 L290,328.0 L234,298.0 Z" stroke="#9a5c00" stroke-width="1.5" fill="#fbf0dc"/>
+<text x="290.0" y="303.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Remote?</text>
+<rect x="385.0" y="276.0" width="110.0" height="44.0" rx="3" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="440.0" y="303.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Fix remotely</text>
+<rect x="382.0" y="372.0" width="116.0" height="44.0" rx="3" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="440.0" y="399.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Repair on site</text>
+<ellipse cx="560" cy="202.0" rx="54" ry="22" fill="#e3f4ee" stroke="#0a8560" stroke-width="1.5"/>
+<text x="560.0" y="207.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">Confirm fix</text>
+<line x1="170.0" y1="224.0" x2="170.0" y2="275.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="222.0" y1="298.0" x2="233.0" y2="298.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="346.0" y1="298.0" x2="384.0" y2="298.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<text x="364.0" y="290.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#0a8560">yes</text>
+<path d="M290,328.0 V394.0 H381" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+<text x="298.0" y="348.0" font-size="14" text-anchor="start" font-weight="normal" fill="#c9373f">no</text>
+<path d="M495,298.0 H540 V225.0" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+<path d="M498,394.0 H580 V225.0" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+<text x="320.0" y="466.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">Each lane = one role; flows crossing lanes are hand-offs (delay and error risk).</text>
+</svg>

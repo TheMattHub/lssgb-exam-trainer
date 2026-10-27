@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 494" role="img" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+<title>DMAIC roadmap</title>
+<desc>Five stacked phases Define, Measure, Analyze, Improve, Control, each with its key question and 3 to 4 typical tools.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="494" fill="#ffffff"/>
+<rect x="16.0" y="16.0" width="132.0" height="70.0" rx="8" fill="#4353c9" stroke="#4353c9" stroke-width="1.5"/>
+<text x="40.0" y="62.0" font-size="30" text-anchor="middle" font-weight="bold" fill="#ffffff">D</text>
+<text x="66.0" y="58.0" font-size="17" text-anchor="start" font-weight="bold" fill="#ffffff">Define</text>
+<rect x="160.0" y="16.0" width="464.0" height="70.0" rx="8" fill="#e6e9fb" stroke="#e6e9fb" stroke-width="1.5"/>
+<text x="174.0" y="44.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">What is the problem, and why does it matter?</text>
+<text x="174.0" y="70.0" font-size="15" text-anchor="start" font-weight="normal" fill="#6b7280">Charter, SIPOC, VOC → CTQ tree, stakeholder map</text>
+<line x1="82.0" y1="88.0" x2="82.0" y2="105.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="16.0" y="108.0" width="132.0" height="70.0" rx="8" fill="#4353c9" stroke="#4353c9" stroke-width="1.5"/>
+<text x="40.0" y="154.0" font-size="30" text-anchor="middle" font-weight="bold" fill="#ffffff">M</text>
+<text x="66.0" y="150.0" font-size="17" text-anchor="start" font-weight="bold" fill="#ffffff">Measure</text>
+<rect x="160.0" y="108.0" width="464.0" height="70.0" rx="8" fill="#e6e9fb" stroke="#e6e9fb" stroke-width="1.5"/>
+<text x="174.0" y="136.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">How big is the problem today? Baseline the Y.</text>
+<text x="174.0" y="162.0" font-size="15" text-anchor="start" font-weight="normal" fill="#6b7280">Process map, data plan, Gage R&amp;R, capability</text>
+<line x1="82.0" y1="180.0" x2="82.0" y2="197.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="16.0" y="200.0" width="132.0" height="70.0" rx="8" fill="#4353c9" stroke="#4353c9" stroke-width="1.5"/>
+<text x="40.0" y="246.0" font-size="30" text-anchor="middle" font-weight="bold" fill="#ffffff">A</text>
+<text x="66.0" y="242.0" font-size="17" text-anchor="start" font-weight="bold" fill="#ffffff">Analyze</text>
+<rect x="160.0" y="200.0" width="464.0" height="70.0" rx="8" fill="#e6e9fb" stroke="#e6e9fb" stroke-width="1.5"/>
+<text x="174.0" y="228.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">Which root causes (vital Xs) drive the Y?</text>
+<text x="174.0" y="254.0" font-size="15" text-anchor="start" font-weight="normal" fill="#6b7280">Fishbone, 5 Whys, multi-vari, hypothesis tests</text>
+<line x1="82.0" y1="272.0" x2="82.0" y2="289.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="16.0" y="292.0" width="132.0" height="70.0" rx="8" fill="#4353c9" stroke="#4353c9" stroke-width="1.5"/>
+<text x="40.0" y="338.0" font-size="30" text-anchor="middle" font-weight="bold" fill="#ffffff">I</text>
+<text x="66.0" y="334.0" font-size="17" text-anchor="start" font-weight="bold" fill="#ffffff">Improve</text>
+<rect x="160.0" y="292.0" width="464.0" height="70.0" rx="8" fill="#e6e9fb" stroke="#e6e9fb" stroke-width="1.5"/>
+<text x="174.0" y="320.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">Find, test and implement the fix.</text>
+<text x="174.0" y="346.0" font-size="15" text-anchor="start" font-weight="normal" fill="#6b7280">Solution matrix, DOE / regression, pilot, lean tools</text>
+<line x1="82.0" y1="364.0" x2="82.0" y2="381.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="16.0" y="384.0" width="132.0" height="70.0" rx="8" fill="#4353c9" stroke="#4353c9" stroke-width="1.5"/>
+<text x="40.0" y="430.0" font-size="30" text-anchor="middle" font-weight="bold" fill="#ffffff">C</text>
+<text x="66.0" y="426.0" font-size="17" text-anchor="start" font-weight="bold" fill="#ffffff">Control</text>
+<rect x="160.0" y="384.0" width="464.0" height="70.0" rx="8" fill="#e6e9fb" stroke="#e6e9fb" stroke-width="1.5"/>
+<text x="174.0" y="412.0" font-size="15" text-anchor="start" font-weight="600" fill="#1f2937">Hold the gain and hand over to the owner.</text>
+<text x="174.0" y="438.0" font-size="15" text-anchor="start" font-weight="normal" fill="#6b7280">Control plan, SPC charts, poka-yoke, standard work</text>
+<text x="320.0" y="476.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">Each phase ends with a tollgate review before the next starts.</text>
+</svg>

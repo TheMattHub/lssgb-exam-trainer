@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 452" role="img" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+<title>Box plot anatomy</title>
+<desc>Horizontal box plot on a 0 to 45 scale: Q1 18, median 22, Q3 26, IQR 8, whiskers to 12 and 34, fences at 6 and 38 and an outlier at 42.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="452" fill="#ffffff"/>
+<line x1="114.7" y1="160.0" x2="114.7" y2="312.0" stroke="#9a5c00" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="512.9" y1="160.0" x2="512.9" y2="312.0" stroke="#9a5c00" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="114.7" y="356.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#9a5c00">lower fence 6</text>
+<text x="512.9" y="356.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#9a5c00">upper fence 38</text>
+<line x1="189.3" y1="208.0" x2="264.0" y2="208.0" stroke="#1f2937" stroke-width="2"/>
+<line x1="363.6" y1="208.0" x2="463.1" y2="208.0" stroke="#1f2937" stroke-width="2"/>
+<line x1="189.3" y1="194.0" x2="189.3" y2="222.0" stroke="#1f2937" stroke-width="2"/>
+<line x1="463.1" y1="194.0" x2="463.1" y2="222.0" stroke="#1f2937" stroke-width="2"/>
+<rect x="264.0" y="178.0" width="99.6" height="60.0" rx="0" fill="#e6e9fb" stroke="#4353c9" stroke-width="2"/>
+<line x1="313.8" y1="178.0" x2="313.8" y2="238.0" stroke="#4353c9" stroke-width="3"/>
+<circle cx="562.7" cy="208.0" r="6" fill="#ffffff" stroke="#c9373f" stroke-width="2.5"/>
+<line x1="313.8" y1="66.0" x2="313.8" y2="176.0" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="313.8" y="60.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#4353c9">Median = 22</text>
+<line x1="264.0" y1="106.0" x2="264.0" y2="176.0" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="264.0" y="100.0" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">Q1 = 18 (25%)</text>
+<line x1="363.6" y1="106.0" x2="363.6" y2="176.0" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="363.6" y="100.0" font-size="14" text-anchor="start" font-weight="normal" fill="#1f2937">Q3 = 26 (75%)</text>
+<line x1="189.3" y1="146.0" x2="189.3" y2="192.0" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="189.3" y="140.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">whisker end 12</text>
+<line x1="463.1" y1="146.0" x2="463.1" y2="192.0" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="463.1" y="140.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#1f2937">whisker end 34</text>
+<line x1="562.7" y1="106.0" x2="562.7" y2="199.0" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="562.7" y="100.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#c9373f">outlier 42</text>
+<path d="M264.0,254 V262 H363.6 V254" stroke="#4353c9" stroke-width="2" fill="none"/>
+<text x="313.8" y="284.0" font-size="14" text-anchor="middle" font-weight="600" fill="#4353c9">IQR = 26 − 18 = 8</text>
+<line x1="40.0" y1="312.0" x2="600.0" y2="312.0" stroke="#1f2937" stroke-width="1.5"/>
+<line x1="40.0" y1="312.0" x2="40.0" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="40.0" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">0</text>
+<line x1="102.2" y1="312.0" x2="102.2" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="102.2" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">5</text>
+<line x1="164.4" y1="312.0" x2="164.4" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="164.4" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">10</text>
+<line x1="226.7" y1="312.0" x2="226.7" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="226.7" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">15</text>
+<line x1="288.9" y1="312.0" x2="288.9" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="288.9" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">20</text>
+<line x1="351.1" y1="312.0" x2="351.1" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="351.1" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">25</text>
+<line x1="413.3" y1="312.0" x2="413.3" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="413.3" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">30</text>
+<line x1="475.6" y1="312.0" x2="475.6" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="475.6" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">35</text>
+<line x1="537.8" y1="312.0" x2="537.8" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="537.8" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">40</text>
+<line x1="600.0" y1="312.0" x2="600.0" y2="317.0" stroke="#1f2937" stroke-width="1.5"/>
+<text x="600.0" y="332.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">45</text>
+<text x="16.0" y="392.0" font-size="14" text-anchor="start" font-weight="normal" fill="#1f2937">Fences = Q1 − 1.5×IQR and Q3 + 1.5×IQR (18 − 12 = 6, 26 + 12 = 38).</text>
+<text x="16.0" y="414.0" font-size="14" text-anchor="start" font-weight="normal" fill="#1f2937">Whiskers stop at the last data point inside the fences;</text>
+<text x="16.0" y="436.0" font-size="14" text-anchor="start" font-weight="normal" fill="#1f2937">points beyond a fence are plotted on their own as outliers.</text>
+</svg>

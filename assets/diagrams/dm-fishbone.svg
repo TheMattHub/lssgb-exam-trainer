@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 516" role="img" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+<title>Fishbone diagram (6M)</title>
+<desc>Cause-and-effect diagram for invoices paid late, with six category bones (People, Method, Machine, Material, Measurement, Mother Nature) and two example causes each.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="516" fill="#ffffff"/>
+<line x1="24.0" y1="262.0" x2="512.0" y2="262.0" stroke="#1f2937" stroke-width="3"/>
+<rect x="514.0" y="222.0" width="112.0" height="80.0" rx="8" fill="#fbe7e8" stroke="#c9373f" stroke-width="1.5"/>
+<text x="570.0" y="256.0" font-size="16" text-anchor="middle" font-weight="bold" fill="#c9373f">Invoices</text>
+<text x="570.0" y="278.0" font-size="16" text-anchor="middle" font-weight="bold" fill="#c9373f">paid late</text>
+<rect x="86.0" y="52.0" width="128.0" height="28.0" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="150.0" y="71.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#4353c9">People (Man)</text>
+<line x1="150.0" y1="80.0" x2="186.0" y2="262.0" stroke="#1f2937" stroke-width="2"/>
+<line x1="148.6" y1="143.7" x2="162.6" y2="143.7" stroke="#6b7280" stroke-width="1.5"/>
+<text x="144.6" y="148.7" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">New clerks untrained</text>
+<line x1="160.5" y1="203.8" x2="174.5" y2="203.8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="156.5" y="208.8" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">Approver on leave</text>
+<rect x="248.0" y="52.0" width="128.0" height="28.0" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="312.0" y="71.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#4353c9">Method</text>
+<line x1="312.0" y1="80.0" x2="348.0" y2="262.0" stroke="#1f2937" stroke-width="2"/>
+<line x1="310.6" y1="143.7" x2="324.6" y2="143.7" stroke="#6b7280" stroke-width="1.5"/>
+<text x="306.6" y="148.7" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">No approval deadline</text>
+<line x1="322.5" y1="203.8" x2="336.5" y2="203.8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="318.5" y="208.8" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">Manual matching</text>
+<rect x="410.0" y="52.0" width="128.0" height="28.0" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="474.0" y="71.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#4353c9">Machine</text>
+<line x1="474.0" y1="80.0" x2="510.0" y2="262.0" stroke="#1f2937" stroke-width="2"/>
+<line x1="472.6" y1="143.7" x2="486.6" y2="143.7" stroke="#6b7280" stroke-width="1.5"/>
+<text x="468.6" y="148.7" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">Scanner misreads</text>
+<line x1="484.5" y1="203.8" x2="498.5" y2="203.8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="480.5" y="208.8" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">ERP slow at peaks</text>
+<rect x="86.0" y="446.0" width="128.0" height="28.0" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="150.0" y="465.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#4353c9">Material</text>
+<line x1="150.0" y1="446.0" x2="186.0" y2="262.0" stroke="#1f2937" stroke-width="2"/>
+<line x1="159.4" y1="326.4" x2="173.4" y2="326.4" stroke="#6b7280" stroke-width="1.5"/>
+<text x="155.4" y="331.4" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">PO number missing</text>
+<line x1="147.5" y1="387.1" x2="161.5" y2="387.1" stroke="#6b7280" stroke-width="1.5"/>
+<text x="143.5" y="392.1" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">Wrong bank data</text>
+<rect x="248.0" y="446.0" width="128.0" height="28.0" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="312.0" y="465.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#4353c9">Measurement</text>
+<line x1="312.0" y1="446.0" x2="348.0" y2="262.0" stroke="#1f2937" stroke-width="2"/>
+<line x1="321.4" y1="326.4" x2="335.4" y2="326.4" stroke="#6b7280" stroke-width="1.5"/>
+<text x="317.4" y="331.4" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">No ageing report</text>
+<line x1="309.5" y1="387.1" x2="323.5" y2="387.1" stroke="#6b7280" stroke-width="1.5"/>
+<text x="305.5" y="392.1" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">Due date not tracked</text>
+<rect x="410.0" y="446.0" width="128.0" height="28.0" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="474.0" y="465.0" font-size="14" text-anchor="middle" font-weight="bold" fill="#4353c9">Mother Nature</text>
+<line x1="474.0" y1="446.0" x2="510.0" y2="262.0" stroke="#1f2937" stroke-width="2"/>
+<line x1="483.4" y1="326.4" x2="497.4" y2="326.4" stroke="#6b7280" stroke-width="1.5"/>
+<text x="479.4" y="331.4" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">Month-end peak</text>
+<line x1="471.5" y1="387.1" x2="485.5" y2="387.1" stroke="#6b7280" stroke-width="1.5"/>
+<text x="467.5" y="392.1" font-size="14" text-anchor="end" font-weight="normal" fill="#1f2937">Holiday closures</text>
+<text x="320.0" y="500.0" font-size="14" text-anchor="middle" font-weight="normal" fill="#6b7280">Categories: 6M. Causes are candidate Xs to verify with data, not proven causes.</text>
+</svg>
