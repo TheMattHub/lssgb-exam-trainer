@@ -88,7 +88,7 @@ LEARN.add([
       "For a fixed n, lowering α raises β. Only a larger n lowers both.",
       "Required n grows with σ, confidence and power, and falls when the difference to detect is larger.",
       "Statistical significance is not practical significance: with large samples tiny differences become significant.",
-      "Running many tests inflates false alarms: P(at least one) = 1 − (1 − α)^k, e.g. 10 tests at 0.05 → 0.40."
+      "Running many tests inflates false alarms: for k independent tests with every H0 true, P(at least one) = 1 − (1 − α)^k, e.g. 10 tests at 0.05 → 0.40. Use ANOVA, not many pairwise t-tests."
     ],
     table: {
       title: "Decision outcomes",

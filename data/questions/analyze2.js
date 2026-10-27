@@ -27,12 +27,12 @@ QB.add([
   },
   {
     id: "A2-003", topic: "multivari", level: 2,
-    q: "A shaft is measured at 0° and at 90° around the same cross-section. On almost every shaft the two readings differ much more than shafts differ from each other or from hour to hour. What does this show?",
+    q: "On a multi-vari chart, the readings of each part are joined by a vertical line, the part averages are joined within each time group, and the group averages are joined across time. Which feature of the chart shows cyclical (piece-to-piece) variation?",
     options: [
-      { t: "Cyclical variation, because each shaft gives a different pattern", why: "Wrong: cyclical variation is between consecutive shafts; here the shafts are alike and the difference sits inside each one." },
-      { t: "Temporal variation, caused by drift during the shift", why: "Wrong: temporal variation would show the hourly groups moving; they barely change." },
-      { t: "That the process is out of statistical control", why: "Wrong: a multi-vari chart splits variation into families; it is not a control chart and does not test for special causes." },
-      { t: "Positional variation: the shafts are out of round", why: "Correct: two angles on the same section of one shaft are two positions on the same unit, so this is within-piece (positional) variation, here out-of-roundness." }
+      { t: "The length of the vertical line through each part's readings", why: "Wrong: the spread of readings on one part is within-piece, i.e. positional variation." },
+      { t: "The movement of the group averages from one time period to the next", why: "Wrong: changes between time groups are temporal (time-to-time) variation." },
+      { t: "The distance between the plotted points and the specification limits", why: "Wrong: a multi-vari chart does not judge parts against the specification; that is capability analysis." },
+      { t: "The jumps between averages of consecutive parts in the same group", why: "Correct: consecutive parts made close in time are compared within each group, so the zig-zag of their averages is cyclical (piece-to-piece) variation." }
     ],
     answer: 3, ref: "Lesson 4.3"
   },
@@ -106,12 +106,12 @@ QB.add([
   },
   {
     id: "A2-010", topic: "inferential", level: 3,
-    q: "Individual fill weights have μ = 50 g and σ = 8 g. Samples of n = 16 are taken. Using the Central Limit Theorem, about 95% of sample means fall between which limits (z = 1.96)?",
+    q: "Individual fill weights have μ = 120 g and σ = 15 g. Samples of n = 25 are taken. Using the Central Limit Theorem, about 95% of sample means fall between which limits (z = 1.96)?",
     options: [
-      { t: "34.32 g and 65.68 g", why: "Wrong: 50 ± 1.96 × 8 uses σ of individual values; that is where about 95% of single fills fall, not sample means." },
-      { t: "49.02 g and 50.98 g", why: "Wrong: this divides σ by n (8/16 = 0.5) instead of √n." },
-      { t: "48.00 g and 52.00 g", why: "Wrong: 50 ± 2 is ±1 standard error, which covers only about 68% of sample means." },
-      { t: "46.08 g and 53.92 g", why: "Correct: standard error = σ/√n = 8/4 = 2 g; 50 ± 1.96 × 2 = 46.08 to 53.92 g." }
+      { t: "90.60 g and 149.40 g", why: "Wrong: 120 ± 1.96 × 15 uses σ of individual values; that is where about 95% of single fills fall (if normal), not sample means." },
+      { t: "118.82 g and 121.18 g", why: "Wrong: this divides σ by n (15/25 = 0.6) instead of √n." },
+      { t: "117.00 g and 123.00 g", why: "Wrong: 120 ± 3 is ±1 standard error, which covers only about 68% of sample means." },
+      { t: "114.12 g and 125.88 g", why: "Correct: standard error = σ/√n = 15/5 = 3 g; 120 ± 1.96 × 3 = 114.12 to 125.88 g." }
     ],
     answer: 3, ref: "Lesson 3.4"
   },
@@ -168,7 +168,7 @@ QB.add([
       { t: "Collect data, choose α, state H0 and Ha, compute the p-value", why: "Wrong: choosing α and the hypotheses after seeing the data lets the data shape the test, which inflates the false-alarm risk." },
       { t: "State H0 and Ha, compute the p-value, then choose α", why: "Wrong: α must be fixed before the result is known; picking it afterwards can turn any result into the one wanted." },
       { t: "Choose the test, compute the p-value, then state H0 and Ha", why: "Wrong: the hypotheses define which test and which tail to use, so they come first." },
-      { t: "State H0 and Ha, choose α, collect data, compute the p-value, decide", why: "Correct: the hypotheses and α are fixed in advance; then the data give a test statistic and p-value, which is compared with α to reject or fail to reject H0, and the result is put in practical terms." }
+      { t: "State H0 and Ha, choose α, collect data, compute the p-value", why: "Correct: the hypotheses and α are fixed in advance; then the data give a test statistic and p-value, which is compared with α to reject or fail to reject H0, and the result is put in practical terms." }
     ],
     answer: 3, ref: "Lesson 4.1"
   },
@@ -220,10 +220,10 @@ QB.add([
     id: "A2-020", topic: "hyp-concepts", level: 3,
     q: "Before collecting data, the team set Ha: μ > 40 (one-tailed). The software, run with its default two-tailed option, reports p = 0.08, and x̄ is above 40. The statistic is t. What is the one-tailed p-value and the conclusion at α = 0.05?",
     options: [
-      { t: "p = 0.04; reject H0", why: "Correct: for a symmetric t (or z) statistic with x̄ on the side named in Ha, the one-tailed p is half the two-tailed p: 0.08/2 = 0.04 < 0.05. This is valid only because the direction was fixed before seeing the data." },
+      { t: "p = 0.04; reject H0", why: "Correct: for a symmetric t (or z) statistic with x̄ on the side named in Ha, the one-tailed p is half the two-tailed p: 0.08/2 = 0.04 < 0.05. This is valid only because Ha was set before seeing the data; switching to one tail after seeing a two-tailed result would inflate α." },
       { t: "p = 0.16; fail to reject H0", why: "Wrong: doubling goes from one-tailed to two-tailed; here the move is the other way, so the p-value halves." },
-      { t: "p = 0.08; fail to reject H0", why: "Wrong: 0.08 is the two-tailed p, which splits α over both tails; the planned test is one-tailed." },
-      { t: "p = 0.92; fail to reject H0", why: "Wrong: 1 − 0.08 is not a p-value for this test; 0.96 would be the one-tailed p only if x̄ were on the opposite side of 40." }
+      { t: "p = 0.08; fail to reject H0", why: "Wrong: 0.08 is the two-tailed p, which counts both tails; the planned test is one-tailed." },
+      { t: "p = 0.04; fail to reject H0", why: "Wrong: halving is right, but 0.04 < α = 0.05, so H0 is rejected. α is compared in full with the one-tailed p; it is not halved." }
     ],
     answer: 0, ref: "Lesson 4.1"
   },
@@ -264,12 +264,12 @@ QB.add([
   },
   {
     id: "A2-024", topic: "hyp-normal", level: 3,
-    q: "Nine operators are timed before and after training. The differences (before − after) are normal with mean d̄ = 2.4 min and standard deviation s_d = 3.0 min. With t(0.025, 8) = 2.306, what are the paired t statistic and the two-tailed conclusion at α = 0.05?",
+    q: "Twenty-five operators are timed before and after training. The differences (before − after) are normal with mean d̄ = 2.4 min and standard deviation s_d = 5.0 min. With t(0.025, 24) = 2.064, what are the paired t statistic and the two-tailed conclusion at α = 0.05?",
     options: [
-      { t: "t = 0.80; fail to reject H0", why: "Wrong: 2.4/3.0 divides by s_d and forgets √n; the standard error of d̄ is s_d/√n." },
-      { t: "t = 7.20; reject H0", why: "Wrong: 2.4/(3.0/9) divides s_d by n instead of √n." },
-      { t: "t = 2.40; reject H0", why: "Correct: SE = s_d/√n = 3.0/3 = 1.0; t = 2.4/1.0 = 2.40 > 2.306, so reject H0: the mean time changed." },
-      { t: "t = 2.40; fail to reject H0", why: "Wrong: the statistic is right, but 2.40 exceeds the critical value 2.306, so H0 is rejected." }
+      { t: "t = 0.48; fail to reject H0", why: "Wrong: 2.4/5.0 divides by s_d and forgets √n; the standard error of d̄ is s_d/√n." },
+      { t: "t = 12.0; reject H0", why: "Wrong: 2.4/(5.0/25) divides s_d by n instead of √n." },
+      { t: "t = 2.40; reject H0", why: "Correct: SE = s_d/√n = 5.0/5 = 1.0; t = 2.4/1.0 = 2.40 > 2.064, so reject H0: the mean time changed." },
+      { t: "t = 2.40; fail to reject H0", why: "Wrong: the statistic is right, but 2.40 exceeds the critical value 2.064, so H0 is rejected." }
     ],
     answer: 2, ref: "Lesson 4.1"
   },
@@ -291,7 +291,7 @@ QB.add([
       { t: "F = 2.56; fail to reject H0", why: "Correct: F = s_A²/s_B² = 16/6.25 = 2.56 < 3.18, so there is not enough evidence that Machine A is more variable." },
       { t: "F = 1.60; fail to reject H0", why: "Wrong: 4.0/2.5 divides standard deviations; the F-test uses the ratio of variances." },
       { t: "F = 2.56; reject H0", why: "Wrong: the ratio is right, but 2.56 is below the critical value 3.18, so H0 is not rejected." },
-      { t: "F = 6.40; reject H0", why: "Wrong: 16 × 2.5/6.25 mixes variance and standard deviation; F = 16/6.25." }
+      { t: "F = 6.40; reject H0", why: "Wrong: 16/2.5 divides a variance by a standard deviation; F = s_A²/s_B² = 16/6.25." }
     ],
     answer: 0, ref: "Lesson 4.1"
   },
@@ -334,7 +334,7 @@ QB.add([
     options: [
       { t: "2-sample t-test with pooled variance", why: "Wrong: pooling assumes equal variances, which the test (p = 0.003) has just rejected." },
       { t: "Paired t-test on the two groups", why: "Wrong: pairing needs two measurements on the same units; these groups are independent." },
-      { t: "Mann-Whitney test, since the variances differ", why: "Wrong: the data are normal; a t-test that allows unequal variances keeps the power of a parametric test. Mann-Whitney also assumes similar shapes." },
+      { t: "Mann-Whitney test, since the variances differ", why: "Wrong: the data are normal; a t-test that allows unequal variances keeps the power of a parametric test. Mann-Whitney, read as a test of medians, also assumes both groups have the same shape and spread, which unequal variances break." },
       { t: "2-sample t-test without assuming equal variances", why: "Correct: with unequal variances use the unpooled (Welch) 2-sample t, which adjusts the standard error and degrees of freedom." }
     ],
     answer: 3, ref: "Lesson 4.1"
@@ -343,10 +343,10 @@ QB.add([
   // ---------------- hyp-nonnormal ----------------
   {
     id: "A2-031", topic: "hyp-nonnormal", level: 2,
-    q: "Mann-Whitney output for complaint resolution times (days) at two branches:\nBranch A  N = 18  median = 12.5\nBranch B  N = 20  median = 15.0\nPoint estimate for η_A − η_B = −2.4\n95% CI for η_A − η_B: (−4.1, −0.3)\nW = 280.0, p = 0.031\nWhat is the conclusion at α = 0.05?",
+    q: "Mann-Whitney output for complaint resolution times (days) at two branches:\nBranch A  N = 18  median = 12.5\nBranch B  N = 20  median = 15.0\nPoint estimate for η_A − η_B = −2.4\n95% CI for η_A − η_B: (−4.1, −0.3)\nW = 277.0, p = 0.032\nWhat is the conclusion at α = 0.05?",
     options: [
       { t: "The mean resolution times differ significantly", why: "Wrong: Mann-Whitney works on ranks and compares medians (η), not means." },
-      { t: "Branch A's median time is significantly lower than Branch B's", why: "Correct: p = 0.031 < 0.05 and the interval for η_A − η_B lies entirely below 0, so A's median is lower." },
+      { t: "Branch A's median time is significantly lower than Branch B's", why: "Correct: p = 0.032 < 0.05 and the interval for η_A − η_B lies entirely below 0, so A's median is lower." },
       { t: "No significant difference, because the medians differ by only 2.5 days", why: "Wrong: significance comes from p versus α, not from the size of the gap; whether 2.5 days matters is a separate, practical question." },
       { t: "No conclusion is possible, because the group sizes differ", why: "Wrong: Mann-Whitney does not need equal group sizes." }
     ],
@@ -376,10 +376,10 @@ QB.add([
   },
   {
     id: "A2-034", topic: "hyp-nonnormal", level: 2,
-    q: "A supplier claims a defective rate of no more than 1%. The team inspects 500 parts and finds 9 defectives. Which test and alternative hypothesis fit?",
+    q: "A supplier claims a defective rate of no more than 1%. The team inspects 500 parts and finds 9 defectives. The team wants to know whether the data contradict the claim. Which test and alternative hypothesis fit?",
     options: [
       { t: "2-proportion test; Ha: p₁ ≠ p₂", why: "Wrong: there is only one sample, compared with a claimed value, not two groups." },
-      { t: "χ² contingency test; Ha: defects and supplier are related", why: "Wrong: a contingency table needs two categorical variables cross-classified; here there is one proportion against a target." },
+      { t: "1-proportion test; Ha: p < 0.01", why: "Wrong: the test is right but the direction is reversed; p < 0.01 is what the supplier would set out to prove. To contradict the claim, the team needs evidence that p > 0.01." },
       { t: "1-proportion test; Ha: p > 0.01", why: "Correct: one sample of pass/fail data compared with a target uses a 1-proportion test. The claim 'no more than 1%' sits in H0 (p ≤ 0.01); the team wants evidence that p > 0.01." },
       { t: "1-sample t-test; Ha: μ > 0.01", why: "Wrong: defective/good is attribute data; a t-test is for the mean of continuous data." }
     ],
