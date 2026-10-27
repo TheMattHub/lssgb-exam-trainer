@@ -3,8 +3,8 @@
 var Store = (function () {
   "use strict";
   var KEY = "lssgb-trainer.v1";
-  var DAY = 86400000;
-  // Leitner: days until a question is due again, by box 0-5. Box 0 = answered wrong, due now.
+  // Leitner: days until a question is due again, by box 0-5. Box 0 = answered wrong, due now;
+  // box 1+ is due from the start of that local day, so "after 1 day" means any time tomorrow.
   var INTERVAL_DAYS = [0, 1, 3, 7, 14, 30];
   var MASTERED_BOX = 3;
   var MAX_MOCKS = 20;
@@ -67,7 +67,7 @@ var Store = (function () {
   function cleanRound(r) {
     if (!r || typeof r !== "object" || !Array.isArray(r.order) || r.order.length > 5000) return null;
     var out = { order: r.order.filter(function (id) { return typeof id === "string" && ID_RE.test(id); }),
-      done: Object.create(null), start: num(r.start, 0, 1e14, 0) };
+      done: Object.create(null) };
     if (r.done && typeof r.done === "object") Object.keys(r.done).forEach(function (id) {
       if (ID_RE.test(id) && (r.done[id] === 0 || r.done[id] === 1)) out.done[id] = r.done[id];
     });
@@ -91,6 +91,14 @@ var Store = (function () {
     };
   }
 
+  // Local midnight n days after t. Calendar arithmetic, not n * 24 h, so DST days (23 or 25 h) do not shift dates.
+  function dayStart(t, n) {
+    var d = new Date(t);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() + n);
+    return d.getTime();
+  }
+
   function dayKey(t) {
     var d = new Date(t);
     var two = function (n) { return (n < 10 ? "0" : "") + n; };
@@ -98,7 +106,7 @@ var Store = (function () {
   }
 
   function bumpStreak(now) {
-    var today = dayKey(now), yesterday = dayKey(now - DAY);
+    var today = dayKey(now), yesterday = dayKey(dayStart(now, -1));
     if (state.streak.last === today) return;
     state.streak.n = state.streak.last === yesterday ? state.streak.n + 1 : 1;
     state.streak.last = today;
@@ -116,7 +124,7 @@ var Store = (function () {
       e.box = 0;
       e.missed = true;
     }
-    e.due = now + INTERVAL_DAYS[e.box] * DAY;
+    e.due = e.box === 0 ? now : dayStart(now, INTERVAL_DAYS[e.box]);
     e.last = now;
     bumpStreak(now);
   }
@@ -127,7 +135,7 @@ var Store = (function () {
 
   function streak() {
     var now = Date.now();
-    return state.streak.last === dayKey(now) || state.streak.last === dayKey(now - DAY) ? state.streak.n : 0;
+    return state.streak.last === dayKey(now) || state.streak.last === dayKey(dayStart(now, -1)) ? state.streak.n : 0;
   }
   function studiedToday() { return state.streak.last === dayKey(Date.now()); }
 

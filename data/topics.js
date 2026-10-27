@@ -4,10 +4,10 @@
 const TOPICS = {
   phases: [
     { id: "define",  name: "Define",  examShare: 20 },
-    { id: "measure", name: "Measure", examShare: 20 },
-    { id: "analyze", name: "Analyze", examShare: 20 },
-    { id: "improve", name: "Improve", examShare: 20 },
-    { id: "control", name: "Control", examShare: 20 }
+    { id: "measure", name: "Measure" },
+    { id: "analyze", name: "Analyze" },
+    { id: "improve", name: "Improve" },
+    { id: "control", name: "Control" }
   ],
   topics: [
     // Define

@@ -76,7 +76,7 @@ var App = (function () {
     questions.forEach(function (q) {
       var e = Store.entry(q.id); if (!e) return;
       s.seen++; s.right += e.right; s.wrong += e.wrong;
-      if (e.box >= 3) s.mastered++;
+      if (Store.isMastered(q.id)) s.mastered++;
     });
     return s;
   }

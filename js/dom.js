@@ -107,6 +107,6 @@ var U = (function () {
     return t && t.bok === false ? h("span", { class: "tag bonus", title: "Course topic, not on the IASSC Green Belt exam", text: "bonus" }) : null;
   }
 
-  return { h: h, s: s, ring: ring, bar: bar, shuffle: shuffle, pct: pct, clock: clock,
+  return { h: h, ring: ring, bar: bar, shuffle: shuffle, pct: pct, clock: clock,
     topic: topic, phase: phase, phases: phases, topicsOf: topicsOf, confirm: confirm, letter: letter, bonusTag: bonusTag };
 })();

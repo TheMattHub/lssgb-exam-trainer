@@ -7,7 +7,7 @@ var Quiz = (function () {
   "use strict";
   var h = U.h;
   var card = null;      // question on screen: { ctx, id, perm, sel, chosen, anim }
-  var review = null;    // review session: { ids, i, results, title, startedAt, endedAt }
+  var review = null;    // review session: { ids, i, card, results, title, startedAt, endedAt }
   var backHref = "";    // where "Back to questions" on a learn page returns to
 
   // ---------- rounds ----------
@@ -28,8 +28,10 @@ var Quiz = (function () {
     var p = U.phase(id); return (p ? p.name : id) + ": whole phase";
   }
 
+  function scopeIds(key) { return scope(key).map(function (q) { return q.id; }); }
+
   function newRound(key) {
-    var r = { order: U.shuffle(scope(key).map(function (q) { return q.id; })), done: Object.create(null), start: Date.now() };
+    var r = { order: U.shuffle(scopeIds(key)), done: Object.create(null) };
     Store.setRound(key, r); Store.save();
     return r;
   }
@@ -40,7 +42,7 @@ var Quiz = (function () {
     var r = Store.round(key);
     if (!r) return newRound(key);
     var known = new Set(r.order);
-    var added = scope(key).map(function (q) { return q.id; }).filter(function (id) { return !known.has(id); });
+    var added = scopeIds(key).filter(function (id) { return !known.has(id); });
     if (added.length) {
       var first = r.order.findIndex(function (id) { return !(id in r.done); });
       if (first < 0) first = r.order.length;
@@ -53,14 +55,16 @@ var Quiz = (function () {
   // Progress of a round, counting only questions that still exist in the bank.
   function roundStatus(key) {
     var r = Store.round(key);
-    var ids = scope(key).map(function (q) { return q.id; });
+    var ids = scopeIds(key);
     var s = { total: ids.length, answered: 0, right: 0, started: !!r };
     if (r) ids.forEach(function (id) { if (id in r.done) { s.answered++; s.right += r.done[id]; } });
     return s;
   }
 
-  function nextInRound(r) {
-    return r.order.find(function (id) { return QB.has(id) && !(id in r.done); });
+  // Skips ids no longer in scope: deleted from the bank, or moved to another topic by a pack fix.
+  function nextInRound(key, r) {
+    var ids = new Set(scopeIds(key));
+    return r.order.find(function (id) { return ids.has(id) && !(id in r.done); });
   }
 
   // ---------- review (Leitner) ----------
@@ -71,7 +75,7 @@ var Quiz = (function () {
   }
 
   function startReview(ids, title) {
-    review = { ids: ids, i: 0, results: [], title: title, startedAt: Date.now(), endedAt: 0 };
+    review = { ids: ids, i: 0, card: null, results: [], title: title, startedAt: Date.now(), endedAt: 0 };
     card = null;
     if (location.hash === "#/review/run") App.render(); else location.hash = "#/review/run";
   }
@@ -199,10 +203,8 @@ var Quiz = (function () {
     }
     var r = getRound(key);
     backHref = location.hash;
-    if (!card || card.ctx !== key || (card.chosen < 0 && (card.id in r.done || !QB.has(card.id)))) {
-      var id = nextInRound(r);
-      card = id ? freshCard(key, id) : null;
-    }
+    var nextId = nextInRound(key, r);
+    if (!card || card.ctx !== key || (card.chosen < 0 && card.id !== nextId)) card = nextId ? freshCard(key, nextId) : null;
     var s = roundStatus(key);
     if (!card) { renderRoundDone(main, key, r, s); return; }
     var restart = h("button", { class: "quiet-link", type: "button", onclick: function () {
@@ -324,7 +326,10 @@ var Quiz = (function () {
     if (review.endedAt) { renderReviewDone(main); return; }
     while (review.i < review.ids.length && !QB.has(review.ids[review.i])) review.i++;
     if (review.i >= review.ids.length) { review.endedAt = Date.now(); renderReviewDone(main); return; }
-    if (!card || card.ctx !== "review" || card.id !== review.ids[review.i]) card = freshCard("review", review.ids[review.i]);
+    // The review keeps its own card: a visit to Random or a topic in between must not reset a confirmed
+    // question, or it could be answered (and recorded) twice.
+    if (!review.card || review.card.id !== review.ids[review.i]) review.card = freshCard("review", review.ids[review.i]);
+    card = review.card;
     var n = review.ids.length, doneNow = review.i + (card.chosen >= 0 ? 1 : 0);
     renderQuestion(main, QB.get(card.id), review.title + " · " + (review.i + 1) + " of " + n, review.i / n, doneNow / n,
       h("a", { class: "quiet-link", href: "#/review", onclick: function () { review = null; card = null; } }, "End review"));
@@ -358,7 +363,7 @@ var Quiz = (function () {
     var k = e.key.toLowerCase();
     var idx = "1234".indexOf(k) >= 0 ? "1234".indexOf(k) : "abcd".indexOf(k);
     if (k.length === 1 && idx >= 0) { if (card.chosen < 0) { e.preventDefault(); select(idx); } return; }
-    if (k !== "enter" && k !== " ") return;
+    if ((k !== "enter" && k !== " ") || e.repeat) return;   // a held Enter must not confirm and skip ahead
     var el = e.target, tag = el && el.tagName;
     var ours = tag === "BODY" || tag === "MAIN" || (tag === "BUTTON" && /^(o\d|go)$/.test(el.getAttribute("data-fid") || ""));
     if (!ours || (k === " " && tag === "BUTTON")) return;
@@ -367,6 +372,6 @@ var Quiz = (function () {
   }
 
   return { renderRound: renderRound, renderTopics: renderTopics, renderReviewStart: renderReviewStart, renderReviewRun: renderReviewRun,
-    explain: explain, dueMistakes: dueMistakes, roundStatus: roundStatus, topicStats: topicStats, onKey: onKey, emptyData: emptyData,
+    explain: explain, dueMistakes: dueMistakes, roundStatus: roundStatus, onKey: onKey, emptyData: emptyData,
     backHref: function () { return backHref; } };
 })();

@@ -61,7 +61,9 @@ var Mock = (function () {
     st().activeMock = null;
     Store.save();
     reviewFilter = "all";
-    location.hash = "#/exam/result";
+    // A timeout can fire while "Submit the exam?" is open, or while an older result is on screen.
+    var dlg = document.getElementById("dialog"); if (dlg.open) dlg.close();
+    if (location.hash === "#/exam/result") App.render(); else location.hash = "#/exam/result";
   }
 
   // Called every second by the app: updates the clock and submits on timeout.
@@ -267,11 +269,12 @@ var Mock = (function () {
     var tag = e.target && e.target.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA") return;
     var idx = "1234".indexOf(k) >= 0 ? "1234".indexOf(k) : "abcd".indexOf(k);
+    if (e.repeat && k !== "arrowright" && k !== "arrowleft") return;   // a held key must not toggle answer or flag on and off
     if (k.length === 1 && idx >= 0) { e.preventDefault(); select(m.perms[m.cur][idx]); }
     else if (k === "f") { e.preventDefault(); flag(); }
     else if (k === "arrowright") { e.preventDefault(); go(m.cur + 1); }
     else if (k === "arrowleft") { e.preventDefault(); go(m.cur - 1); }
   }
 
-  return { renderSetup: renderSetup, renderRun: renderRun, renderResult: renderResult, tick: tick, onKey: onKey, history: history, PASS: PASS };
+  return { renderSetup: renderSetup, renderRun: renderRun, renderResult: renderResult, tick: tick, onKey: onKey, history: history };
 })();
