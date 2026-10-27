@@ -44,7 +44,7 @@ QB.add([
       { t: "The weighted score of each input against each output", why: "Wrong: weighted input-output scores come from an X-Y (cause and effect) matrix." },
       { t: "Who performs each step and where work is handed off", why: "Correct: each lane is a role or function, so the map shows who does what and where work crosses between groups, a common source of delay and errors." }
     ],
-    answer: 3, ref: "Web: asq.org"
+    answer: 3, ref: "Web: 6sigma.us (swimlane diagram)"
   },
   {
     id: "M1-005", topic: "process-map", level: 3,
@@ -121,7 +121,7 @@ QB.add([
       { t: "12", why: "Wrong: this is Occurrence × Detection only (4 × 3) and leaves out Severity." },
       { t: "96", why: "Correct: RPN = S × O × D = 8 × 4 × 3 = 96, on a scale of 1 to 1,000." }
     ],
-    answer: 3, ref: "Web: asq.org"
+    answer: 3, ref: "Lesson 1.3"
   },
   {
     id: "M1-012", topic: "process-map", level: 3,
@@ -129,10 +129,10 @@ QB.add([
     options: [
       { t: "Only B needs action, because it has the highest RPN", why: "Wrong: RPN is a guide, not the only rule. A severity of 9-10 (hazardous) calls for action whatever the RPN, so A cannot be ignored." },
       { t: "A needs action despite its lower RPN, because its severity is 10", why: "Correct: a hazardous effect (S 9-10) is addressed even when O and D are low; B is also a candidate because of its high RPN." },
-      { t: "No action is needed, because no RPN is above 125", why: "Wrong: there is no universal RPN threshold; fixed cut-offs are discouraged because very different risks can share an RPN." },
+      { t: "No action is needed, because no RPN is above 125", why: "Wrong: A's severity of 10 already calls for action, and cut-offs such as 100 or 125 are local habits, not a universal rule; very different risks can share an RPN." },
       { t: "C is the priority, because its detection rating of 2 is the worst", why: "Wrong: on the detection scale a low number means the failure is easy to detect; 10 is the worst." }
     ],
-    answer: 1, ref: "Web: asq.org"
+    answer: 1, ref: "Web: reliamag.com (How to perform FMEA)"
   },
   {
     id: "M1-013", topic: "process-map", level: 1,
@@ -143,7 +143,7 @@ QB.add([
       { t: "The failure is almost certain to go undetected", why: "Correct: detection is scored so that worse is higher; 10 means current controls will almost certainly not catch the failure." },
       { t: "The failure's effect is hazardous to the user", why: "Wrong: how serious the effect is belongs to the Severity rating." }
     ],
-    answer: 2, ref: "Web: asq.org"
+    answer: 2, ref: "Lesson 1.3"
   },
   {
     id: "M1-014", topic: "process-map", level: 2,
@@ -154,7 +154,7 @@ QB.add([
       { t: "Occurrence", why: "Wrong: a check does not stop labels being wrong; preventing the cause (e.g. a poka-yoke at labelling) would reduce Occurrence." },
       { t: "Occurrence and Severity together", why: "Wrong: an inspection changes neither how often the failure occurs nor how serious its effect is." }
     ],
-    answer: 0, ref: "Web: asq.org"
+    answer: 0, ref: "Web: reliamag.com (How to perform FMEA)"
   },
   {
     id: "M1-015", topic: "process-map", level: 1,
@@ -162,10 +162,10 @@ QB.add([
     options: [
       { t: "A fixed RPN threshold of 100 above which action is required", why: "Wrong: the handbook moved away from RPN altogether, partly because fixed RPN thresholds treat very different risks alike." },
       { t: "Ranking by the Detection rating alone", why: "Wrong: detection carries the least weight in the new logic; severity is considered first." },
-      { t: "A criticality number equal to Severity × Occurrence", why: "Wrong: S × O criticality comes from other FMEA standards (e.g. FMECA), not from the AIAG-VDA handbook." },
+      { t: "A criticality number equal to Severity × Occurrence", why: "Wrong: the AIAG-VDA handbook does not multiply ratings at all; Action Priority is read from look-up tables." },
       { t: "Action Priority: high, medium or low, from S, O and D", why: "Correct: Action Priority uses look-up tables that weight Severity first, then Occurrence, then Detection. The IASSC exam still uses RPN." }
     ],
-    answer: 3, ref: "Web: aiag.org"
+    answer: 3, ref: "Web: reliamag.com; pharmaceuticalonline.com (AIAG-VDA Action Priority)"
   },
 
   // ---------- basic-stats ----------
@@ -178,7 +178,7 @@ QB.add([
       { t: "Customer rating from 1 (poor) to 5 (excellent)", why: "Wrong: a rating scale is ordinal (discrete) data; the values are ordered categories." },
       { t: "Call category: billing, technical or sales", why: "Wrong: named categories are nominal (attribute) data." }
     ],
-    answer: 1, ref: "Web: NIST/SEMATECH e-Handbook"
+    answer: 1, ref: "Lesson 3.4"
   },
   {
     id: "M1-021", topic: "basic-stats", level: 2,
@@ -189,7 +189,7 @@ QB.add([
       { t: "Ordinal", why: "Correct: the categories have a meaningful order but unknown, unequal spacing, so they are ordinal." },
       { t: "Ratio", why: "Wrong: ratio data need equal intervals and a true zero, like weight or time." }
     ],
-    answer: 2, ref: "Web: NIST/SEMATECH e-Handbook"
+    answer: 2, ref: "Web: graphpad.com (ordinal, interval, ratio)"
   },
   {
     id: "M1-022", topic: "basic-stats", level: 2,
@@ -198,9 +198,9 @@ QB.add([
       { t: "Ratio, because temperature is a continuous measurement", why: "Wrong: being continuous is not enough. Ratio needs a true zero; 0 °C is not \"no temperature\", so 40 °C is not twice as hot as 20 °C." },
       { t: "Ordinal, because higher temperatures rank above lower ones", why: "Wrong: ordinal data have order but unequal spacing; one degree Celsius is the same size everywhere on the scale." },
       { t: "Nominal, because each reading is just a label", why: "Wrong: temperatures are numbers with order and equal spacing, not labels." },
-      { t: "Interval: equal units but an arbitrary zero", why: "Correct: Celsius has equal units, so differences make sense, but its zero is a convention, so ratios do not. Kelvin would be ratio." }
+      { t: "Interval, because it has equal units but an arbitrary zero", why: "Correct: Celsius has equal units, so differences make sense, but its zero is a convention, so ratios do not. Kelvin would be ratio." }
     ],
-    answer: 3, ref: "Web: NIST/SEMATECH e-Handbook"
+    answer: 3, ref: "Web: graphpad.com (ordinal, interval, ratio)"
   },
   {
     id: "M1-023", topic: "basic-stats", level: 2,
@@ -250,7 +250,7 @@ QB.add([
     id: "M1-027", topic: "basic-stats", level: 2,
     q: "Minitab reports a kurtosis of +2.1 for a data set (Minitab shows excess kurtosis, so a normal distribution gives 0). What does this suggest?",
     options: [
-      { t: "Heavier tails and a sharper peak than a normal distribution", why: "Correct: positive excess kurtosis means more data in the tails and centre than a normal curve, so outliers are more likely." },
+      { t: "Heavier tails than a normal distribution, so more extreme values", why: "Correct: positive excess kurtosis means heavier tails than a normal curve (usually with a sharper peak), so extreme values and outliers are more likely." },
       { t: "A long tail to the right", why: "Wrong: asymmetry is measured by skewness, not kurtosis." },
       { t: "A flatter shape with lighter tails than a normal distribution", why: "Wrong: that describes negative kurtosis, such as a uniform-looking distribution." },
       { t: "A mean that is 2.1 standard deviations above the median", why: "Wrong: kurtosis measures tail weight and peakedness, not the distance between mean and median." }
@@ -274,7 +274,7 @@ QB.add([
     options: [
       { t: "Fail to reject H₀; the data can be treated as normal", why: "Wrong: fail to reject applies when p > α. Here p = 0.012 is below 0.05." },
       { t: "Accept H₀; the data are proven normal", why: "Wrong: the p-value is below α, and in any case a test never proves H₀; we only fail to reject it." },
-      { t: "Reject H₀: the data are not normal", why: "Correct: p < 0.05 rejects normality. Look for mixed populations or outliers, transform the data, or use non-parametric methods." },
+      { t: "Reject H₀; the data are not normal", why: "Correct: p < 0.05 rejects normality. Look for mixed populations or outliers, transform the data, or use non-parametric methods." },
       { t: "The test is invalid because the sample is too large", why: "Wrong: 80 values is a normal sample size for this test. Very large samples make small departures significant, but 80 is not that." }
     ],
     answer: 2, ref: "Lesson 3.7"
@@ -299,7 +299,7 @@ QB.add([
       { t: "Pareto chart", why: "Wrong: a Pareto chart ranks categories by count or cost; it does not track a measure over time." },
       { t: "Scatter plot", why: "Wrong: a scatter plot shows the relationship between two variables, not one variable's behaviour over time." }
     ],
-    answer: 0, ref: "Web: NIST/SEMATECH e-Handbook"
+    answer: 0, ref: "Lesson 3.6"
   },
   {
     id: "M1-032", topic: "basic-stats", level: 2,
@@ -310,7 +310,7 @@ QB.add([
       { t: "Side-by-side box plots, one per shift", why: "Correct: box plots on one axis show each group's median, IQR, range and outliers, which makes group comparison easy." },
       { t: "A scatter plot of cycle time against shift number", why: "Wrong: shift is a category, not a continuous variable; a scatter plot is for two continuous variables." }
     ],
-    answer: 2, ref: "Web: NIST/SEMATECH e-Handbook"
+    answer: 2, ref: "Lesson 3.6"
   },
   {
     id: "M1-033", topic: "basic-stats", level: 2,
@@ -332,7 +332,7 @@ QB.add([
       { t: "Delivery time is discrete, so it cannot be averaged", why: "Wrong: delivery time is continuous data and can be averaged." },
       { t: "Samples must always include every order to be valid", why: "Wrong: that would be a census. A well-designed random sample is valid and much cheaper." }
     ],
-    answer: 1, ref: "Web: NIST/SEMATECH e-Handbook"
+    answer: 1, ref: "Lesson 3.4"
   },
 
   // ---------- probability ----------
@@ -461,12 +461,12 @@ QB.add([
   },
   {
     id: "M1-056", topic: "distributions", level: 3,
-    q: "Defects on a circuit board follow a Poisson distribution with a mean of 2 per board. Given e⁻² = 0.135, what is the probability that a board has at most one defect?",
+    q: "Defects on a circuit board follow a Poisson distribution with a mean of 2 per board. Given e⁻² ≈ 0.1353, what is the probability that a board has at most one defect?",
     options: [
-      { t: "0.405", why: "Correct: P(0) + P(1) = e⁻² × (2⁰/0! + 2¹/1!) = 0.135 × (1 + 2) = 0.405 (0.406 with unrounded e⁻²)." },
+      { t: "0.406", why: "Correct: P(0) + P(1) = e⁻² × (2⁰/0! + 2¹/1!) = 0.1353 × (1 + 2) = 0.406." },
       { t: "0.135", why: "Wrong: this is P(0) only; \"at most one\" also includes exactly one defect." },
-      { t: "0.270", why: "Wrong: this is P(1) only (0.135 × 2); add P(0)." },
-      { t: "0.595", why: "Wrong: this is the probability of two or more defects (1 − 0.405)." }
+      { t: "0.271", why: "Wrong: this is P(1) only (0.1353 × 2); add P(0)." },
+      { t: "0.594", why: "Wrong: this is the probability of two or more defects (1 − 0.406)." }
     ],
     answer: 0, ref: "Lesson 3.4"
   },

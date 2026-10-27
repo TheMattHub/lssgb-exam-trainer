@@ -38,9 +38,9 @@ LEARN.add([
     traps: [
       "Detection 10 means the failure will almost certainly NOT be detected; 1 is the best score.",
       "A fishbone or X-Y matrix gives hypotheses from team judgement; root causes are confirmed with data in Analyze.",
-      "Takt time comes from customer demand, not from the process; you never 'raise takt' to match a slow step.",
-      "Subtract breaks and planned stops from available time before computing takt.",
-      "PCE divides value-added time by total lead time, not by non-value-added time; put both in the same units."
+      "Takt time comes from customer demand, not from the process; you never 'raise takt' to match a slow step. Subtract breaks and planned stops from available time first.",
+      "PCE divides value-added time by total lead time, not by non-value-added time; put both in the same units.",
+      "There is no universal RPN cut-off (100 or 125 are local habits); very different risks can share the same RPN, so check severity too."
     ],
     terms: [
       { term: "KPIV / KPOV", def: "Key process input / output variable: the Xs and Ys of Y = f(X)." },
@@ -54,11 +54,11 @@ LEARN.add([
     points: [
       "Continuous (variable) data are measured on a scale (time, weight, length). Discrete (attribute) data are counts or categories.",
       "Scales: nominal (named categories, no order), ordinal (ordered, unequal gaps, e.g. ratings), interval (equal gaps, arbitrary zero, e.g. °C), ratio (equal gaps and a true zero, e.g. time, weight, kelvin).",
-      "Centre: mean (sensitive to outliers), median (middle ordered value; robust), mode (most frequent).",
+      "Centre: mean (sensitive to outliers), median (middle ordered value; robust), mode (most frequent). In a symmetric distribution mean ≈ median.",
       "Spread: range = max − min; variance; standard deviation; IQR = Q3 − Q1.",
       "Sample variance divides by n − 1; population variance divides by N. Sample statistics x̄, s estimate population parameters μ, σ.",
       "Skewness: right (positive) skew → mean > median; left (negative) skew → mean < median. Times bounded at zero are often right-skewed.",
-      "Kurtosis (Minitab reports excess kurtosis, normal = 0): positive = heavier tails and sharper peak; negative = flatter, lighter tails.",
+      "Kurtosis (Minitab reports excess kurtosis, normal = 0): positive = heavier tails (more extreme values, usually a sharper peak); negative = lighter tails, flatter shape.",
       "Anderson-Darling test: H₀ = data are normal. p ≤ 0.05 → reject, not normal; p > 0.05 → fail to reject, treat as normal. A normal probability plot with points on a straight line also suggests normality.",
       "Common reasons for non-normal data: mixed populations (bimodal histogram), outliers, natural bounds, poor gage resolution.",
       "Histogram: shape, centre and spread of one variable. Box plot: median, Q1-Q3 box, whiskers to 1.5 × IQR, points beyond = outliers; good for comparing groups. Dot plot: small data sets. Run chart: behaviour over time. Scatter plot: two continuous variables.",
@@ -126,7 +126,7 @@ LEARN.add([
       "Z = (x − μ) ÷ σ: the number of standard deviations a value lies from the mean. A Z table gives the area to the left of Z; area to the right = 1 − table value.",
       "Binomial: number of defectives in n independent pass/fail trials with constant p. Mean np, variance np(1 − p).",
       "Poisson: number of defects (events) per unit, area or time; mean = variance = λ. Right-skewed for small λ.",
-      "Exponential: time between Poisson events. Hypergeometric: defectives drawn without replacement from a small lot.",
+      "Exponential: time between Poisson events. Lognormal: right-skewed positive data (e.g. times). Weibull: time to failure, reliability. Hypergeometric: defectives drawn without replacement from a small lot.",
       "t: like the normal but with heavier tails; used for means when σ is unknown and estimated by s (small samples). It approaches the normal as degrees of freedom grow.",
       "χ² (chi-square): right-skewed, used for one variance vs a target, goodness of fit and contingency tables.",
       "F: ratio of two variances (s₁² ÷ s₂²); used to compare two variances and in ANOVA."
