@@ -50,12 +50,12 @@ QB.add([
   },
   {
     id: "D3-005", topic: "ss-metrics", level: 3,
-    q: "A three-step process has DPU values of 0.05, 0.10 and 0.08. Assuming defects follow a Poisson distribution, what is the rolled throughput yield?",
+    q: "A three-step process has DPU values of 0.10, 0.25 and 0.15. Assuming defects follow a Poisson distribution, what is the rolled throughput yield?",
     options: [
-      { t: "77.0%", why: "Wrong: this is 1 − total DPU (1 − 0.23), a linear shortcut that understates the yield; under Poisson the yield is e^(−DPU)." },
-      { t: "92.3%", why: "Wrong: this is 1 − the average DPU (0.0767); RTY must combine all steps, not average them." },
-      { t: "78.7%", why: "Wrong: this multiplies (1 − DPU) for each step (0.95 × 0.90 × 0.92). That treats DPU as a defective rate; under the Poisson model each step's yield is e^(−DPU)." },
-      { t: "79.5%", why: "Correct: RTY = e^(−0.05) × e^(−0.10) × e^(−0.08) = e^(−0.23) = 0.7945, about 79.5%." }
+      { t: "50.0%", why: "Wrong: this is 1 − total DPU (1 − 0.50), a linear shortcut that understates the yield; under Poisson each step's yield is e^(−DPU)." },
+      { t: "83.3%", why: "Wrong: this is 1 − the average DPU (0.167); RTY must combine all steps, not average them." },
+      { t: "57.4%", why: "Wrong: this multiplies (1 − DPU) for each step (0.90 × 0.75 × 0.85). That treats DPU as a proportion defective; a unit can carry several defects, so under Poisson the step yield is e^(−DPU)." },
+      { t: "60.7%", why: "Correct: RTY = e^(−0.10) × e^(−0.25) × e^(−0.15) = e^(−0.50) = 0.6065, about 60.7%." }
     ],
     answer: 3, ref: "Lesson 2.5; Web: iassc.org GB BoK 1.2.5"
   },
@@ -64,9 +64,9 @@ QB.add([
     q: "1,000 units enter step 1: 900 pass first time, 80 are reworked and then pass, 20 are scrapped. All 980 good units go to step 2: 931 pass first time and 49 are reworked and pass, none scrapped. What are the rolled throughput yield (RTY) and the traditional final yield?",
     options: [
       { t: "RTY 85.5%; final yield 98.0%", why: "Correct: FTY₁ = 900 ÷ 1,000 = 0.90; FTY₂ = 931 ÷ 980 = 0.95; RTY = 0.90 × 0.95 = 0.855. Final yield = units out ÷ units in = 980 ÷ 1,000 = 98.0%, because reworked units count as good." },
-      { t: "RTY 93.1%; final yield 98.0%", why: "Wrong: this counts the 80 reworked units as first-time passes at step 1 (980 ÷ 1,000 × 0.95). RTY excludes anything that needed rework." },
+      { t: "RTY 92.5%; final yield 98.0%", why: "Wrong: 92.5% is the average of the step yields (0.90 and 0.95). RTY multiplies step yields; it never averages them." },
       { t: "RTY 85.5%; final yield 93.1%", why: "Wrong: 931 ÷ 1,000 counts only first-time passes at step 2. Traditional final yield counts every good unit out, reworked or not: 980 ÷ 1,000." },
-      { t: "RTY 92.5%; final yield 98.0%", why: "Wrong: 92.5% is the average of the step yields (0.90 and 0.95). RTY multiplies step yields; it never averages them." }
+      { t: "RTY 92.5%; final yield 93.1%", why: "Wrong: both errors at once. 92.5% averages the step yields instead of multiplying them, and 93.1% (931 ÷ 1,000) leaves reworked units out of the final yield." }
     ],
     answer: 0, ref: "Lesson 2.5; Web: iassc.org GB BoK 1.2.5"
   },
