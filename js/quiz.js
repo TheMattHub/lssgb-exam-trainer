@@ -131,7 +131,7 @@ var Quiz = (function () {
     main.appendChild(h("div", { class: "qhead" }, h("span", { class: "muted tnum", text: headText }), endLink));
     main.appendChild(U.bar(share, shareAfter, headText));
 
-    var box = h("section", { class: "card qcard", "aria-labelledby": "qtext" });
+    var box = h("section", { class: "card qcard " + (t ? U.phaseClass(t.phase) : ""), "aria-labelledby": "qtext" });
     var ph = t && U.phase(t.phase);
     box.appendChild(h("p", { class: "chip-row" },
       ph ? h("span", { class: "chip phase-chip " + U.phaseClass(ph.id) }, h("span", { class: "dot", "aria-hidden": "true" }), ph.name) : null,
@@ -163,7 +163,7 @@ var Quiz = (function () {
       h("span", { class: "muted small hint", text: done ? "Enter: next" : card.sel < 0 ? "Keys 1-4 or A-D to select" : "Enter: confirm · you can still change" }),
       go));
 
-    var fb = h("div", { class: "feedback", "aria-live": "polite" });
+    var fb = h("div", { class: "feedback" + anim, "aria-live": "polite" });   // anim: the verdict bursts once, on Confirm
     if (done) {
       var right = card.chosen === q.answer;
       fb.appendChild(explain(q, card.perm, card.chosen, true, scheduleNote(q.id, right), right && card.inARow >= 3 ? card.inARow + " in a row" : null));

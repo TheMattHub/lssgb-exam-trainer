@@ -15,7 +15,7 @@ Open the app at <https://themathub.github.io/lssgb-exam-trainer/>. It runs in an
 
 Your progress saves itself in this browser after every answer. You need no account.
 
-<p align="center"><img src="screenshots/phone-home.png" alt="Home on a phone after some practice: 46 of 502 seen, 74% accuracy, a Review 12 mistakes button" width="260"></p>
+<p align="center"><img src="screenshots/phone-home.png" alt="Home on a phone after some practice: 46 of 502 seen, 76% accuracy, a Review 11 mistakes button" width="260"></p>
 
 ## A study plan for 2 to 4 weeks
 

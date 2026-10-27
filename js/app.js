@@ -115,6 +115,7 @@ var App = (function () {
   // First visit: one place to start. The tiles below explain each mode in one line, so this card does not repeat them.
   function welcome(total) {
     return h("section", { class: "card welcome", "aria-labelledby": "welcome-title" },
+      h("div", { class: "welcome-art", "aria-hidden": "true" }, U.phases().map(function (p) { return U.phaseBadge(p.id); })),
       h("h2", { id: "welcome-title", class: "welcome-title", text: "Practise for the IASSC Green Belt exam, one question at a time" }),
       h("p", { class: "prose", text: "Start with a random question: after each answer you see why every option is right or wrong. Questions you miss come back for review. Or pick a mode below." }),
       h("a", { class: "btn", href: "#/random" }, "Start with a random question"),
@@ -161,8 +162,10 @@ var App = (function () {
     return sec;
   }
 
+  // Each mode has its own hue (css/app.css, --hue-*); the title always names the mode, so colour is decoration.
+  var MODE_HUE = { random: "violet", topics: "teal", exam: "amber", review: "indigo", learn: "sky", resources: "rose" };
   function tile(href, ic, title, sub, badge) {
-    return h("a", { class: "tile", href: href },
+    return h("a", { class: "tile hue-" + MODE_HUE[href.slice(2)], href: href },
       h("span", { class: "tile-icon" }, U.icon(ic)),
       h("span", { class: "tile-text" },
         h("span", { class: "tile-title" }, title, badge ? h("span", { class: "badge", text: badge }) : null),

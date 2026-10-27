@@ -18,6 +18,9 @@
   --ph-define: #248fcc;  --ph-measure: #b87800;  --ph-analyze: #8b5cf6;  --ph-improve: #c35aa4;  --ph-control: #92400e;
   --ph-general: #6b7280;
   --cheer-bg: #fff3d6;  --cheer-ink: #7a4a00;
+  --hue-violet: #6d3fd0;  --hue-violet-tint: #efe9fd;  --hue-teal: #0f766e;  --hue-teal-tint: #dcf3ef;
+  --hue-amber: #8a5300;  --hue-amber-tint: #fbf0dc;  --hue-indigo: #3a47c2;  --hue-indigo-tint: #e4e7fa;
+  --hue-sky: #0b6aa3;  --hue-sky-tint: #e0f0fa;  --hue-rose: #b0285f;  --hue-rose-tint: #fbe6ee;  --hue-on: #ffffff;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -32,6 +35,9 @@
     --ph-define: #1292c0;  --ph-measure: #af8724;  --ph-analyze: #6764dd;  --ph-improve: #a5598d;  --ph-control: #ae520a;
     --ph-general: #8a93a3;
     --cheer-bg: #3d3018;  --cheer-ink: #f3c46b;
+    --hue-violet: #b79cfb;  --hue-violet-tint: #2e2552;  --hue-teal: #5ccfbf;  --hue-teal-tint: #163a37;
+    --hue-amber: #f0b45a;  --hue-amber-tint: #3a2d17;  --hue-indigo: #8b98f7;  --hue-indigo-tint: #2a3150;
+    --hue-sky: #74c0f0;  --hue-sky-tint: #16324a;  --hue-rose: #f08bb3;  --hue-rose-tint: #41202f;  --hue-on: #151b26;
     --shadow: none;
     color-scheme: dark;
   }
@@ -47,6 +53,9 @@
   --ph-define: #1292c0;  --ph-measure: #af8724;  --ph-analyze: #6764dd;  --ph-improve: #a5598d;  --ph-control: #ae520a;
   --ph-general: #8a93a3;
   --cheer-bg: #3d3018;  --cheer-ink: #f3c46b;
+  --hue-violet: #b79cfb;  --hue-violet-tint: #2e2552;  --hue-teal: #5ccfbf;  --hue-teal-tint: #163a37;
+  --hue-amber: #f0b45a;  --hue-amber-tint: #3a2d17;  --hue-indigo: #8b98f7;  --hue-indigo-tint: #2a3150;
+  --hue-sky: #74c0f0;  --hue-sky-tint: #16324a;  --hue-rose: #f08bb3;  --hue-rose-tint: #41202f;  --hue-on: #151b26;
   --shadow: none;
   color-scheme: dark;
 }
@@ -426,6 +435,80 @@ h2 .ph-badge { margin-right: 10px; vertical-align: -6px; }
 .step-answer { background: var(--ok-bg); box-shadow: inset 4px 0 0 var(--ok); }
 .step-answer .step-label { color: var(--ok-ink); }
 .step-answer .step-text { font-weight: 600; }
+
+/* ---------- colour identity: modes and resource kinds ----------
+   Six hues for the Home mode tiles and the resource kind chips (--hue-<name> ink, --hue-<name>-tint background).
+   Decoration only: the tile title or chip text always names the mode or kind. Ink on tint >= 4.7:1 in both themes;
+   the tile order (violet, teal / amber, indigo / sky, rose) keeps grid neighbours apart (validator: normal dE >= 17.8,
+   colour-blind dE >= 8.9, light and dark). Phase colours (--ph-*) stay reserved for DMAIC phases. */
+.hue-violet { --hue: var(--hue-violet); --hue-tint: var(--hue-violet-tint); }
+.hue-teal   { --hue: var(--hue-teal);   --hue-tint: var(--hue-teal-tint); }
+.hue-amber  { --hue: var(--hue-amber);  --hue-tint: var(--hue-amber-tint); }
+.hue-indigo { --hue: var(--hue-indigo); --hue-tint: var(--hue-indigo-tint); }
+.hue-sky    { --hue: var(--hue-sky);    --hue-tint: var(--hue-sky-tint); }
+.hue-rose   { --hue: var(--hue-rose);   --hue-tint: var(--hue-rose-tint); }
+
+.tile[class*="hue-"] { background: linear-gradient(135deg, var(--hue-tint), var(--panel) 65%); border-color: color-mix(in srgb, var(--hue) 25%, var(--line)); }
+.tile[class*="hue-"] .tile-icon { background: var(--hue); color: var(--hue-on); }
+@media (hover: hover) { .tile[class*="hue-"]:hover { border-color: var(--hue); } }
+
+.chip.kind-table      { background: var(--hue-sky-tint);    color: var(--hue-sky); }
+.chip.kind-diagram    { background: var(--hue-violet-tint); color: var(--hue-violet); }
+.chip.kind-example    { background: var(--hue-teal-tint);   color: var(--hue-teal); }
+.chip.kind-cheatsheet { background: var(--hue-amber-tint);  color: var(--hue-amber); }
+.filter[data-kind="table"]::before, .filter[data-kind="diagram"]::before,
+.filter[data-kind="example"]::before, .filter[data-kind="cheatsheet"]::before {
+  content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--k);
+}
+.filter[data-kind="table"] { --k: var(--hue-sky); }
+.filter[data-kind="diagram"] { --k: var(--hue-violet); }
+.filter[data-kind="example"] { --k: var(--hue-teal); }
+.filter[data-kind="cheatsheet"] { --k: var(--hue-amber); }
+.filter[aria-pressed="true"]::before { box-shadow: 0 0 0 2px var(--btn-ink); }
+
+/* welcome: soft washes of the phase colours behind the text (<= 12%, text contrast stays >= 4.5:1) */
+.welcome {
+  position: relative; overflow: hidden; border-top: 0;
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--ph-analyze) 12%, transparent), transparent 45%),
+    radial-gradient(circle at 0 100%, color-mix(in srgb, var(--ph-define) 10%, transparent), transparent 50%),
+    var(--panel);
+}
+.welcome::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 5px;
+  background: linear-gradient(90deg, var(--ph-define), var(--ph-measure), var(--ph-analyze), var(--ph-improve), var(--ph-control));
+}
+.welcome-art { display: flex; gap: 6px; float: right; margin: 0 0 8px 16px; }
+.welcome-art .ph-badge { transform: rotate(-6deg); box-shadow: 0 2px 6px rgba(20, 28, 48, .15); }
+.welcome-art .ph-badge:nth-child(even) { transform: rotate(5deg) translateY(4px); }
+@media (max-width: 480px) { .welcome-art { float: none; margin: 0 0 12px; } }
+
+/* question card: phase colour on top, phase chip in a tint of the same colour */
+.qcard[class*="ph-"] { border-top: 4px solid var(--ph); }
+.qcard .phase-chip { background: color-mix(in srgb, var(--ph) 18%, var(--panel)); }
+.qcard .dot { width: 10px; height: 10px; }
+
+/* learn and resource pages: the phase colour on top of the article, a small badge in the breadcrumb */
+.learn[class*="ph-"] { border-top: 4px solid var(--ph); }
+.ph-badge.xs { width: 20px; height: 20px; border-radius: 6px; font-size: .72rem; margin-right: 6px; vertical-align: -4px; }
+.learn .lead { padding-left: 12px; border-left: 3px solid var(--ph, var(--accent)); }
+
+/* topic and learn lists: a faint wash of the phase colour under the card header */
+.phase-card { background: linear-gradient(to bottom, color-mix(in srgb, var(--ph) 8%, var(--panel)), var(--panel) 96px); }
+
+/* home summary: a soft accent wash, the ring in the accent */
+.summary { background: linear-gradient(120deg, var(--accent-soft), var(--panel) 55%); }
+.summary.passed .ring-fill { stroke: var(--ok); }
+
+/* feedback: a single soft burst behind the verdict icon on Confirm (none with reduced motion) */
+.feedback.anim .explain.ok .verdict-icon { animation: burst-ok .7s ease-out; }
+.feedback.anim .explain.bad .verdict-icon { animation: burst-bad .5s ease-out; }
+.feedback.anim .cheer { animation: pop .35s ease-out, burst-cheer .8s ease-out; }
+@keyframes burst-ok { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); transform: scale(.7); }
+  50% { transform: scale(1.15); } 100% { box-shadow: 0 0 0 16px transparent; transform: none; } }
+@keyframes burst-bad { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--bad) 45%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+@keyframes burst-cheer { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--cheer-ink) 45%, transparent); } 100% { box-shadow: 0 0 0 12px transparent; } }
+.explain.ok .verdict-icon { box-shadow: 0 0 0 4px var(--ok-bg); }
 
 /* ---------- dialog ---------- */
 dialog {

@@ -2,7 +2,7 @@
 
 ## Current status
 
-348 questions and 27 learn pages, all fact-checked. Modes: Random round, By topic/phase round, Exam (IASSC rules), Review mistakes (Leitner), Learn. Wave 2 running (resources, UI/UX, +152 questions).
+348 questions and 27 learn pages, all fact-checked. Modes: Random round, By topic/phase round, Exam (IASSC rules), Review mistakes (Leitner), Learn. 502 questions, 27 learn pages, 54 resources (30 tables/examples/cheat sheets, 24 diagrams), all fact-checked. Phase and mode colours. Public docs and licenses (MIT code, CC BY 4.0 content). Published to GitHub Pages.
 
 ## Plan
 
@@ -32,6 +32,7 @@
 - 2026-10-27: network drop stopped four agents mid-task; resumed, no work lost.
 - 2026-10-27: wave-end review fixed 6 bugs (DST streak, midnight due dates, double-counted review card, round scope, key repeat, timeout submit). User approved public repo + Pages; publish blocked once by the permission check, now approved.
 - 2026-10-27: wave 2 started: UI/UX + Resources section (1 agent); resource tables/examples (1); diagrams Define/Measure and Analyze/Improve/Control (2); +152 questions in packs define3, measure3, analyze2, improve2, control2 (5), each to be fact-checked. Then publication skill, short docs, publish.
+- 2026-10-27: wave 2 done. Five new packs (+154 questions) and all resources fact-checked (diagram fixes: fishbone placed in Measure on the roadmap, p-value area label, slope triangle). Wave-end review: double-click Confirm guard, per-card streak, stricter SVG inertness check. Question id now shown under explanations. Open-source audit clean (no secrets/PII, noreply identity, history never pushed). Docs, licenses, issue forms and a path-filtered validate workflow added.
 
 ## Course material errors found (not used in questions)
 

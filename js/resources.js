@@ -14,7 +14,8 @@ var Resources = (function () {
   function kindName(id) { var k = KINDS.find(function (x) { return x.id === id; }); return k ? k.one : id; }
   function href(r) { return "#/resources/" + encodeURIComponent(r.id); }
   function phaseName(id) { var p = U.phase(id); return p ? p.name : "General"; }
-  function kindChip(r) { return h("span", { class: "chip", text: kindName(r.kind) }); }
+  // Tinted per kind in css/app.css (.chip.kind-*); the text names the kind, so the colour is decoration.
+  function kindChip(r) { return h("span", { class: "chip kind-" + r.kind, text: kindName(r.kind) }); }
 
   // ---------- index ----------
 
@@ -70,7 +71,7 @@ var Resources = (function () {
 
   function renderDetail(main, id) {
     var r = RES.get(id);
-    main.appendChild(h("p", { class: "crumbs" }, h("a", { href: "#/resources" }, "Resources"), r ? " / " + phaseName(r.phase) : ""));
+    main.appendChild(h("p", { class: "crumbs" }, h("a", { href: "#/resources" }, "Resources"), r ? [" / ", U.phaseBadge(r.phase, "xs"), phaseName(r.phase)] : ""));
     if (!r) {
       main.appendChild(h("h1", { text: "Resource not found" }));
       main.appendChild(h("div", { class: "card empty" }, h("p", { text: "This resource is not in the library (it may have been renamed)." }),
@@ -85,7 +86,7 @@ var Resources = (function () {
     });
     main.appendChild(chips);
 
-    var art = h("article", { class: "card learn res" });
+    var art = h("article", { class: "card learn res " + U.phaseClass(r.phase) });
     art.appendChild(h("p", { class: "lead prose", text: r.summary }));
     if (r.img) {
       // A white panel in both themes: the diagrams are drawn for white (docs/CONTENT_GUIDE.md, Diagram style).

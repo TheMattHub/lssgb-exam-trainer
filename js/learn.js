@@ -93,7 +93,7 @@ var Learn = (function () {
 
   function renderTopic(main, id) {
     var t = U.topic(id), p = LEARN.get(id);
-    main.appendChild(h("p", { class: "crumbs" }, h("a", { href: "#/learn" }, "Learn"), t ? " / " + U.phase(t.phase).name : ""));
+    main.appendChild(h("p", { class: "crumbs" }, h("a", { href: "#/learn" }, "Learn"), t ? [" / ", U.phaseBadge(t.phase, "xs"), U.phase(t.phase).name] : ""));
     if (!t) {
       main.appendChild(h("h1", { text: "Topic not found" }));
       main.appendChild(h("div", { class: "card empty" }, h("p", { text: "This topic is not in the course (it may have been renamed)." }),
@@ -105,7 +105,7 @@ var Learn = (function () {
     if (Quiz.backHref()) main.appendChild(h("p", null, h("a", { class: "btn ghost small", href: Quiz.backHref() }, "← Back to questions")));
     if (!p) { main.appendChild(h("p", { class: "card muted", text: "No notes for this topic yet." })); }
     else {
-      var art = h("article", { class: "card learn" });
+      var art = h("article", { class: "card learn " + U.phaseClass(t.phase) });
       art.appendChild(h("p", { class: "lead prose", text: p.summary }));
       if (p.points && p.points.length) art.appendChild(section("Key points", list(p.points)));
       if (Array.isArray(p.formulas) && p.formulas.length) {
