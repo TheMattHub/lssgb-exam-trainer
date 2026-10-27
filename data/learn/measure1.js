@@ -10,7 +10,7 @@ LEARN.add([
       "Detailed flowchart: every step, decision diamond and rework loop. Swim-lane map: the same steps placed in lanes by role or department, showing hand-offs.",
       "Value stream map: material and information flow, data boxes (cycle time, changeover, uptime), inventory, and a timeline of value-added vs non-value-added time. Draw the current state, then a future state.",
       "Takt time = available production time ÷ customer demand. A step whose cycle time is above takt cannot keep up with demand.",
-      "Lead time = total time a unit spends in the process; process cycle efficiency (PCE) = value-added time ÷ total lead time.",
+      "Lead time = total time a unit spends in the process; on a VSM each inventory buffer adds inventory ÷ daily demand days (Little's law), summed over all buffers. Process cycle efficiency (PCE) = value-added time ÷ total lead time.",
       "X-Y (cause and effect) matrix: rows = Xs, columns = Ys with importance weights (1-10); score each X-Y link 0, 1, 3 or 9; weighted total per X = Σ(weight × score). Top Xs go to FMEA and data collection.",
       "FMEA rates each failure mode for Severity, Occurrence and Detection on 1-10 scales; RPN = S × O × D (1-1,000).",
       "Severity 9-10 (hazardous) needs action whatever the RPN. After actions, re-score and recompute the RPN.",
@@ -60,7 +60,7 @@ LEARN.add([
       "Skewness: right (positive) skew → mean > median; left (negative) skew → mean < median. Times bounded at zero are often right-skewed.",
       "Kurtosis (Minitab reports excess kurtosis, normal = 0): positive = heavier tails (more extreme values, usually a sharper peak); negative = lighter tails, flatter shape.",
       "Anderson-Darling test: H₀ = data are normal. p ≤ 0.05 → reject, not normal; p > 0.05 → fail to reject, treat as normal. A normal probability plot with points on a straight line also suggests normality.",
-      "Common reasons for non-normal data: mixed populations (bimodal histogram), outliers, natural bounds, poor gage resolution.",
+      "Common reasons for non-normal data: mixed populations (bimodal histogram), outliers, natural bounds, poor gage resolution (rounded data stack up in ties and can fail Anderson-Darling on their own). Very large samples make the test flag trivial departures, so read the probability plot too. A histogram cut off sharply at the spec limits points to sorted parts or edited data.",
       "Histogram: shape, centre and spread of one variable. Box plot: median, Q1-Q3 box, whiskers to 1.5 × IQR, points beyond = outliers; good for comparing groups. Dot plot: small data sets. Run chart: behaviour over time. Scatter plot: two continuous variables.",
       "A sample must be random and representative; convenience samples (easy-to-reach units) are biased."
     ],
