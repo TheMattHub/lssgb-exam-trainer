@@ -2,7 +2,7 @@
 
 ## Current status
 
-348 questions and 27 learn pages, all fact-checked. Modes: Random round, By topic/phase round, Exam (IASSC rules), Review mistakes (Leitner), Learn. Wave-end code review running; then publish.
+348 questions and 27 learn pages, all fact-checked. Modes: Random round, By topic/phase round, Exam (IASSC rules), Review mistakes (Leitner), Learn. Wave 2 running (resources, UI/UX, +152 questions).
 
 ## Plan
 
@@ -30,6 +30,8 @@
 - 2026-10-27: research done (docs/research/iassc-gb-bok.md). IASSC GB BoK has no DOE: Improve = correlation + regression. Course-only topics flagged `bok: false` (dfss, pm-tools, teams, probability, doe, solutions): ~5 questions each, excluded from mocks. Topic names renamed to show every BoK item.
 - 2026-10-27: wave 1: seven packs written, each fact-checked by an independent agent (fixes in each pack's commit). User asked for explicit modes: Random and Topic rounds with a Confirm step, Exam per IASSC rules; shell reworked.
 - 2026-10-27: network drop stopped four agents mid-task; resumed, no work lost.
+- 2026-10-27: wave-end review fixed 6 bugs (DST streak, midnight due dates, double-counted review card, round scope, key repeat, timeout submit). User approved public repo + Pages; publish blocked once by the permission check, now approved.
+- 2026-10-27: wave 2 started: UI/UX + Resources section (1 agent); resource tables/examples (1); diagrams Define/Measure and Analyze/Improve/Control (2); +152 questions in packs define3, measure3, analyze2, improve2, control2 (5), each to be fact-checked. Then publication skill, short docs, publish.
 
 ## Course material errors found (not used in questions)
 
