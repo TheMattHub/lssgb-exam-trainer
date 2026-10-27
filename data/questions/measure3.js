@@ -76,7 +76,7 @@ QB.add([
     id: "M3-007", topic: "basic-stats", level: 2,
     q: "An Anderson-Darling test on 5,000 oven temperature readings gives p = 0.008. The histogram is bell-shaped and the normal probability plot is almost straight, with slight bending only in the far tails. Why might the test reject normality here?",
     options: [
-      { t: "With 5,000 points the test can flag departures too small to matter", why: "Correct: a very large sample gives the test so much power that trivial departures become significant; judge practical fit with the plot as well." },
+      { t: "A very large sample makes the test detect departures too small to matter", why: "Correct: formally the data still fail the test (p ≤ 0.05, not normal), but with n = 5,000 the test has so much power that trivial departures become significant; use the plot to judge whether normal-based methods remain practical." },
       { t: "The Anderson-Darling test is only valid for samples of 30 or fewer", why: "Wrong: the test has no such upper limit; the issue is that its power keeps rising with n, not that it becomes invalid." },
       { t: "A p-value below 0.05 means the data fit the normal distribution well", why: "Wrong: H₀ of the test is normality, so a small p-value is evidence against normality, not for it." },
       { t: "The histogram uses too few bars, which distorts the test result", why: "Wrong: the test works on the ordered data values, not on the histogram; bar width changes the picture, not the p-value." }
@@ -85,12 +85,12 @@ QB.add([
   },
   {
     id: "M3-008", topic: "basic-stats", level: 2,
-    q: "Call wait times are recorded in whole minutes; most calls wait 1 to 4 minutes. An Anderson-Darling test gives p < 0.005, and the normal probability plot shows the points in horizontal stacks, several at each value, lying along a straight line. What is the best next step?",
+    q: "Bag fill weights are recorded to the nearest gram; nearly all bags weigh 498 to 502 g. An Anderson-Darling test gives p < 0.005, and the normal probability plot shows the points in horizontal stacks, many at each value, lying along a straight line. What is the best next step?",
     options: [
-      { t: "Treat the data as bimodal and stratify the calls by shift", why: "Wrong: stacks at every recorded value come from rounding, not from two separate groups; a mixed population shows two peaks or a kink in the plot." },
-      { t: "Delete the longest waits as outliers and repeat the test", why: "Wrong: nothing points to outliers; removing valid data biases the baseline and does not remove the ties." },
+      { t: "Treat the data as bimodal and stratify the bags by shift", why: "Wrong: stacks at every recorded value come from rounding, not from two separate groups; a mixed population shows two peaks or a kink in the plot." },
+      { t: "Delete the lightest and heaviest bags as outliers and retest", why: "Wrong: nothing points to outliers; removing valid data biases the baseline and does not remove the ties." },
       { t: "Apply a Box-Cox transformation and carry on with normal methods", why: "Wrong: transforming rounded data keeps the same ties, so the test can still reject; the root cause is the coarse recording." },
-      { t: "Record wait times in seconds; rounding alone can fail the test", why: "Correct: coarse resolution creates many tied values, which can make the Anderson-Darling test reject even when the process is normal." }
+      { t: "Re-weigh to 0.1 g, since coarse rounding alone can fail the test", why: "Correct: coarse resolution creates many tied values, which can make the Anderson-Darling test reject even when the process is normal." }
     ],
     answer: 3, ref: "Web: blog.minitab.com (normality tests and rounding)"
   },
@@ -108,13 +108,13 @@ QB.add([
     answer: 2, ref: "Lesson 3.4"
   },
   {
-    id: "M3-010", topic: "distributions", level: 1,
-    q: "A machine breaks down at random with a constant failure rate. Which distribution models the time between breakdowns?",
+    id: "M3-010", topic: "distributions", level: 2,
+    q: "Calls reach a help desk at random, at a constant average rate of 12 an hour. Which distribution models the time between calls, and what is its mean?",
     options: [
-      { t: "Poisson", why: "Wrong: the Poisson models the number of breakdowns in a fixed period; the time between them follows the exponential." },
-      { t: "Exponential", why: "Correct: with events at a constant rate, the time between events is exponential; its mean is 1 ÷ rate." },
-      { t: "Binomial", why: "Wrong: the binomial counts successes in a fixed number of trials with two outcomes; it does not model a waiting time." },
-      { t: "Normal", why: "Wrong: times between random events are right-skewed and cannot be negative, so a symmetric normal model does not fit." }
+      { t: "Poisson, with a mean of 12 minutes", why: "Wrong: the Poisson counts calls per hour (mean 12 an hour); the time between calls is continuous and exponential, with mean 60 ÷ 12 = 5 minutes." },
+      { t: "Exponential, with a mean of 5 minutes", why: "Correct: with events at a constant rate the time between them is exponential, with mean 1 ÷ rate = 1 ÷ 12 hour = 5 minutes." },
+      { t: "Exponential, with a mean of 12 minutes", why: "Wrong: right distribution, but the rate was used as the mean; the mean time between events is 1 ÷ rate = 60 ÷ 12 = 5 minutes." },
+      { t: "Poisson, with a mean of 5 minutes", why: "Wrong: the mean is right, but the Poisson is discrete and counts calls in a period; a waiting time between calls is continuous and exponential." }
     ],
     answer: 1, ref: "Lesson 3.4"
   },
@@ -147,9 +147,9 @@ QB.add([
     q: "In an attribute agreement analysis, an inspector's ratings match the known standard on 90% of the parts. Agreement expected by chance alone is 50%. What is the inspector's kappa, and how is it rated using the AIAG guideline?",
     options: [
       { t: "0.90, acceptable", why: "Wrong: 0.90 is the raw agreement; kappa removes the agreement expected by chance." },
-      { t: "0.40, poor", why: "Wrong: 0.90 − 0.50 = 0.40 is only the numerator; it must be divided by 1 − 0.50." },
+      { t: "0.40, not acceptable", why: "Wrong: 0.90 − 0.50 = 0.40 is only the numerator; it must be divided by 1 − 0.50." },
       { t: "0.80, acceptable", why: "Correct: κ = (P_observed − P_chance) ÷ (1 − P_chance) = (0.90 − 0.50) ÷ 0.50 = 0.80, above the 0.75 guideline." },
-      { t: "0.44, poor", why: "Wrong: this divides by the observed agreement, 0.40 ÷ 0.90; the denominator is 1 − P_chance." }
+      { t: "0.44, not acceptable", why: "Wrong: this divides by the observed agreement, 0.40 ÷ 0.90; the denominator is 1 − P_chance (0.44 would also fall short of 0.75)." }
     ],
     answer: 2, ref: "Web: support.minitab.com (attribute agreement key results)"
   },
@@ -157,22 +157,22 @@ QB.add([
   // ---------------- capability ----------------
   {
     id: "M3-014", topic: "capability", level: 3,
-    q: "A team checks 1,200 invoices and classes 18 as defective. Using binomial capability, process Z is the standard normal value with the defective rate in the upper tail (P(Z > 2.17) ≈ 0.015). Which pair of results is correct?",
+    q: "A team checks 1,200 invoices and classes 18 as defective. Minitab binomial capability reports process Z as the standard normal value with the defective rate in the upper tail, with no 1.5σ shift added (P(Z > 2.17) ≈ 0.015). Which pair of results is correct?",
     options: [
       { t: "15,000 PPM defective; process Z ≈ 2.17", why: "Correct: 18 ÷ 1,200 = 0.015 = 1.5% = 15,000 PPM, and the Z with 1.5% in the upper tail is about 2.17." },
       { t: "1,500 PPM defective; process Z ≈ 2.97", why: "Wrong: this reads 1.5% as 0.15%; 0.015 × 1,000,000 = 15,000 PPM, and 2.97 is the Z for 0.15%." },
-      { t: "15,000 PPM defective; process Z ≈ 0.67", why: "Wrong: this subtracts the 1.5σ shift from 2.17; process Z is read straight from the defective rate, with no shift taken off." },
-      { t: "15,000 PPM defective; process Z ≈ 6.51", why: "Wrong: this multiplies 2.17 by 3, mixing Z with the Cpk scale (Z = 3 × Cpk), so it runs the conversion the wrong way." }
+      { t: "15,000 PPM defective; process Z ≈ 3.67", why: "Wrong: this adds the 1.5σ shift, as a sigma table does; binomial process Z is read straight from the defective rate, with no shift added." },
+      { t: "15,000 PPM defective; process Z ≈ 6.51", why: "Wrong: this treats 2.17 as a Cpk and multiplies it by 3 (Z = 3 × Cpk); 2.17 is already the Z value." }
     ],
     answer: 0, ref: "Web: support.minitab.com (binomial capability key results)"
   },
   {
     id: "M3-015", topic: "capability", level: 2,
-    q: "Order handling times are right-skewed, with a single upper limit of 20 minutes. The team applies a natural-log (Box-Cox λ = 0) transformation, and the transformed data pass a normality test. What must they do before calculating capability?",
+    q: "Repair turnaround times are right-skewed, with a single upper limit of 20 minutes. The team applies a natural-log (Box-Cox λ = 0) transformation, and the transformed data pass a normality test. What must they do before calculating capability?",
     options: [
       { t: "Keep the limit at 20 minutes, since customers set it in minutes", why: "Wrong: comparing log-scale data with a limit in minutes mixes units; the index would be meaningless." },
       { t: "Transform the limit the same way, to ln 20 ≈ 3.00", why: "Correct: the specification limit must go through the same transformation as the data, so the index compares like with like." },
-      { t: "Drop the longest handling times until the raw data look normal", why: "Wrong: deleting valid data biases the result and hides exactly the long times that fail the customer." },
+      { t: "Drop the longest turnaround times until the raw data look normal", why: "Wrong: deleting valid data biases the result and hides exactly the long times that fail the customer." },
       { t: "Report Cp only, because Cpk is undefined for transformed data", why: "Wrong: Cpk (here Cpu) is calculated on the transformed scale; Cp needs two limits and is undefined for a one-sided spec." }
     ],
     answer: 1, ref: "Web: help.sigmazone.com (Box-Cox transformation)"
@@ -184,7 +184,7 @@ QB.add([
       { t: "Accept, since adjusting after each defect pulls the process back to target", why: "Wrong: adjusting a stable process for common-cause results is tampering; it adds variation instead of removing it." },
       { t: "Re-centre the mean, which will lift Cpk above the 1.33 minimum", why: "Wrong: centring can raise Cpk only up to Cp = 0.72; the spread itself is too wide for the tolerance." },
       { t: "Find the special cause behind each out-of-spec part and remove it", why: "Wrong: the chart shows no special causes; the out-of-spec parts are part of the stable process's common-cause spread." },
-      { t: "Decline, and change the process itself to reduce its common-cause σ", why: "Correct: the process is stable but incapable (Cp 0.72), so only a fundamental change that reduces σ will fix it." }
+      { t: "Decline, and change the process itself to reduce its common-cause σ", why: "Correct: the process is stable but incapable (Cp 0.72); adjusting for common-cause results is tampering, and the lasting fix is a process change that reduces σ." }
     ],
     answer: 3, ref: "Lesson 3.6"
   }
