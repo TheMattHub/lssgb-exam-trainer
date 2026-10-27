@@ -1,0 +1,34 @@
+name: Validate data
+
+# Runs only when the app or its data change; docs-only pushes skip it.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "assets/**"
+      - "js/**"
+      - "css/**"
+      - "index.html"
+      - "tools/**"
+  pull_request:
+    paths:
+      - "data/**"
+      - "assets/**"
+      - "js/**"
+      - "css/**"
+      - "index.html"
+      - "tools/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tools/validate.mjs

@@ -1,0 +1,33 @@
+name: Question error
+description: A wrong answer key, explanation, number or unclear wording in a question.
+title: "Question error: <question id>"
+labels: ["question error"]
+body:
+  - type: input
+    id: question
+    attributes:
+      label: Question
+      description: The question id shown under the explanation (for example M2-007).
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong
+      description: The answer key, an explanation, a number or the wording.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Source or evidence
+      description: A page of the IASSC Body of Knowledge, a textbook or a public web source.
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Suggested fix
+      description: The corrected answer or text, if you have one.
+    validations:
+      required: false

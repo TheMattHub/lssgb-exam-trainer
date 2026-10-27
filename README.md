@@ -1,46 +1,64 @@
 # LSSGB Exam Trainer
 
-A small static web app for practising IASSC Lean Six Sigma Green Belt multiple-choice questions and learning from mistakes. Every option comes with the reason it is right or wrong; questions you miss come back for review on a spaced schedule; timed mock exams score you against the 70% pass mark.
+Practise for the IASSC Lean Six Sigma Green Belt exam with 502 fact-checked multiple-choice questions, each option explained.
 
-Online: _GitHub Pages URL to be added_
+**[Open the app](https://themathub.github.io/lssgb-exam-trainer/)** · [Learner guide](docs/USER_GUIDE.md)
+
+<p align="center"><img src="docs/screenshots/home.png" alt="Home page on a first visit: a welcome card and tiles for Random, By topic, Exam, Review mistakes, Learn and Resources" width="800"></p>
+
+## What you can do
+
+- **Random:** work through all questions in random order, as a round you can leave and resume.
+- **By topic:** run a round on one topic or a whole DMAIC phase; the list shows your score per topic.
+- **Confirm:** in both modes you pick an answer, press Confirm, and see why each of the four options is right or wrong.
+- **Review mistakes:** questions you miss come back the same day, then after 1, 3, 7, 14 and 30 days.
+- **Exam:** a timed mock under IASSC rules, plus a 25-question, 45-minute quick exam.
+- **Learn:** notes, formulas, exam traps and terms for each of the 27 topics, with a search across notes and questions.
+- **Resources:** 54 references made from scratch: 24 diagrams, 12 worked examples, 10 cheat sheets and 8 tables.
+
+## Exam facts
+
+- The IASSC Green Belt exam has 100 questions, 3 hours and a 70% pass mark, with about 20 questions per DMAIC phase.
+- On the IASSC exam, Improve covers correlation and regression only.
+- Design of Experiments (DOE) and five other course topics appear here as bonus topics: you can practise them, and the mock exams leave them out.
 
 ## Use it
 
-- **Online:** open the Pages link above.
-- **From disk:** download or clone the repo and double-click `index.html`. No install, no server, no internet needed.
-- **Local server (optional):** `python -m http.server 8000` in the repo folder, then open http://localhost:8000.
+- **Online:** open <https://themathub.github.io/lssgb-exam-trainer/>.
+- **From disk:** download or clone the repo and double-click `index.html`. You need no install, server or internet connection.
+- **Local server:** run `python -m http.server 8000` in the repo folder, then open <http://localhost:8000>.
 
-Progress stays in your browser (localStorage). To move it to another device or browser, use Settings → Export progress, then Import progress on the other side. Each person who opens the link has their own progress.
+## Your progress
 
-## What it does
+Your progress stays in your own browser (localStorage); nothing goes to a server. Each colleague who opens the link gets separate progress. To move yours to another device or browser, use Settings → Export progress, then Import progress on the other side.
 
-- **Random:** every question in random order, as a round. Questions not yet answered in the round come first; leave and come back any time, the round is saved. When all are answered you get a round summary and can start a new round.
-- **By topic:** the same rounds for one topic or a whole phase. The topic list shows, per topic, how many questions you have answered and how many are right or wrong by your latest answer.
-- In both, and in Review: pick an option (you can change it), then **Confirm** to see whether it is right and why each of the four options is right or wrong. Keys: 1-4 or A-D to select, Enter to confirm, Enter again for the next question.
-- **Review mistakes:** questions you got wrong come back the same day. Each right answer moves a question up one box (Leitner): due again after 1, 3, 7, 14 and 30 days. A question counts as mastered from box 3.
-- **Exam (IASSC rules):** 100 questions, 3 hours, pass mark 70%, about 20 per DMAIC phase, explanations only after you submit; a 25-question, 45-minute quick exam uses the same rules. Flag questions and jump with the grid; a refresh resumes the exam with the same clock. Bonus topics (not on the IASSC exam) are left out.
-- **Learn:** notes, formulas, exam traps and terms per topic, with a search across notes and question stems.
+## Screenshots
 
-## Add questions
+<p>
+<a href="docs/screenshots/question-feedback.png"><img src="docs/screenshots/question-feedback.png" alt="A question after Confirm, with the reason each option is right or wrong" width="200"></a>
+<a href="docs/screenshots/topics.png"><img src="docs/screenshots/topics.png" alt="Topic list with answered, right and wrong counts per topic" width="200"></a>
+<a href="docs/screenshots/exam-result.png"><img src="docs/screenshots/exam-result.png" alt="Quick exam result: 80%, pass, score by phase" width="200"></a>
+<a href="docs/screenshots/resource-diagram-dark.png"><img src="docs/screenshots/resource-diagram-dark.png" alt="Cp vs Cpk diagram in the dark theme" width="200"></a>
+</p>
 
-Questions and learn pages are plain JavaScript files, so the app also works from `file://`:
+## Accuracy and sources
 
-- `data/topics.js`: phases and topics (ids used everywhere).
-- `data/questions/<pack>.js`: `QB.add([ ... ]);`
-- `data/learn/<pack>.js`: `LEARN.add([ ... ]);`
+An independent reviewer checked every question against its source. Each question shows its source after you answer:
 
-The format and writing rules are in [docs/CONTENT_GUIDE.md](docs/CONTENT_GUIDE.md). A new pack file also needs a `<script>` tag in `index.html`. Check the data before committing:
+- "Lesson x.y" points to the lesson numbering of the Green Belt course the author took.
+- "Web:" names a public source.
+- "BoK" points to the IASSC Body of Knowledge.
 
-```
-node tools/validate.mjs
-```
+Found an error? Open a [Question error issue](https://github.com/TheMattHub/lssgb-exam-trainer/issues/new?template=question-error.yml) with the question id (shown under the explanation, e.g. M2-007) and your source.
 
-It needs only Node (no packages). It prints counts per pack and topic, the spread of correct-answer positions and how often the correct option is the longest, and exits with code 1 on any contract error. The app itself skips items that break the format, so one bad question never blanks the page.
+## Contribute
 
-## Code layout
+Fixes and new questions are welcome. [CONTRIBUTING.md](CONTRIBUTING.md) explains the data format and the content rules. Run `node tools/validate.mjs` before you open a pull request.
 
-- `index.html`: page frame and the ordered list of scripts.
-- `css/app.css`: all styles, light and dark tokens.
-- `js/registry.js` (QB, LEARN), `js/store.js` (progress and Leitner), `js/quiz.js` (Random, Topic and Review modes), `js/mock.js` (Exam mode), `js/learn.js`, `js/app.js` (router, Home, Settings), `js/dom.js` (helpers), `js/theme-init.js` (theme before first paint).
+## Disclaimer
 
-Plain HTML, CSS and JavaScript: no framework, no build step, no network requests. A Content Security Policy allows scripts and styles from the site itself only, and all data is rendered as text.
+LSSGB Exam Trainer is an independent study aid, not affiliated with or endorsed by IASSC. The questions are original practice items, not real exam questions.
+
+## License
+
+Code: MIT ([LICENSE](LICENSE)). Content in `data/` and `assets/`: CC BY 4.0 ([LICENSE-CONTENT.md](LICENSE-CONTENT.md)). Copyright 2026 Matteo Brunetti.

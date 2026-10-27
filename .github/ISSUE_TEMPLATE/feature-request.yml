@@ -1,0 +1,18 @@
+name: Feature request
+description: An idea for the app, the learn notes or the resources.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What you want to do
+      description: The study task you want to do and what gets in the way today.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: How the app could help. Screens or examples are welcome.
+    validations:
+      required: false
