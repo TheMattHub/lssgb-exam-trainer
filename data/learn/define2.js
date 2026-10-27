@@ -14,7 +14,8 @@ LEARN.add([
       "Affinity diagram: groups a large amount of verbal data (survey comments, brainstormed ideas) into natural themes under header cards.",
       "Kano: must-be (expected; absence angers), one-dimensional (more is better), attractive (unexpected delighter), indifferent, reverse. Delighters drift to must-be over time.",
       "QFD translates customer needs into technical requirements in four linked phases (product planning, design, process planning, process control). The first matrix is the House of Quality.",
-      "House of Quality: customer requirements and weights (left), technical requirements (ceiling), relationship matrix (body, often scored 9/3/1), roof (correlations among technical requirements), targets and technical importance (basement)."
+      "House of Quality: customer requirements and weights (left), technical requirements (ceiling), relationship matrix (body, often scored 9/3/1), roof (correlations among technical requirements), targets and technical importance (basement).",
+      "Kano survey: each feature gets a functional question (if present?) and a dysfunctional one (if absent?). Like + neutral = attractive; like + dislike = one-dimensional; neutral/expect + dislike = must-be. Priority: meet every must-be, compete on one-dimensional, add a few delighters."
     ],
     formulas: [
       { name: "Technical importance (HOQ)", f: "Score of a technical requirement = Σ (customer weight × relationship score)" }
@@ -55,7 +56,9 @@ LEARN.add([
       "Hard savings: visible on the P&L (less scrap, labour, overtime, material; more revenue). Soft savings: real but not on the P&L (cost avoidance, freed capacity, satisfaction).",
       "Good metrics are tied to a CTQ, measured with a validated measurement system and tracked over time; the CTQ usually becomes the project's primary metric (Y).",
       "Finance validates the baseline and the savings; benefits are tracked after closure, often for 12 months.",
-      "Stakeholder analysis: list who is affected, their current and required support and their influence. Engage high-influence resisters early."
+      "Stakeholder analysis: list who is affected, their current and required support and their influence. Engage high-influence resisters early.",
+      "Power/interest grid (Mendelow): high power + high interest = manage closely; high power + low interest = keep satisfied; low power + high interest = keep informed; low + low = monitor.",
+      "Payback with uneven savings: accumulate savings year by year and interpolate in the year the investment is recovered (e.g. €90k vs 30k, 40k, 50k → 2 + 20/50 = 2.4 years)."
     ],
     formulas: [
       { name: "ROI", f: "ROI = (benefit − cost) ÷ cost × 100%" },

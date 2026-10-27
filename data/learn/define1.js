@@ -95,7 +95,8 @@ LEARN.add([
       "Sigma table (with 1.5σ shift): 6σ = 3.4; 5σ = 233; 4σ = 6,210; 3σ = 66,807; 2σ = 308,538; 1σ ≈ 690,000 DPMO. Z_LT = Z_ST − 1.5. Without the shift, ±6σ would give only about 0.002 DPMO.",
       "Takt time = available time ÷ demand. Cycle time = time to complete one unit at a step. Lead time = total time a unit spends in the process. If a step's cycle time > takt, demand cannot be met.",
       "Cost of quality (ASQ): cost of good quality = prevention + appraisal; cost of poor quality (COPQ) = internal failure + external failure. External failure is the most expensive; investing in prevention lowers the total.",
-      "Pareto chart: categories in descending order plus a cumulative % line; roughly 80% of effects come from 20% of causes. A flat Pareto means re-stratify (by cost, shift, product…)."
+      "Pareto chart: categories in descending order plus a cumulative % line; roughly 80% of effects come from 20% of causes. A flat Pareto means re-stratify (by cost, shift, product…).",
+      "Under the Poisson model RTY = e^(−total DPU): add the step DPUs, then take e to the minus that sum. Little's Law: with throughput fixed, cutting WIP cuts lead time in proportion."
     ],
     formulas: [
       { name: "DPU", f: "DPU = defects ÷ units" },
