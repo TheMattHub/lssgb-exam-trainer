@@ -6,6 +6,7 @@ LEARN.add([
     summary: "Correlation measures how strongly two continuous variables move together in a straight line; simple linear regression fits that line so you can predict Y from X. On the IASSC Green Belt exam, correlation and regression make up the whole Improve phase (about 20 questions).",
     points: [
       "Pearson r runs from −1 to +1: the sign gives direction, |r| gives strength. A common rule of thumb calls |r| > 0.7 strong.",
+      "r is unit-free and symmetric: it is the same whichever variable is called X, and it takes the sign of the regression slope.",
       "r measures linear association only: a clear curve (e.g. an inverted U) can give r ≈ 0. Always look at the scatter plot.",
       "Correlation is not causation: a lurking third variable can drive both X and Y.",
       "A single outlier can create or hide a correlation. Investigate it; delete it only with a known cause.",
@@ -52,14 +53,14 @@ LEARN.add([
     summary: "Multiple regression models one continuous Y on several Xs, curved terms model non-linear behaviour, and residual analysis checks that the model can be trusted. Intervals around predictions and Box-Cox transformations complete the IASSC Green Belt Improve syllabus.",
     points: [
       "Multiple linear regression: ŷ = b₀ + b₁X₁ + b₂X₂ + … Each coefficient is the change in Y per unit of that X with the other Xs held constant.",
-      "Coefficient sizes depend on units; compare terms by p-value, not by coefficient size. Drop non-significant terms one at a time and refit.",
+      "Coefficient sizes depend on units, so do not rank terms by raw coefficient size; judge significance by p-value (< 0.05). Drop non-significant terms one at a time (highest p first) and refit.",
       "R² never falls when a term is added. R²-adjusted penalises extra terms: compare models with different numbers of terms on R²-adj. S (standard error of the regression) should be low.",
       "Multicollinearity: correlated Xs give unstable coefficients with inflated standard errors. VIF = 1 none; above 5 a concern (some use 10).",
       "Residual assumptions: normal (normal probability plot), constant variance (residuals vs fits, no funnel), independent (residuals vs order, no trend or cycle), mean zero. X does not need to be normal.",
       "A curve in residuals vs fits means a missing term: add X² (quadratic) or X³ (cubic), or transform a variable.",
       "Confidence interval (CI) = range for the mean Y at a given X. Prediction interval (PI) = range for one new observation. The PI is always wider; both are narrowest at x̄.",
       "Box-Cox finds a power λ (Y' = Y^λ, ln Y when λ = 0) that makes data closer to normal or stabilises variance. Data must be positive, and normality is not guaranteed.",
-      "If the confidence interval for λ includes 1, no transformation is needed.",
+      "If the confidence interval for λ includes 1, no transformation is needed. When transformed data are used for capability, transform the spec limits too.",
       "Stepwise and best subsets regression help choose which predictors to keep; the result still needs process knowledge."
     ],
     formulas: [
@@ -101,7 +102,7 @@ LEARN.add([
       "Response = the output (Y) measured. Factors = inputs (Xs) changed on purpose. Levels = the settings of a factor, often coded − and +.",
       "Treatment = one combination of factor levels; a run (trial) is one execution of a treatment.",
       "Full factorial runs = levels^factors: 2³ = 8 and 2⁵ = 32. Multiply by the number of replicates.",
-      "A half-fraction 2^(k−1) halves the runs but aliases (confounds) some effects. Resolution III aliases main effects with two-factor interactions; resolution IV aliases two-factor interactions with each other; resolution V keeps both clear.",
+      "A half-fraction 2^(k−1) halves the runs but aliases (confounds) some effects. Resolution III aliases main effects with two-factor interactions; resolution IV aliases two-factor interactions with each other; resolution V aliases main effects and two-factor interactions only with higher-order interactions (2⁵⁻¹ with I = ABCDE is resolution V).",
       "Main effect = average response at the high level minus average at the low level.",
       "Interaction: the effect of one factor depends on the level of another; non-parallel lines on an interaction plot.",
       "Randomisation protects against unknown time-related noise; replication estimates experimental error; blocking removes a known nuisance variable (e.g. material batch or shift).",

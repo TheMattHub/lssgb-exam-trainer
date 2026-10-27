@@ -1,7 +1,7 @@
 // Pack "improve": questions for the topics whose pack is "improve" in data/topics.js.
 // Format: docs/CONTENT_GUIDE.md. On the IASSC GB exam the Improve phase is correlation and
 // regression only, so most items are there; doe and solutions are small bonus sets (bok: false).
-// Software output is written inline (the app does not keep line breaks).
+// Software output in stems uses \n line breaks (the app renders them).
 QB.add([
   // ---------- correlation ----------
   {
@@ -41,10 +41,10 @@ QB.add([
     id: "IM-004", topic: "correlation", level: 2,
     q: "Over a year of monthly data, ice-cream sales and sunburn cases treated at clinics in a coastal town have r = 0.88. What is the best conclusion?",
     options: [
-      { t: "Eating ice cream increases the risk of sunburn", why: "Wrong: this claims causation from correlation alone, which correlation cannot establish." },
+      { t: "Eating ice cream probably raises the risk of sunburn", why: "Wrong: this claims causation from correlation alone, which correlation cannot establish." },
       { t: "Sunny weather probably drives sales and sunburn alike", why: "Correct: a lurking variable (hot, sunny months) can drive both, creating a strong correlation without any causal link between them." },
       { t: "The correlation is too weak to draw any conclusion", why: "Wrong: 0.88 is a strong positive correlation; the issue is interpretation, not strength." },
-      { t: "Sunburn makes people buy more ice cream", why: "Wrong: correlation says nothing about the direction of cause; reversing it is the same mistake." }
+      { t: "Sunburn probably makes people buy more ice cream", why: "Wrong: correlation says nothing about the direction of cause; reversing it is the same mistake." }
     ],
     answer: 1, ref: "Lesson 4.3"
   },
@@ -127,7 +127,7 @@ QB.add([
   },
   {
     id: "IM-012", topic: "correlation", level: 3,
-    q: "Simple regression output for hardness on quench temperature: Constant Coef = 15.20, P = 0.000; Temp Coef = 0.48, P = 0.000; S = 1.9, R-Sq = 72.4%, R-Sq(adj) = 71.3%. What is the correlation coefficient r?",
+    q: "Simple regression output for hardness on quench temperature:\nConstant  Coef = 15.20  P = 0.000\nTemp      Coef = 0.48   P = 0.000\nS = 1.9   R-Sq = 72.4%   R-Sq(adj) = 71.3%\nWhat is the correlation coefficient r?",
     options: [
       { t: "0.72", why: "Wrong: 0.724 is R², the square of r, not r itself." },
       { t: "0.85", why: "Correct: r = √R² = √0.724 ≈ 0.85, and it is positive because the slope (0.48) is positive." },
@@ -140,7 +140,7 @@ QB.add([
     id: "IM-013", topic: "correlation", level: 2,
     q: "In a simple linear regression the p-value for the slope of X is 0.27 (α = 0.05). What is the correct conclusion?",
     options: [
-      { t: "X explains 27% of the variation in Y, so it matters", why: "Wrong: a p-value is not R²; it is the probability of a slope this large if the true slope were zero." },
+      { t: "X explains 27% of the variation in Y, so it matters", why: "Wrong: a p-value is not R²; it is the probability of a slope at least this far from zero if the true slope were zero." },
       { t: "X has a significant effect, because p is above α", why: "Wrong: the rule is reversed; a term is significant only when p < α." },
       { t: "Do not reject H₀: no significant linear effect of X", why: "Correct: p = 0.27 > 0.05, so the data do not show a significant linear effect of X on Y." },
       { t: "Y is proven to be unrelated to X", why: "Wrong: failing to reject H₀ is not proof of no relationship; the effect may be small, non-linear or hidden by a small sample." }
@@ -239,18 +239,18 @@ QB.add([
   },
   {
     id: "IM-022", topic: "regression", level: 3,
-    q: "Model A (X1, X2): R-Sq = 81.0%, R-Sq(adj) = 79.8%. Model B (X1, X2, X3): R-Sq = 81.3%, R-Sq(adj) = 78.9%. Which conclusion is best?",
+    q: "Two regression models fitted to the same 30 observations:\nModel A (X1, X2):      R-Sq = 81.0%   R-Sq(adj) = 79.6%\nModel B (X1, X2, X3):  R-Sq = 81.3%   R-Sq(adj) = 79.1%\nWhich conclusion is best?",
     options: [
       { t: "Choose model B, because its R-Sq is higher", why: "Wrong: R² never decreases when a term is added, even a useless one, so it cannot be used to compare models with different numbers of terms." },
       { t: "Choose model B, because it uses more information", why: "Wrong: extra terms that do not explain variation make the model more complex and less reliable, not better." },
       { t: "Reject the two models, since R-Sq(adj) is below R-Sq", why: "Wrong: R²-adj is always at or below R²; the gap alone is not a reason to reject a model." },
-      { t: "Choose model A, because adding X3 lowers R-Sq(adj)", why: "Correct: R²-adj penalises extra terms; it fell from 79.8% to 78.9%, so X3 adds no real explanatory value." }
+      { t: "Choose model A, because adding X3 lowers R-Sq(adj)", why: "Correct: R²-adj penalises extra terms; it fell from 79.6% to 79.1%, so X3 adds no real explanatory value." }
     ],
     answer: 3, ref: "Web: Minitab Support (R-sq and R-sq adjusted)"
   },
   {
     id: "IM-023", topic: "regression", level: 3,
-    q: "Multiple regression output (α = 0.05): Constant P = 0.003; X1 P = 0.000; X2 P = 0.412; X3 P = 0.021. What should the analyst do next?",
+    q: "Multiple regression output (α = 0.05):\nConstant  P = 0.003\nX1        P = 0.000\nX2        P = 0.412\nX3        P = 0.021\nWhat should the analyst do next?",
     options: [
       { t: "Remove X1, which has the smallest p-value", why: "Wrong: the smallest p-value marks the most significant term, the one most worth keeping." },
       { t: "Remove X2 and X3 together, then refit", why: "Wrong: X3 is significant (0.021 < 0.05); also remove terms one at a time, since p-values change when the model changes." },
@@ -283,12 +283,12 @@ QB.add([
   },
   {
     id: "IM-026", topic: "regression", level: 2,
-    q: "A regression reports VIF values X1 = 1.2, X2 = 7.9, X3 = 8.3. Using the common threshold of 5, what is the best interpretation?",
+    q: "A regression reports VIF values:\nX1 = 1.2   X2 = 7.9   X3 = 8.3\nUsing the common threshold of 5, what is the best interpretation?",
     options: [
       { t: "All predictors are fine, since every VIF is below 10", why: "Wrong: 10 is the looser convention; against the stated threshold of 5, X2 and X3 are a concern." },
       { t: "X1 is the problem, since its VIF is closest to 1", why: "Wrong: VIF = 1 means the predictor is not correlated with the others, which is the ideal." },
       { t: "VIFs above 5 mean those terms are not significant", why: "Wrong: VIF measures correlation among predictors, not significance; check p-values for that." },
-      { t: "X2 and X3 are likely correlated; drop or combine one", why: "Correct: both exceed 5, which suggests they carry overlapping information; removing or combining one usually stabilises the coefficients." }
+      { t: "X2 and X3 show multicollinearity; drop or combine one", why: "Correct: both exceed 5, so each is strongly correlated with the other predictors (here most likely with each other, as X1 is near 1); removing or combining one usually stabilises the coefficients." }
     ],
     answer: 3, ref: "Web: Minitab Support (multicollinearity in regression)"
   },
@@ -308,9 +308,9 @@ QB.add([
     q: "The residuals-versus-fits plot shows a funnel: the spread grows as the fitted values increase. Which assumption is violated, and what is a common remedy?",
     options: [
       { t: "Constant variance; transform Y, for example with Box-Cox", why: "Correct: a funnel shows non-constant variance; a transformation of Y such as log or Box-Cox often stabilises it." },
-      { t: "Normality; delete the largest residuals", why: "Wrong: the funnel is about spread, and deleting data without a known cause is not a valid remedy." },
+      { t: "Normality; delete the points with the largest residuals", why: "Wrong: the funnel is about spread, and deleting data without a known cause is not a valid remedy." },
       { t: "Independence; collect the data in random order", why: "Wrong: independence is checked on the residuals-versus-order plot, not versus fits." },
-      { t: "Linearity; add more X variables", why: "Wrong: missing linearity shows as a curve, not a funnel; adding Xs does not fix unequal variance." }
+      { t: "Linearity; add more X variables to the model", why: "Wrong: missing linearity shows as a curve, not a funnel; adding Xs does not fix unequal variance." }
     ],
     answer: 0, ref: "Lesson 4.3"
   },
@@ -338,7 +338,7 @@ QB.add([
   },
   {
     id: "IM-031", topic: "regression", level: 1,
-    q: "Which of these is NOT an assumption about linear regression?",
+    q: "Which of these is NOT one of the standard assumptions of linear regression?",
     options: [
       { t: "The residuals are normally distributed", why: "Wrong: this is an assumption, checked with the normal probability plot." },
       { t: "The X values are normally distributed", why: "Correct: regression makes no assumption about the distribution of X; the assumptions concern the residuals." },
@@ -360,7 +360,7 @@ QB.add([
   },
   {
     id: "IM-033", topic: "regression", level: 3,
-    q: "Regression prediction at X = 30: Fit = 42.0; 95% CI (40.1, 43.9); 95% PI (36.5, 47.5). A customer asks for the range likely to contain the value of the next single part. Which range should you quote?",
+    q: "Regression prediction at X = 30:\nFit = 42.0\n95% CI (40.1, 43.9)\n95% PI (36.5, 47.5)\nA customer asks for the range likely to contain the value of the next single part. Which range should you quote?",
     options: [
       { t: "36.5 to 47.5", why: "Correct: a single future part needs the prediction interval, which covers individual values, not just the mean." },
       { t: "40.1 to 43.9", why: "Wrong: the confidence interval covers the mean response at X = 30; individual parts scatter more widely." },
@@ -486,8 +486,8 @@ QB.add([
     q: "Why are the runs of a designed experiment carried out in random order?",
     options: [
       { t: "To spread unknown time-related noise across all treatments", why: "Correct: randomisation stops drifts such as tool wear or warm-up from lining up with one factor level and biasing its effect." },
-      { t: "To reduce the total number of runs needed", why: "Wrong: run count is cut by a fractional factorial design, not by run order." },
-      { t: "To estimate pure error from repeated runs", why: "Wrong: repeating treatment combinations (replication) is what estimates experimental error." },
+      { t: "To reduce the total number of runs the design needs", why: "Wrong: run count is cut by a fractional factorial design, not by run order." },
+      { t: "To estimate pure experimental error from repeated runs", why: "Wrong: repeating treatment combinations (replication) is what estimates experimental error." },
       { t: "To remove a known nuisance such as material batch", why: "Wrong: a known, controllable nuisance variable is handled by blocking." }
     ],
     answer: 0, ref: "Lesson 5.1"
@@ -496,10 +496,10 @@ QB.add([
     id: "IM-045", topic: "doe", level: 2,
     q: "A team replaces a 2⁵ full factorial (32 runs) with a half fraction, 2⁵⁻¹. What is the main trade-off?",
     options: [
-      { t: "It needs 64 runs instead of 32", why: "Wrong: a half fraction halves the runs; 64 would be the full design run twice." },
-      { t: "It can no longer estimate any main effects", why: "Wrong: main effects are still estimated; what is lost is the ability to separate some effects from others." },
-      { t: "It halves the runs, but some effects become aliased", why: "Correct: 2⁴ = 16 runs; each estimate is confounded with another effect. This design is resolution V, so main effects and two-factor interactions are aliased only with higher-order ones." },
-      { t: "It requires each factor to have three levels", why: "Wrong: it is still a two-level design; three-level designs are a different family." }
+      { t: "It doubles the runs, from 32 to 64, to gain precision", why: "Wrong: a half fraction halves the runs; 64 would be the full design run twice." },
+      { t: "It can no longer estimate any of the main effects", why: "Wrong: main effects are still estimated; what is lost is the ability to separate some effects from others." },
+      { t: "It halves the runs, but some effects become aliased", why: "Correct: 2⁴ = 16 runs; each estimate is confounded with another effect. With the usual generator (I = ABCDE) it is resolution V: main effects are aliased with four-factor and two-factor with three-factor interactions, which are usually negligible." },
+      { t: "It requires each of the five factors to have three levels", why: "Wrong: it is still a two-level design; three-level designs are a different family." }
     ],
     answer: 2, ref: "Lesson 5.1"
   },
