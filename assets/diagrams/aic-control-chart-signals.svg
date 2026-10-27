@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img">
+<title>Control chart zones and signals</title>
+<desc>Individuals control chart with centre line, plus and minus 1, 2 and 3 sigma lines and zones A, B and C. Annotated signals: one point beyond 3 sigma, 2 of 3 points in zone A on the same side, 9 points in a row on one side of the centre line, and 7 points in a row rising.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="470" fill="#ffffff"/>
+<line x1="74" y1="64" x2="596" y2="64" stroke="#c9373f" stroke-width="2"/>
+<text x="66" y="69" font-size="15" text-anchor="end" fill="#c9373f" font-weight="600">UCL</text>
+<line x1="74" y1="108" x2="596" y2="108" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="66" y="113" font-size="14" text-anchor="end" fill="#6b7280">+2σ</text>
+<line x1="74" y1="152" x2="596" y2="152" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="66" y="157" font-size="14" text-anchor="end" fill="#6b7280">+1σ</text>
+<line x1="74" y1="196" x2="596" y2="196" stroke="#1f2937" stroke-width="2"/>
+<text x="66" y="201" font-size="15" text-anchor="end" fill="#1f2937" font-weight="600">CL</text>
+<line x1="74" y1="240" x2="596" y2="240" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="66" y="245" font-size="14" text-anchor="end" fill="#6b7280">−1σ</text>
+<line x1="74" y1="284" x2="596" y2="284" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="66" y="289" font-size="14" text-anchor="end" fill="#6b7280">−2σ</text>
+<line x1="74" y1="328" x2="596" y2="328" stroke="#c9373f" stroke-width="2"/>
+<text x="66" y="333" font-size="15" text-anchor="end" fill="#c9373f" font-weight="600">LCL</text>
+<text x="614" y="91" font-size="15" text-anchor="middle" fill="#6b7280" font-weight="700">A</text>
+<text x="614" y="135" font-size="15" text-anchor="middle" fill="#6b7280" font-weight="700">B</text>
+<text x="614" y="179" font-size="15" text-anchor="middle" fill="#6b7280" font-weight="700">C</text>
+<text x="614" y="223" font-size="15" text-anchor="middle" fill="#6b7280" font-weight="700">C</text>
+<text x="614" y="267" font-size="15" text-anchor="middle" fill="#6b7280" font-weight="700">B</text>
+<text x="614" y="311" font-size="15" text-anchor="middle" fill="#6b7280" font-weight="700">A</text>
+<text x="614" y="52" font-size="14" text-anchor="middle" fill="#6b7280">Zone</text>
+<path d="M88,182.8 L104.5,222.4 L120.9,156.4 L137.4,204.8 L153.9,46.4 L170.3,178.4 L186.8,231.2 L203.3,187.2 L219.7,297.2 L236.2,244.4 L252.7,306 L269.1,174 L285.6,209.2 L302.1,169.6 L318.5,154.2 L335,178.4 L351.5,156.4 L367.9,134.4 L384.4,165.2 L400.9,182.8 L417.3,154.2 L433.8,160.8 L450.3,226.8 L466.7,266.4 L483.2,244.4 L499.7,218 L516.1,191.6 L532.6,169.6 L549.1,143.2 L565.5,116.8 L582,213.6" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+<circle cx="88" cy="182.8" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="104.5" cy="222.4" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="120.9" cy="156.4" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="137.4" cy="204.8" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="153.9" cy="46.4" r="4.5" fill="#c9373f" stroke="none" stroke-width="1.5"/>
+<circle cx="170.3" cy="178.4" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="186.8" cy="231.2" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="203.3" cy="187.2" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="219.7" cy="297.2" r="4.5" fill="#c9373f" stroke="none" stroke-width="1.5"/>
+<circle cx="236.2" cy="244.4" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="252.7" cy="306" r="4.5" fill="#c9373f" stroke="none" stroke-width="1.5"/>
+<circle cx="269.1" cy="174" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="285.6" cy="209.2" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="302.1" cy="169.6" r="4.5" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<circle cx="318.5" cy="154.2" r="4.5" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<circle cx="335" cy="178.4" r="4.5" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<circle cx="351.5" cy="156.4" r="4.5" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<circle cx="367.9" cy="134.4" r="4.5" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<circle cx="384.4" cy="165.2" r="4.5" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<circle cx="400.9" cy="182.8" r="4.5" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<circle cx="417.3" cy="154.2" r="4.5" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<circle cx="433.8" cy="160.8" r="4.5" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<circle cx="450.3" cy="226.8" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="466.7" cy="266.4" r="4.5" fill="#4353c9" stroke="none" stroke-width="1.5"/>
+<circle cx="483.2" cy="244.4" r="4.5" fill="#4353c9" stroke="none" stroke-width="1.5"/>
+<circle cx="499.7" cy="218" r="4.5" fill="#4353c9" stroke="none" stroke-width="1.5"/>
+<circle cx="516.1" cy="191.6" r="4.5" fill="#4353c9" stroke="none" stroke-width="1.5"/>
+<circle cx="532.6" cy="169.6" r="4.5" fill="#4353c9" stroke="none" stroke-width="1.5"/>
+<circle cx="549.1" cy="143.2" r="4.5" fill="#4353c9" stroke="none" stroke-width="1.5"/>
+<circle cx="565.5" cy="116.8" r="4.5" fill="#4353c9" stroke="none" stroke-width="1.5"/>
+<circle cx="582" cy="213.6" r="4.5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="173.9" cy="46.4" r="11" fill="#c9373f" stroke="none" stroke-width="1.5"/>
+<text x="173.9" y="51.4" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">1</text>
+<ellipse cx="236.2" cy="284" rx="44.9" ry="34" fill="none" stroke="#c9373f" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="236.2" cy="338.8" r="11" fill="#c9373f" stroke="none" stroke-width="1.5"/>
+<text x="236.2" y="343.8" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">2</text>
+<path d="M296.1,122.6 L296.1,114.6 L439.8,114.6 L439.8,122.6" fill="none" stroke="#9a5c00" stroke-width="1.8"/>
+<circle cx="367.9" cy="98.6" r="11" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<text x="367.9" y="103.6" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">3</text>
+<line x1="464.7" y1="284.4" x2="567.5" y2="134.8" stroke="#4353c9" stroke-width="2" marker-end="url(#ah)"/>
+<circle cx="554.6" cy="245.6" r="11" fill="#4353c9" stroke="none" stroke-width="1.5"/>
+<text x="554.6" y="250.6" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">4</text>
+<circle cx="31" cy="362" r="11" fill="#c9373f" stroke="none" stroke-width="1.5"/>
+<text x="31" y="367" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">1</text>
+<text x="50" y="367" font-size="15" text-anchor="start" fill="#1f2937">1 point beyond a 3σ limit</text>
+<circle cx="341" cy="362" r="11" fill="#c9373f" stroke="none" stroke-width="1.5"/>
+<text x="341" y="367" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">2</text>
+<text x="360" y="367" font-size="15" text-anchor="start" fill="#1f2937">2 of 3 points in zone A, same side</text>
+<circle cx="31" cy="392" r="11" fill="#9a5c00" stroke="none" stroke-width="1.5"/>
+<text x="31" y="397" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">3</text>
+<text x="50" y="397" font-size="15" text-anchor="start" fill="#1f2937">9 in a row on one side of CL</text>
+<circle cx="341" cy="392" r="11" fill="#4353c9" stroke="none" stroke-width="1.5"/>
+<text x="341" y="397" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="700">4</text>
+<text x="360" y="397" font-size="15" text-anchor="start" fill="#1f2937">6+ points in a row rising</text>
+<text x="20" y="432" font-size="14" text-anchor="start" fill="#6b7280">Signals 1–3 hold under both Western Electric and Nelson/Minitab rules;</text>
+<text x="20" y="452" font-size="14" text-anchor="start" fill="#6b7280">the trend (6 in a row) is Nelson/Minitab test 3.</text>
+</svg>

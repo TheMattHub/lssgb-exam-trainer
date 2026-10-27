@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img">
+<title>Hypothesis test selection</title>
+<desc>Decision grid: first the type of Y, then a normality test for continuous Y, then the number of samples or the question (means, medians, proportions, variances) gives the test name.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="560" fill="#ffffff"/>
+<rect x="170" y="10" width="300" height="40" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="320" y="35.2" font-size="15" text-anchor="middle" fill="#1f2937" font-weight="600">What type is the output Y?</text>
+<line x1="320" y1="50" x2="320" y2="62" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="300" y1="62" x2="552" y2="62" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="300" y1="62" x2="300" y2="76" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="552" y1="62" x2="552" y2="76" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="180" y="78" width="240" height="46" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text y="96.8" font-size="15" text-anchor="middle" fill="#1f2937"><tspan x="300" dy="0">Continuous Y</tspan><tspan x="300" dy="19">(measured)</tspan></text>
+<rect x="472" y="78" width="160" height="46" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text y="96.8" font-size="15" text-anchor="middle" fill="#1f2937"><tspan x="552" dy="0">Attribute Y</tspan><tspan x="552" dy="19">(pass/fail, counts)</tspan></text>
+<line x1="300" y1="124" x2="300" y2="140" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="150" y="142" width="300" height="40" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="300" y="166.9" font-size="14" text-anchor="middle" fill="#1f2937">Normality test (e.g. Anderson-Darling)</text>
+<path d="M216,182 L216,222" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M384,182 L384,222" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<text x="222" y="206" font-size="14" text-anchor="start" fill="#6b7280">p ≥ 0.05</text>
+<text x="390" y="206" font-size="14" text-anchor="start" fill="#6b7280">p &lt; 0.05</text>
+<line x1="552" y1="124" x2="552" y2="222" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="136" y="224" width="160" height="38" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="216" y="248.2" font-size="15" text-anchor="middle" fill="#1f2937" font-weight="600">Normal data</text>
+<rect x="304" y="224" width="160" height="38" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="384" y="248.2" font-size="15" text-anchor="middle" fill="#1f2937" font-weight="600">Non-normal data</text>
+<rect x="472" y="224" width="160" height="38" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text x="552" y="248.2" font-size="15" text-anchor="middle" fill="#1f2937" font-weight="600">Attribute data</text>
+<text y="301" font-size="15" text-anchor="start" fill="#1f2937" font-weight="600"><tspan x="8" dy="0">1 sample</tspan><tspan x="8" dy="18">vs target</tspan></text>
+<rect x="136" y="272" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="216" y="310.2" font-size="15" text-anchor="middle" fill="#1f2937">1-sample t</text>
+<rect x="304" y="272" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text y="301.8" font-size="15" text-anchor="middle" fill="#1f2937"><tspan x="384" dy="0">1-sample sign or</tspan><tspan x="384" dy="17">1-sample Wilcoxon</tspan></text>
+<rect x="472" y="272" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="552" y="310.2" font-size="15" text-anchor="middle" fill="#1f2937">1-proportion test</text>
+<text x="8" y="382" font-size="15" text-anchor="start" fill="#1f2937" font-weight="600">2 samples</text>
+<rect x="136" y="344" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text y="364.9" font-size="14" text-anchor="middle" fill="#1f2937"><tspan x="216" dy="0">2-sample t</tspan><tspan x="216" dy="17">(paired t: same units</tspan><tspan x="216" dy="17">before and after)</tspan></text>
+<rect x="304" y="344" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="384" y="382.2" font-size="15" text-anchor="middle" fill="#1f2937">Mann-Whitney</text>
+<rect x="472" y="344" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="552" y="382.2" font-size="15" text-anchor="middle" fill="#1f2937">2-proportion test</text>
+<text y="445" font-size="15" text-anchor="start" fill="#1f2937" font-weight="600"><tspan x="8" dy="0">3 or more</tspan><tspan x="8" dy="18">samples</tspan></text>
+<rect x="136" y="416" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="216" y="454.2" font-size="15" text-anchor="middle" fill="#1f2937">One-way ANOVA</text>
+<rect x="304" y="416" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text y="445.8" font-size="15" text-anchor="middle" fill="#1f2937"><tspan x="384" dy="0">Kruskal-Wallis or</tspan><tspan x="384" dy="17">Mood's median</tspan></text>
+<rect x="472" y="416" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text y="436.9" font-size="14" text-anchor="middle" fill="#1f2937"><tspan x="552" dy="0">Chi-square test</tspan><tspan x="552" dy="17">(also: two categorical</tspan><tspan x="552" dy="17">variables)</tspan></text>
+<text y="517" font-size="15" text-anchor="start" fill="#1f2937" font-weight="600"><tspan x="8" dy="0">Spread</tspan><tspan x="8" dy="18">(variances)</tspan></text>
+<rect x="136" y="488" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text y="508.9" font-size="14" text-anchor="middle" fill="#1f2937"><tspan x="216" dy="0">1: χ² variance test</tspan><tspan x="216" dy="17">2: F test</tspan><tspan x="216" dy="17">3+: Bartlett</tspan></text>
+<rect x="304" y="488" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text y="517.8" font-size="15" text-anchor="middle" fill="#1f2937"><tspan x="384" dy="0">Levene</tspan><tspan x="384" dy="17">(2 or more samples)</tspan></text>
+<rect x="472" y="488" width="160" height="66" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="552" y="526.2" font-size="15" text-anchor="middle" fill="#6b7280">not applicable</text>
+<text x="8" y="574" font-size="14" text-anchor="start" fill="#6b7280">Non-parametric tests assume less but have less power than their normal-data twins.</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 440" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img">
+<title>Regression line anatomy</title>
+<desc>Scatter plot with least-squares line y-hat = 2.5 + 0.79x, showing the intercept b0 at x = 0, the slope b1 as rise over run, one fitted value and its residual (observed minus fitted).</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="440" fill="#ffffff"/>
+<line x1="60" y1="360" x2="620" y2="360" stroke="#d1d5db" stroke-width="1"/>
+<text x="52" y="365" font-size="14" text-anchor="end" fill="#6b7280">0</text>
+<line x1="60" y1="303.3" x2="620" y2="303.3" stroke="#d1d5db" stroke-width="1"/>
+<text x="52" y="308.3" font-size="14" text-anchor="end" fill="#6b7280">2</text>
+<line x1="60" y1="246.7" x2="620" y2="246.7" stroke="#d1d5db" stroke-width="1"/>
+<text x="52" y="251.7" font-size="14" text-anchor="end" fill="#6b7280">4</text>
+<line x1="60" y1="190" x2="620" y2="190" stroke="#d1d5db" stroke-width="1"/>
+<text x="52" y="195" font-size="14" text-anchor="end" fill="#6b7280">6</text>
+<line x1="60" y1="133.3" x2="620" y2="133.3" stroke="#d1d5db" stroke-width="1"/>
+<text x="52" y="138.3" font-size="14" text-anchor="end" fill="#6b7280">8</text>
+<line x1="60" y1="76.7" x2="620" y2="76.7" stroke="#d1d5db" stroke-width="1"/>
+<text x="52" y="81.7" font-size="14" text-anchor="end" fill="#6b7280">10</text>
+<line x1="60" y1="20" x2="620" y2="20" stroke="#d1d5db" stroke-width="1"/>
+<text x="52" y="25" font-size="14" text-anchor="end" fill="#6b7280">12</text>
+<text x="60" y="382" font-size="14" text-anchor="middle" fill="#6b7280">0</text>
+<text x="172" y="382" font-size="14" text-anchor="middle" fill="#6b7280">2</text>
+<text x="284" y="382" font-size="14" text-anchor="middle" fill="#6b7280">4</text>
+<text x="396" y="382" font-size="14" text-anchor="middle" fill="#6b7280">6</text>
+<text x="508" y="382" font-size="14" text-anchor="middle" fill="#6b7280">8</text>
+<text x="620" y="382" font-size="14" text-anchor="middle" fill="#6b7280">10</text>
+<line x1="60" y1="20" x2="60" y2="360" stroke="#1f2937" stroke-width="1.5"/>
+<line x1="60" y1="360" x2="620" y2="360" stroke="#1f2937" stroke-width="1.5"/>
+<text x="340" y="406" font-size="15" text-anchor="middle" fill="#6b7280">x (input)</text>
+<text transform="translate(18 190) rotate(-90)" font-size="15" text-anchor="middle" fill="#6b7280">y (output)</text>
+<line x1="60" y1="289.2" x2="144" y2="255.6" stroke="#4353c9" stroke-width="2" stroke-dasharray="6 5"/>
+<line x1="144" y1="255.6" x2="608.8" y2="69.5" stroke="#4353c9" stroke-width="2.5"/>
+<circle cx="144" cy="250.3" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="183.2" cy="254.7" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="228" cy="211.5" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="261.6" cy="226.6" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="306.4" cy="183.4" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="340" cy="198.5" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="379.2" cy="109.4" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="412.8" cy="166.9" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="457.6" cy="123.8" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="496.8" cy="105.5" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="530.4" cy="97.9" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="575.2" cy="102.8" r="5" fill="#1f2937" stroke="none" stroke-width="1.5"/>
+<circle cx="60" cy="289.2" r="6" fill="#ffffff" stroke="#4353c9" stroke-width="2.5"/>
+<text x="74" y="319.2" font-size="15" text-anchor="start" fill="#4353c9" font-weight="600">b₀ = 2.5: intercept (ŷ at x = 0)</text>
+<path d="M429.6,141.3 L541.6,141.3 L541.6,96.4" fill="none" stroke="#4353c9" stroke-width="1.5"/>
+<text x="485.6" y="161.3" font-size="14" text-anchor="middle" fill="#4353c9">run = 2</text>
+<text x="549.6" y="123.8" font-size="14" text-anchor="start" fill="#4353c9">rise = 1.6</text>
+<text x="485.6" y="183.3" font-size="15" text-anchor="middle" fill="#4353c9" font-weight="600">slope b₁ = rise ÷ run = 0.79</text>
+<line x1="379.2" y1="115.4" x2="379.2" y2="155.4" stroke="#c9373f" stroke-width="2"/>
+<circle cx="379.2" cy="161.4" r="5" fill="#ffffff" stroke="#4353c9" stroke-width="2.5"/>
+<text x="379.2" y="97.4" font-size="15" text-anchor="middle" fill="#1f2937">observed y</text>
+<text x="369.2" y="140.4" font-size="15" text-anchor="end" fill="#c9373f" font-weight="600">residual e = y − ŷ</text>
+<line x1="379.2" y1="203.4" x2="379.2" y2="170.4" stroke="#4353c9" stroke-width="1.2" marker-end="url(#ah)"/>
+<text x="375.2" y="221.4" font-size="15" text-anchor="start" fill="#4353c9">fitted value ŷ (on the line)</text>
+<rect x="370" y="280" width="236" height="56" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="384" y="304" font-size="17" text-anchor="start" fill="#1f2937" font-weight="700">ŷ = 2.5 + 0.79x</text>
+<text x="384" y="326" font-size="14" text-anchor="start" fill="#6b7280">least squares: minimises Σe²</text>
+</svg>

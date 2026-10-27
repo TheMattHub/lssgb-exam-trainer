@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" role="img">
+<title>Type I and Type II errors</title>
+<desc>Two by two matrix of the decision (fail to reject or reject H0) against the truth (H0 true or false), showing the two correct decisions, Type I error alpha, Type II error beta and power 1 minus beta.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker></defs>
+<rect width="640" height="420" fill="#ffffff"/>
+<text x="404" y="26" font-size="15" text-anchor="middle" fill="#6b7280" font-weight="600">The truth (unknown in practice)</text>
+<rect x="182" y="38" width="220" height="52" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text y="59.8" font-size="15" text-anchor="middle" fill="#1f2937" font-weight="600"><tspan x="292" dy="0">H₀ true</tspan><tspan x="292" dy="19">(no real effect)</tspan></text>
+<rect x="410" y="38" width="220" height="52" rx="6" fill="#e6e9fb" stroke="#4353c9" stroke-width="1.5"/>
+<text y="59.8" font-size="15" text-anchor="middle" fill="#1f2937" font-weight="600"><tspan x="520" dy="0">H₀ false</tspan><tspan x="520" dy="19">(a real effect exists)</tspan></text>
+<text x="14" y="144" font-size="14" text-anchor="start" fill="#6b7280">Decision:</text>
+<text x="14" y="166" font-size="15" text-anchor="start" fill="#1f2937" font-weight="600">Fail to reject H₀</text>
+<rect x="182" y="100" width="220" height="112" rx="6" fill="#e3f4ee" stroke="#0a8560" stroke-width="1.5"/>
+<text x="292" y="136" font-size="17" text-anchor="middle" fill="#0a8560" font-weight="700">Correct</text>
+<text y="164" font-size="15" text-anchor="middle" fill="#1f2937"><tspan x="292" dy="0">Probability 1 − α</tspan><tspan x="292" dy="20">(confidence level)</tspan></text>
+<rect x="410" y="100" width="220" height="112" rx="6" fill="#fbe7e8" stroke="#c9373f" stroke-width="1.5"/>
+<text x="520" y="136" font-size="17" text-anchor="middle" fill="#c9373f" font-weight="700">Type II error (β)</text>
+<text y="164" font-size="15" text-anchor="middle" fill="#1f2937"><tspan x="520" dy="0">Missed a real effect</tspan><tspan x="520" dy="20">Consumer's risk</tspan></text>
+<text x="14" y="264" font-size="14" text-anchor="start" fill="#6b7280">Decision:</text>
+<text x="14" y="286" font-size="15" text-anchor="start" fill="#1f2937" font-weight="600">Reject H₀</text>
+<rect x="182" y="220" width="220" height="112" rx="6" fill="#fbe7e8" stroke="#c9373f" stroke-width="1.5"/>
+<text x="292" y="256" font-size="17" text-anchor="middle" fill="#c9373f" font-weight="700">Type I error (α)</text>
+<text y="284" font-size="15" text-anchor="middle" fill="#1f2937"><tspan x="292" dy="0">False alarm</tspan><tspan x="292" dy="20">Producer's risk</tspan></text>
+<rect x="410" y="220" width="220" height="112" rx="6" fill="#e3f4ee" stroke="#0a8560" stroke-width="1.5"/>
+<text x="520" y="256" font-size="17" text-anchor="middle" fill="#0a8560" font-weight="700">Correct</text>
+<text y="284" font-size="15" text-anchor="middle" fill="#1f2937"><tspan x="520" dy="0">Probability 1 − β</tspan><tspan x="520" dy="20">= power</tspan></text>
+<text x="14" y="372" font-size="15" text-anchor="start" fill="#1f2937">Larger sample size n → higher power (lower β) at the same α.</text>
+<text x="14" y="396" font-size="15" text-anchor="start" fill="#1f2937">Lower α with the same n → higher β (less power).</text>
+</svg>
