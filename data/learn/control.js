@@ -15,7 +15,8 @@ LEARN.add([
       "Standard work records the current best method (sequence, takt time, standard WIP). It is the baseline for the next improvement, not a frozen rule.",
       "TPM keeps equipment able to run the improved process; autonomous maintenance gives operators daily cleaning, inspection and lubrication.",
       "The eight TPM pillars: autonomous maintenance, planned maintenance, focused improvement, quality maintenance, early equipment management, training and education, safety/health/environment, and TPM in administration (office TPM).",
-      "SMED gains are held with a standard changeover sheet, pre-staged kits and changeover time tracked on a chart."
+      "SMED gains are held with a standard changeover sheet, pre-staged kits and changeover time tracked on a chart.",
+      "OEE six big losses: breakdowns and setup/adjustment cut availability; idling/minor stops and reduced speed cut performance; process defects and start-up (reduced) yield cut quality."
     ],
     formulas: [
       { name: "OEE", f: "OEE = Availability × Performance × Quality" },
@@ -50,7 +51,9 @@ LEARN.add([
       "Defects (several per unit possible, Poisson): c chart (count, constant area of opportunity) or u chart (defects per unit, area may vary).",
       "CUSUM plots the cumulative sum of deviations from target; EWMA weights recent points (λ often 0.2). Both catch small sustained shifts (< 1.5σ) faster; Shewhart charts are best for large, sudden shifts.",
       "Negative lower limits on p, np, c and u charts are set to 0 (the R chart LCL is D₃R̄, which is 0 for n ≤ 6).",
-      "Constants for n = 5 (the most common subgroup): A₂ = 0.577, D₃ = 0, D₄ = 2.114, d₂ = 2.326. For n = 2 (moving range): d₂ = 1.128, so E₂ = 3/d₂ = 2.66 and D₄ = 3.267."
+      "Constants for n = 5 (the most common subgroup): A₂ = 0.577, D₃ = 0, D₄ = 2.114, d₂ = 2.326. For n = 2 (moving range): d₂ = 1.128, so E₂ = 3/d₂ = 2.66 and D₄ = 3.267.",
+      "Phase I is retrospective: chart past data, remove points with found assignable causes and recompute until stable. Phase II monitors new data against those fixed limits.",
+      "False alarms: with 3σ limits and only the beyond-limits test, a stable process gives a point outside about once in 370 (P = 0.0027); each added run rule raises the false-alarm rate (about 1 in 92 with all Western Electric rules)."
     ],
     formulas: [
       { name: "Xbar chart (R)", f: "X̿ ± A₂R̄" },
@@ -138,7 +141,9 @@ LEARN.add([
       "Prefer the strongest affordable control: design out the cause > mistake-proofing > SPC > inspection > training and instructions.",
       "Cost-benefit: net benefit = benefits (loss avoided, from COPQ and FMEA severity) − costs (one-off plus running). Choose the cheapest control that reliably holds the gain.",
       "The control plan is a living document owned by the process owner, not the project team. Audit it on the floor regularly and track findings.",
-      "Closure: update work instructions, training, FMEA and control plan; hand off to the process owner; have finance validate savings; record lessons learned; recognise the team."
+      "Closure: update work instructions, training, FMEA and control plan; hand off to the process owner; have finance validate savings; record lessons learned; recognise the team.",
+      "Hard savings show on the P&L (less scrap, material, overtime, headcount); soft savings are real but not on the books (freed capacity, cost avoidance). Freed time with no payroll change is soft.",
+      "Replicate gains by piloting the proven solution with the receiving process owner, confirming it with data, then rolling it out with updated documents."
     ],
     formulas: [
       { name: "Net benefit", f: "Net benefit = Benefits − (One-off costs + Running costs)" }
