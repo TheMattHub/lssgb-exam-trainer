@@ -15,7 +15,8 @@ LEARN.add([
       "Slope b₁ = average change in Y per one-unit increase in X. Intercept b₀ = predicted Y at X = 0 (meaningful only if X = 0 is near the data).",
       "Residual = observed Y − fitted Ŷ. A positive residual means the point lies above the line.",
       "Slope p-value < α (usually 0.05): reject H₀ that the slope is 0, so X has a significant linear effect. p > α: no evidence, which is not proof of no relationship.",
-      "Do not extrapolate: predict only within the range of X used to build the model."
+      "Do not extrapolate: predict only within the range of X used to build the model.",
+      "S = √(SSE / (n − 2)) is the typical residual size in Y units. An outlier has a large residual (Minitab flags |std resid| > 2 with R); a point with extreme X has high leverage (flag X) and is influential if it also lies off the trend. A narrow range of X weakens r."
     ],
     formulas: [
       { name: "Regression line", f: "ŷ = b₀ + b₁x" },
@@ -61,7 +62,9 @@ LEARN.add([
       "Confidence interval (CI) = range for the mean Y at a given X. Prediction interval (PI) = range for one new observation. The PI is always wider; both are narrowest at x̄.",
       "Box-Cox finds a power λ (Y' = Y^λ, ln Y when λ = 0) that makes data closer to normal or stabilises variance. Data must be positive, and normality is not guaranteed.",
       "If the confidence interval for λ includes 1, no transformation is needed. When transformed data are used for capability, transform the spec limits too.",
-      "Stepwise and best subsets regression help choose which predictors to keep; the result still needs process knowledge."
+      "Stepwise and best subsets regression help choose which predictors to keep; the result still needs process knowledge.",
+      "Overfitting: too many terms for the data. Warning sign: R-sq(pred) far below R-sq. Keep the model with the highest R²-adj, lowest S and only significant terms, but keep any lower-order term that is part of a significant X² or interaction term (hierarchy).",
+      "A categorical X with k levels enters as k − 1 indicator (1, 0) variables; each coefficient is the difference from the reference level. An interaction term X1·X2 means the effect of X1 depends on the level of X2."
     ],
     formulas: [
       { name: "Multiple regression", f: "ŷ = b₀ + b₁X₁ + b₂X₂ + … + bₖXₖ" },
