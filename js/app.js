@@ -12,12 +12,13 @@ var App = (function () {
 
   var ROUTES = {
     "": [renderHome, "Home"],
-    "practice": [Quiz.renderSetup, "Practice", "practice"],
-    "practice/run": [Quiz.renderRun, "Practice", "practice"],
+    "random": [function (m) { Quiz.renderRound(m, "all"); }, "Random", "random"],
+    "topics": [Quiz.renderTopics, "By topic", "topics"],
     "review": [Quiz.renderReviewStart, "Review mistakes"],
-    "mock": [Mock.renderSetup, "Mock exam", "mock"],
-    "mock/run": [Mock.renderRun, "Mock exam", "mock"],
-    "mock/result": [Mock.renderResult, "Mock result", "mock"],
+    "review/run": [Quiz.renderReviewRun, "Review mistakes"],
+    "exam": [Mock.renderSetup, "Exam", "exam"],
+    "exam/run": [Mock.renderRun, "Exam", "exam"],
+    "exam/result": [Mock.renderResult, "Exam result", "exam"],
     "learn": [Learn.renderIndex, "Learn", "learn"],
     "settings": [renderSettings, "Settings", "settings"]
   };
@@ -33,6 +34,10 @@ var App = (function () {
     else if (parts[0] === "learn" && parts.length === 2) {
       view = function (m) { Learn.renderTopic(m, parts[1]); };
       var t = U.topic(parts[1]); title = t ? t.name : "Learn"; nav = "learn";
+    } else if ((parts[0] === "topic" && U.topic(parts[1]) || parts[0] === "phase" && U.phase(parts[1])) && parts.length === 2) {
+      var roundKey = parts[0].charAt(0) + ":" + parts[1];
+      view = function (m) { Quiz.renderRound(m, roundKey); };
+      title = parts[0] === "topic" ? U.topic(parts[1]).name : U.phase(parts[1]).name; nav = "topics";
     } else { view = renderHome; title = "Home"; key = ""; }
 
     var active = document.activeElement;
@@ -91,11 +96,13 @@ var App = (function () {
         h("dt", { text: "Seen" }), h("dd", { class: "tnum", text: s.seen + " of " + s.total + " questions" }),
         h("dt", { text: "Accuracy" }), h("dd", { class: "tnum", text: s.right + s.wrong ? U.pct(s.right, s.right + s.wrong) + "%" : "–" }))));
 
-    var tiles = h("nav", { class: "tiles", "aria-label": "Start" });
-    tiles.appendChild(tile("#/practice", "Practice", "Pick topics, get the why after each answer"));
+    var tiles = h("nav", { class: "tiles", "aria-label": "Modes" });
+    var rs = Quiz.roundStatus("all");
+    tiles.appendChild(tile("#/random", "Random", rs.started ? rs.answered + " / " + rs.total + " answered in this round" : "All " + rs.total + " questions in random order"));
+    tiles.appendChild(tile("#/topics", "By topic", "One topic or phase at a time, with your score per topic"));
+    tiles.appendChild(tile("#/exam", "Exam (IASSC rules)", Store.get().activeMock ? "Exam in progress: resume" : "100 questions, 3 hours, pass mark 70%"));
     tiles.appendChild(tile("#/review", "Review mistakes", due ? due + " due now" : "Nothing due", due ? String(due) : null));
-    tiles.appendChild(tile("#/mock", "Mock exam", Store.get().activeMock ? "Exam in progress: resume" : "Timed, scored like the real exam"));
-    tiles.appendChild(tile("#/learn", "Learn", "Notes, formulas and exam traps by topic"));
+    tiles.appendChild(tile("#/learn", "Learn", "Notes, formulas and exam traps by topic", null, "wide"));
     m.appendChild(tiles);
 
     var phases = h("section", { class: "card" }, h("h2", { text: "Progress by phase" }));
@@ -121,8 +128,8 @@ var App = (function () {
     if (!all.length) m.appendChild(Quiz.emptyData());
   }
 
-  function tile(href, title, sub, badge) {
-    return h("a", { class: "tile", href: href },
+  function tile(href, title, sub, badge, extra) {
+    return h("a", { class: "tile" + (extra ? " " + extra : ""), href: href },
       h("span", { class: "tile-title" }, title, badge ? h("span", { class: "badge", text: badge }) : null),
       h("span", { class: "tile-sub", text: sub }));
   }
@@ -195,8 +202,8 @@ var App = (function () {
   window.addEventListener("hashchange", render);
   document.addEventListener("keydown", function (e) {
     if (e.ctrlKey || e.metaKey || e.altKey || document.getElementById("dialog").open) return;
-    if (route === "practice/run") Quiz.onKey(e);
-    else if (route === "mock/run") Mock.onKey(e);
+    if (route === "exam/run") Mock.onKey(e);
+    else if (route === "random" || route === "review/run" || /^(topic|phase)\//.test(route)) Quiz.onKey(e);
   });
   setInterval(Mock.tick, 1000);
 

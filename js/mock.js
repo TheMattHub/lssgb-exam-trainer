@@ -1,11 +1,11 @@
-// Mock exam: timed, no feedback until submit. The running exam is saved after every change,
+// Exam mode (IASSC rules): timed, no feedback until submit. The running exam is saved after every change,
 // so a refresh or a closed tab resumes it with the same clock.
 var Mock = (function () {
   "use strict";
   var h = U.h;
   var MODES = {
-    full:  { label: "Full mock", perPhase: 20, minutes: 180 },
-    quick: { label: "Quick mock", perPhase: 5, minutes: 45 }
+    full:  { label: "Full exam", perPhase: 20, minutes: 180 },
+    quick: { label: "Quick exam", perPhase: 5, minutes: 45 }
   };
   var PASS = 70;
   var reviewFilter = "all";
@@ -33,7 +33,7 @@ var Mock = (function () {
       start: now, deadline: now + cfg.minutes * 60000, end: 0, cur: 0
     };
     Store.save();
-    location.hash = "#/mock/run";
+    location.hash = "#/exam/run";
   }
 
   function available(mode) {
@@ -61,7 +61,7 @@ var Mock = (function () {
     st().activeMock = null;
     Store.save();
     reviewFilter = "all";
-    location.hash = "#/mock/result";
+    location.hash = "#/exam/result";
   }
 
   // Called every second by the app: updates the clock and submits on timeout.
@@ -79,7 +79,7 @@ var Mock = (function () {
   // ---------- views ----------
 
   function renderSetup(main) {
-    main.appendChild(h("h1", { text: "Mock exam" }));
+    main.appendChild(h("h1", { text: "Exam (IASSC rules)" }));
     var m = st().activeMock;
     if (m) {
       var done = m.answers.filter(function (a) { return a >= 0; }).length;
@@ -87,7 +87,7 @@ var Mock = (function () {
         h("p", null, h("strong", { text: MODES[m.mode].label + " in progress. " }),
           done + " of " + m.ids.length + " answered, " + U.clock(m.deadline - Date.now()) + " left."),
         h("div", { class: "row wrap" },
-          h("a", { class: "btn", href: "#/mock/run" }, "Resume"),
+          h("a", { class: "btn", href: "#/exam/run" }, "Resume"),
           h("button", { class: "btn ghost", type: "button", onclick: function () {
             U.confirm("Abandon this exam?", "Your answers are discarded and nothing is scored.", "Abandon").then(function (yes) {
               if (yes) { st().activeMock = null; Store.save(); App.render(); }
@@ -96,18 +96,17 @@ var Mock = (function () {
       return;
     }
     if (!QB.all().length) { main.appendChild(Quiz.emptyData()); return; }
-    main.appendChild(h("p", { class: "muted", text: "Like the IASSC exam: no feedback until you submit, pass mark " + PASS + "%. You can flag questions and jump between them. Bonus topics that are not on the IASSC exam are left out." }));
-    var grid = h("div", { class: "mode-grid" });
-    ["quick", "full"].forEach(function (mode) {
-      var cfg = MODES[mode], n = available(mode), target = cfg.perPhase * U.phases().length;
-      grid.appendChild(h("div", { class: "card mode" },
-        h("h2", { text: cfg.label }),
-        h("p", { class: "big-num tnum", text: n + " questions" }),
-        h("p", { class: "muted", text: cfg.perPhase + " per phase, " + (cfg.minutes >= 60 ? cfg.minutes / 60 + " hours" : cfg.minutes + " minutes") +
-          (n < target ? ". Only " + n + " of " + target + " available yet." : ".") }),
-        h("button", { class: "btn", type: "button", disabled: n === 0, onclick: function () { build(mode); } }, "Start " + cfg.label.toLowerCase())));
-    });
-    main.appendChild(grid);
+    main.appendChild(h("p", { class: "rules", text: "IASSC rules: 100 questions, 3 hours, pass mark " + PASS + "%, about 20 per DMAIC phase, explanations only after you submit." }));
+    var full = MODES.full, nFull = available("full"), quick = MODES.quick, nQuick = available("quick");
+    main.appendChild(h("div", { class: "card mode" },
+      h("h2", { text: full.label }),
+      h("p", { class: "muted tnum", text: nFull + " questions, 3 hours" + (nFull < 100 ? " (only " + nFull + " of 100 available yet)" : "") +
+        ". Flag questions and jump between them; bonus topics are left out." }),
+      h("button", { class: "btn big", type: "button", disabled: nFull === 0, onclick: function () { build("full"); } }, "Start full exam")));
+    main.appendChild(h("div", { class: "card mode row between wrap" },
+      h("div", null, h("h2", { class: "h3", text: quick.label }),
+        h("p", { class: "small muted tnum", text: nQuick + " questions, 45 minutes, same rules" })),
+      h("button", { class: "btn ghost", type: "button", disabled: nQuick === 0, onclick: function () { build("quick"); } }, "Start quick exam")));
     var hist = history();
     if (hist) main.appendChild(hist);
   }
@@ -124,7 +123,7 @@ var Mock = (function () {
         h("span", { class: "tnum", text: p + "%" }),
         h("span", { class: "tag " + (pass ? "pass" : "fail"), text: pass ? "PASS" : "FAIL" })));
     });
-    return h("section", { class: "card" }, h("h2", { text: "Recent mocks" }), ul);
+    return h("section", { class: "card" }, h("h2", { text: "Recent exams" }), ul);
   }
 
   function select(origIdx) {
@@ -151,7 +150,7 @@ var Mock = (function () {
 
   function renderRun(main) {
     var m = st().activeMock;
-    if (!m) { location.replace(st().lastMock ? "#/mock/result" : "#/mock"); return; }
+    if (!m) { location.replace(st().lastMock ? "#/exam/result" : "#/exam"); return; }
     var q = QB.get(m.ids[m.cur]);
     var n = m.ids.length;
     var answeredCount = m.answers.filter(function (a) { return a >= 0; }).length;
@@ -208,7 +207,7 @@ var Mock = (function () {
 
   function renderResult(main) {
     var m = st().lastMock;
-    if (!m) { location.replace("#/mock"); return; }
+    if (!m) { location.replace("#/exam"); return; }
     var items = m.ids.map(function (id, i) { return { q: QB.get(id), i: i }; }).filter(function (x) { return x.q; });
     var right = items.filter(function (x) { return m.answers[x.i] === x.q.answer; }).length;
     var p = U.pct(right, items.length), pass = p >= PASS;
@@ -259,7 +258,7 @@ var Mock = (function () {
     main.appendChild(h("div", { class: "row between wrap review-head" }, h("h2", { text: "Review" }), seg));
     main.appendChild(list);
     fill();
-    main.appendChild(h("div", { class: "row wrap" }, h("a", { class: "btn", href: "#/mock" }, "Another mock"), h("a", { class: "btn ghost", href: "#/" }, "Home")));
+    main.appendChild(h("div", { class: "row wrap" }, h("a", { class: "btn", href: "#/exam" }, "Another exam"), h("a", { class: "btn ghost", href: "#/" }, "Home")));
   }
 
   function onKey(e) {

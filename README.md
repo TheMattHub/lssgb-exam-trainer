@@ -14,9 +14,11 @@ Progress stays in your browser (localStorage). To move it to another device or b
 
 ## What it does
 
-- **Practice:** pick phases or topics and a length (10, 20, all). Mistakes due for review come first, then unseen questions, then your weakest topics. Keys: 1-4 or A-D to answer, Enter for the next question.
+- **Random:** every question in random order, as a round. Questions not yet answered in the round come first; leave and come back any time, the round is saved. When all are answered you get a round summary and can start a new round.
+- **By topic:** the same rounds for one topic or a whole phase. The topic list shows, per topic, how many questions you have answered and how many are right or wrong by your latest answer.
+- In both, and in Review: pick an option (you can change it), then **Confirm** to see whether it is right and why each of the four options is right or wrong. Keys: 1-4 or A-D to select, Enter to confirm, Enter again for the next question.
 - **Review mistakes:** questions you got wrong come back the same day. Each right answer moves a question up one box (Leitner): due again after 1, 3, 7, 14 and 30 days. A question counts as mastered from box 3.
-- **Mock exam:** quick (25 questions, 45 minutes) or full (100 questions, 3 hours), 20% per DMAIC phase. No feedback until you submit; flag questions and jump with the grid. A refresh resumes the exam with the same clock. Topics marked as bonus (not on the IASSC exam) are left out.
+- **Exam (IASSC rules):** 100 questions, 3 hours, pass mark 70%, about 20 per DMAIC phase, explanations only after you submit; a 25-question, 45-minute quick exam uses the same rules. Flag questions and jump with the grid; a refresh resumes the exam with the same clock. Bonus topics (not on the IASSC exam) are left out.
 - **Learn:** notes, formulas, exam traps and terms per topic, with a search across notes and question stems.
 
 ## Add questions
@@ -35,12 +37,10 @@ node tools/validate.mjs
 
 It needs only Node (no packages). It prints counts per pack and topic, the spread of correct-answer positions and how often the correct option is the longest, and exits with code 1 on any contract error. The app itself skips items that break the format, so one bad question never blanks the page.
 
-`data/questions/sample.js` and `data/learn/sample.js` are test data; delete them and their two marked `<script>` tags in `index.html` once the real packs are in.
-
 ## Code layout
 
 - `index.html`: page frame and the ordered list of scripts.
 - `css/app.css`: all styles, light and dark tokens.
-- `js/registry.js` (QB, LEARN), `js/store.js` (progress and Leitner), `js/quiz.js` (practice and review), `js/mock.js`, `js/learn.js`, `js/app.js` (router, Home, Settings), `js/dom.js` (helpers), `js/theme-init.js` (theme before first paint).
+- `js/registry.js` (QB, LEARN), `js/store.js` (progress and Leitner), `js/quiz.js` (Random, Topic and Review modes), `js/mock.js` (Exam mode), `js/learn.js`, `js/app.js` (router, Home, Settings), `js/dom.js` (helpers), `js/theme-init.js` (theme before first paint).
 
 Plain HTML, CSS and JavaScript: no framework, no build step, no network requests. A Content Security Policy allows scripts and styles from the site itself only, and all data is rendered as text.

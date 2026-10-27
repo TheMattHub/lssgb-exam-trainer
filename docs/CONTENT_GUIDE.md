@@ -56,4 +56,5 @@ LEARN.add([
 ]);
 ```
 
-All text is plain text (rendered with `textContent`, no HTML). Use Unicode for maths: σ, μ, ≤, ≥, ², √, ×, ±, x̄.
+All text is plain text (rendered with `textContent`, no HTML). In a question stem or a `why`, `
+` shows as a line break (use it for short software output); option texts stay on one line. Use Unicode for maths: σ, μ, ≤, ≥, ², √, ×, ±, x̄.

@@ -57,7 +57,7 @@ for (const { pack, item: q } of questions) {
   else seenIds.add(q.id);
   const topic = topicById.get(q.topic);
   if (!topic) err(where, `unknown topic "${q.topic}"`);
-  else if (packOf(pack) !== topic.pack && packOf(pack) !== "sample") warn(where, `topic "${q.topic}" belongs to pack "${topic.pack}"`);
+  else if (packOf(pack) !== topic.pack) warn(where, `topic "${q.topic}" belongs to pack "${topic.pack}"`);
   if (![1, 2, 3].includes(q.level)) err(where, "level must be 1, 2 or 3");
   if (!isText(q.q)) err(where, "missing question text q");
   if (!isText(q.ref)) err(where, "missing ref");
@@ -86,7 +86,7 @@ for (const { pack, item: p } of pages) {
   if (!topicById.has(p.topic)) { err(where, "unknown topic"); continue; }
   if (pageTopics.has(p.topic)) err(where, "second learn page for this topic");
   pageTopics.add(p.topic);
-  if (packOf(pack) !== topicById.get(p.topic).pack && packOf(pack) !== "sample") warn(where, `topic belongs to pack "${topicById.get(p.topic).pack}"`);
+  if (packOf(pack) !== topicById.get(p.topic).pack) warn(where, `topic belongs to pack "${topicById.get(p.topic).pack}"`);
   if (!isText(p.summary)) err(where, "missing summary");
   const strList = (key, min, max, required) => {
     const v = p[key];

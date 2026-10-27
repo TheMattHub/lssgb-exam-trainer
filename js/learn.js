@@ -94,7 +94,7 @@ var Learn = (function () {
     if (!t) { main.appendChild(h("p", { class: "card", text: "Unknown topic." })); return; }
     main.appendChild(h("h1", { text: t.name }));
     if (t.bok === false) main.appendChild(h("p", { class: "small muted" }, U.bonusTag(t), " Course topic, not on the IASSC Green Belt exam; left out of mock exams."));
-    if (Quiz.active()) main.appendChild(h("p", null, h("a", { class: "btn ghost small", href: "#/practice/run" }, "← Back to your session")));
+    if (Quiz.backHref()) main.appendChild(h("p", null, h("a", { class: "btn ghost small", href: Quiz.backHref() }, "← Back to questions")));
     if (!p) { main.appendChild(h("p", { class: "card muted", text: "No notes for this topic yet." })); }
     else {
       var art = h("article", { class: "card learn" });
@@ -123,8 +123,8 @@ var Learn = (function () {
     }
     var n = QB.all().filter(function (q) { return q.topic === id; }).length;
     main.appendChild(h("div", { class: "row wrap" },
-      h("button", { class: "btn", type: "button", disabled: n === 0, onclick: function () { Quiz.startTopics([id], 10); } },
-        n ? "Practice this topic (" + Math.min(10, n) + ")" : "No questions yet"),
+      h("button", { class: "btn", type: "button", disabled: n === 0, onclick: function () { location.hash = "#/topic/" + encodeURIComponent(id); } },
+        n ? "Practice this topic (" + n + ")" : "No questions yet"),
       h("a", { class: "btn ghost", href: "#/learn" }, "All topics")));
   }
 

@@ -1,227 +1,162 @@
-// Practice and review sessions: setup, one question at a time with feedback, session summary.
+// Random, Topic and Review modes: one question at a time, select then confirm, then all explanations.
+//
+// Random and Topic modes work in persistent "rounds" (saved in Store): a random order of every question
+// in scope; the ones not yet answered in the round come next, and the round ends when all are answered.
+// Round keys: "all" (Random), "t:<topic>" or "p:<phase>" (Topic mode).
 var Quiz = (function () {
   "use strict";
   var h = U.h;
-  var session = null;          // the running session; kept in memory so "Read: topic" and back resumes it
-  var lastPick = null;         // remembered setup choices: { topics: Set, length }
+  var card = null;      // question on screen: { ctx, id, perm, sel, chosen, anim }
+  var review = null;    // review session: { ids, i, results, title, startedAt, endedAt }
+  var backHref = "";    // where "Back to questions" on a learn page returns to
 
-  // ---------- question selection ----------
+  // ---------- rounds ----------
 
-  function topicAccuracy() {
-    var acc = new Map();
-    QB.all().forEach(function (q) {
-      var e = Store.entry(q.id); if (!e) return;
-      var a = acc.get(q.topic) || { r: 0, w: 0 };
-      a.r += e.right; a.w += e.wrong; acc.set(q.topic, a);
+  function scope(key) {
+    if (key === "all") return QB.all();
+    var kind = key.charAt(0), id = key.slice(2);
+    return QB.all().filter(function (q) {
+      if (kind === "t") return q.topic === id;
+      var t = U.topic(q.topic); return !!t && t.phase === id;
     });
-    return function (t) { var a = acc.get(t); return a && a.r + a.w ? a.r / (a.r + a.w) : 1; };
   }
 
-  // Due mistakes first, then unseen, then the rest by weakest topic; random within each group.
-  function order(pool) {
-    var now = Date.now(), due = [], unseen = [], rest = [];
-    pool.forEach(function (q) {
-      if (Store.isDueMistake(q.id, now)) due.push(q);
-      else if (!Store.entry(q.id)) unseen.push(q);
-      else rest.push(q);
-    });
-    var acc = topicAccuracy();
-    U.shuffle(rest).sort(function (a, b) { return acc(a.topic) - acc(b.topic); }); // sort is stable: random within a topic
-    return U.shuffle(due).concat(U.shuffle(unseen), rest);
+  function roundTitle(key) {
+    if (key === "all") return "Random";
+    var id = key.slice(2);
+    if (key.charAt(0) === "t") { var t = U.topic(id); return t ? t.name : id; }
+    var p = U.phase(id); return (p ? p.name : id) + ": whole phase";
   }
+
+  function newRound(key) {
+    var r = { order: U.shuffle(scope(key).map(function (q) { return q.id; })), done: Object.create(null), start: Date.now() };
+    Store.setRound(key, r); Store.save();
+    return r;
+  }
+
+  // Returns the round for key, creating it on first use. Questions added to the bank since the round
+  // began are slotted in at random places among the ones still to answer.
+  function getRound(key) {
+    var r = Store.round(key);
+    if (!r) return newRound(key);
+    var known = new Set(r.order);
+    var added = scope(key).map(function (q) { return q.id; }).filter(function (id) { return !known.has(id); });
+    if (added.length) {
+      var first = r.order.findIndex(function (id) { return !(id in r.done); });
+      if (first < 0) first = r.order.length;
+      added.forEach(function (id) { r.order.splice(first + Math.floor(Math.random() * (r.order.length - first + 1)), 0, id); });
+      Store.save();
+    }
+    return r;
+  }
+
+  // Progress of a round, counting only questions that still exist in the bank.
+  function roundStatus(key) {
+    var r = Store.round(key);
+    var ids = scope(key).map(function (q) { return q.id; });
+    var s = { total: ids.length, answered: 0, right: 0, started: !!r };
+    if (r) ids.forEach(function (id) { if (id in r.done) { s.answered++; s.right += r.done[id]; } });
+    return s;
+  }
+
+  function nextInRound(r) {
+    return r.order.find(function (id) { return QB.has(id) && !(id in r.done); });
+  }
+
+  // ---------- review (Leitner) ----------
 
   function dueMistakes() {
     var now = Date.now();
     return QB.all().filter(function (q) { return Store.isDueMistake(q.id, now); });
   }
 
-  // ---------- session lifecycle ----------
-
-  function start(ids, title, kind) {
-    session = { ids: ids, title: title, kind: kind, i: 0, perm: null, chosen: -1, results: [], startedAt: Date.now(), endedAt: 0 };
-    newShowing();
-    if (location.hash === "#/practice/run") App.render(); else location.hash = "#/practice/run";
+  function startReview(ids, title) {
+    review = { ids: ids, i: 0, results: [], title: title, startedAt: Date.now(), endedAt: 0 };
+    card = null;
+    if (location.hash === "#/review/run") App.render(); else location.hash = "#/review/run";
   }
 
-  function startTopics(topicIds, length) {
-    var set = new Set(topicIds);
-    var qs = order(QB.all().filter(function (q) { return set.has(q.topic); }));
-    if (length) qs = qs.slice(0, length);
-    if (!qs.length) return;
-    var name = topicIds.length === 1 && U.topic(topicIds[0]) ? U.topic(topicIds[0]).name : "Practice";
-    start(qs.map(function (q) { return q.id; }), name, "practice");
-  }
+  // ---------- shared question flow ----------
 
-  function startReview() {
-    var qs = U.shuffle(dueMistakes());
-    if (!qs.length) { location.hash = "#/review"; return; }
-    start(qs.map(function (q) { return q.id; }), "Review mistakes", "review");
-  }
+  function freshCard(ctx, id) { return { ctx: ctx, id: id, perm: U.shuffle([0, 1, 2, 3]), sel: -1, chosen: -1, anim: false }; }
 
-  function newShowing() {
-    session.perm = U.shuffle([0, 1, 2, 3]);   // options reshuffled each time a question is shown
-    session.chosen = -1;
-  }
-
-  function current() { return QB.get(session.ids[session.i]); }
-
-  function answer(displayIdx) {
-    if (!session || session.chosen >= 0 || session.endedAt) return;
-    var q = current(); if (!q) return;
-    var orig = session.perm[displayIdx];
-    session.chosen = orig;
-    var ok = orig === q.answer;
-    session.results.push({ id: q.id, topic: q.topic, ok: ok });
-    Store.record(q.id, ok); Store.save();
-    session.justAnswered = true;   // animate only this render, not a later redraw
+  function select(displayIdx) {
+    if (!card || card.chosen >= 0) return;
+    card.sel = displayIdx;
     App.render();
+  }
+
+  function confirm() {
+    if (!card || card.chosen >= 0 || card.sel < 0) return;
+    var q = QB.get(card.id); if (!q) return;
+    card.chosen = card.perm[card.sel];
+    card.anim = true;
+    var ok = card.chosen === q.answer;
+    Store.record(q.id, ok);
+    if (card.ctx === "review") review.results.push({ id: q.id, topic: q.topic, ok: ok });
+    else { var r = getRound(card.ctx); r.done[q.id] = ok ? 1 : 0; }
+    Store.save();
+    App.render();
+    var go = document.getElementById("go"); if (go) go.focus({ preventScroll: true });
   }
 
   function next() {
-    if (!session || session.chosen < 0) return;
-    if (session.i + 1 >= session.ids.length) { session.endedAt = Date.now(); }
-    else { session.i++; newShowing(); }
+    if (!card || card.chosen < 0) return;
+    if (card.ctx === "review") {
+      if (review.i + 1 >= review.ids.length) review.endedAt = Date.now(); else review.i++;
+    }
+    card = null;
     App.render();
-    var m = document.getElementById("main"); if (m) m.focus({ preventScroll: true });
     window.scrollTo(0, 0);
+    var m = document.getElementById("main"); if (m) m.focus({ preventScroll: true });
   }
 
-  // ---------- views ----------
-
-  function renderSetup(main) {
-    var all = QB.all();
-    var counts = new Map();
-    all.forEach(function (q) { counts.set(q.topic, (counts.get(q.topic) || 0) + 1); });
-    if (!lastPick) lastPick = { topics: new Set(all.map(function (q) { return q.topic; })), length: 10 };
-    var pick = lastPick;
-
-    main.appendChild(h("h1", { text: "Practice" }));
-    if (!all.length) { main.appendChild(emptyData()); return; }
-
-    var countLine = h("p", { class: "muted", "aria-live": "polite" });
-    var startBtn = h("button", { class: "btn big", type: "button", onclick: function () {
-      startTopics(Array.from(pick.topics), pick.length);
-    } }, "Start");
-
-    function selected() { return all.filter(function (q) { return pick.topics.has(q.topic); }).length; }
-    function refresh() {
-      var n = selected();
-      var len = pick.length ? Math.min(pick.length, n) : n;
-      countLine.textContent = n ? len + " of " + n + " questions in the selected topics" : "Select at least one topic with questions.";
-      startBtn.disabled = n === 0;
-      phaseBoxes.forEach(function (pb) {
-        var avail = pb.topics.filter(function (t) { return counts.get(t.id); });
-        var on = avail.filter(function (t) { return pick.topics.has(t.id); }).length;
-        pb.box.checked = avail.length > 0 && on === avail.length;
-        pb.box.indeterminate = on > 0 && on < avail.length;
-      });
-    }
-
-    var phaseBoxes = [];
-    var groups = h("div", { class: "topic-groups" });
-    U.phases().forEach(function (p) {
-      var topics = U.topicsOf(p.id);
-      var total = topics.reduce(function (s, t) { return s + (counts.get(t.id) || 0); }, 0);
-      var topicInputs = [];
-      var pbox = h("input", { type: "checkbox", disabled: total === 0, onchange: function () {
-        topics.forEach(function (t) { if (counts.get(t.id)) { if (pbox.checked) pick.topics.add(t.id); else pick.topics.delete(t.id); } });
-        topicInputs.forEach(function (ti) { ti.checked = pick.topics.has(ti.dataset.topic); });
-        refresh();
-      } });
-      phaseBoxes.push({ box: pbox, topics: topics });
-      var list = h("div", { class: "topic-list" });
-      topics.forEach(function (t) {
-        var n = counts.get(t.id) || 0;
-        var input = h("input", { type: "checkbox", "data-topic": t.id, disabled: n === 0, checked: n > 0 && pick.topics.has(t.id),
-          onchange: function () { if (input.checked) pick.topics.add(t.id); else pick.topics.delete(t.id); refresh(); } });
-        topicInputs.push(input);
-        list.appendChild(h("label", { class: "check" + (n ? "" : " off") }, input, h("span", null, t.name, " ", U.bonusTag(t)), h("span", { class: "count", text: String(n) })));
-      });
-      groups.appendChild(h("details", { class: "card group", open: total > 0 },
-        h("summary", null, h("label", { class: "check phase-check" }, pbox, h("strong", { text: p.name }), h("span", { class: "count", text: total + " questions" }))),
-        list));
-    });
-
-    var lengths = h("div", { class: "seg", role: "radiogroup", "aria-label": "Session length" });
-    [[10, "10"], [20, "20"], [0, "All"]].forEach(function (opt) {
-      lengths.appendChild(h("label", null,
-        h("input", { type: "radio", name: "len", value: String(opt[0]), checked: pick.length === opt[0],
-          onchange: function () { pick.length = opt[0]; refresh(); } }),
-        h("span", { text: opt[1] })));
-    });
-
-    main.appendChild(groups);
-    main.appendChild(h("div", { class: "card setup-foot" },
-      h("div", { class: "row wrap" }, h("span", { class: "label", text: "Questions" }), lengths),
-      countLine, startBtn));
-    refresh();
-  }
-
-  function renderReviewStart(main) {
-    var n = dueMistakes().length;
-    main.appendChild(h("h1", { text: "Review mistakes" }));
-    if (!n) {
-      main.appendChild(h("div", { class: "card empty" },
-        h("p", { text: "No mistakes are due for review. Questions you get wrong come back here the same day; after you answer them right they return after 1, 3, 7, 14 and 30 days." }),
-        h("a", { class: "btn", href: "#/practice" }, "Practice")));
-      return;
-    }
-    main.appendChild(h("div", { class: "card" },
-      h("p", { text: n + (n === 1 ? " question is" : " questions are") + " due: ones you got wrong before. Each right answer moves it to a longer interval." }),
-      h("button", { class: "btn big", type: "button", onclick: startReview }, "Start review")));
-  }
-
-  function renderRun(main) {
-    if (!session) { location.replace("#/practice"); return; }
-    if (session.endedAt) { renderSummary(main); return; }
-    var q = current();
-    if (!q) { session.endedAt = Date.now(); renderSummary(main); return; }
+  // Header line, progress bar and the question card with options, Confirm/Next and feedback.
+  function renderQuestion(main, q, headText, share, shareAfter, endLink) {
     var t = U.topic(q.topic);
-    var answered = session.chosen >= 0;
-    var n = session.ids.length;
-    var anim = session.justAnswered ? " anim" : "";
-    session.justAnswered = false;
+    var done = card.chosen >= 0;
+    var anim = card.anim ? " anim" : "";
+    card.anim = false;   // animate on the confirming render only
 
-    main.appendChild(h("div", { class: "qhead" },
-      h("span", { class: "muted tnum", text: session.title + " · " + (session.i + 1) + " of " + n }),
-      h("a", { class: "quiet-link", href: "#/practice", onclick: function () { session = null; } }, "End session")));
-    main.appendChild(U.bar(session.i / n, (session.i + (answered ? 1 : 0)) / n, "Progress"));
+    main.appendChild(h("div", { class: "qhead" }, h("span", { class: "muted tnum", text: headText }), endLink));
+    main.appendChild(U.bar(share, shareAfter, headText));
 
-    var card = h("section", { class: "card qcard", "aria-labelledby": "qtext" });
-    card.appendChild(h("p", { class: "chip-row" }, h("span", { class: "chip", text: t ? t.name : q.topic }), h("span", { class: "chip dim", text: "Level " + q.level })));
-    card.appendChild(h("h2", { id: "qtext", class: "qtext", text: q.q }));
+    var box = h("section", { class: "card qcard", "aria-labelledby": "qtext" });
+    box.appendChild(h("p", { class: "chip-row" }, h("span", { class: "chip", text: t ? t.name : q.topic }), U.bonusTag(t),
+      h("span", { class: "chip dim", text: "Level " + q.level })));
+    box.appendChild(h("h2", { id: "qtext", class: "qtext", text: q.q }));
     var opts = h("div", { class: "opts", role: "group", "aria-label": "Options" });
-    session.perm.forEach(function (orig, di) {
-      var cls = "opt";
-      if (answered) {
-        if (orig === q.answer) cls += " is-correct" + (orig === session.chosen ? anim : "");
-        else if (orig === session.chosen) cls += " is-wrong" + anim;
+    card.perm.forEach(function (orig, di) {
+      var cls = "opt", mark = U.letter(di);
+      if (done) {
+        if (orig === q.answer) { cls += " is-correct" + (orig === card.chosen ? anim : ""); mark = "✓"; }
+        else if (orig === card.chosen) { cls += " is-wrong" + anim; mark = "✗"; }
         else cls += " is-other";
-      }
-      var mark = answered && orig === q.answer ? "✓" : answered && orig === session.chosen ? "✗" : U.letter(di);
-      opts.appendChild(h("button", { class: cls, type: "button", disabled: answered, "aria-keyshortcuts": String(di + 1),
-        onclick: function () { answer(di); } },
+      } else if (di === card.sel) cls += " is-picked";
+      opts.appendChild(h("button", { class: cls, type: "button", disabled: done, "data-fid": "o" + di,
+        "aria-pressed": done ? null : String(di === card.sel), onclick: function () { select(di); } },
         h("span", { class: "key", "aria-hidden": "true", text: mark }),
         h("span", { class: "opt-t", text: q.options[orig].t }),
-        answered && orig === session.chosen ? h("span", { class: "sr", text: orig === q.answer ? " (your answer, correct)" : " (your answer, wrong)" }) : null,
-        answered && orig === q.answer && orig !== session.chosen ? h("span", { class: "sr", text: " (correct answer)" }) : null));
+        done && orig === card.chosen ? h("span", { class: "sr", text: orig === q.answer ? " (your answer, correct)" : " (your answer, wrong)" }) : null,
+        done && orig === q.answer && orig !== card.chosen ? h("span", { class: "sr", text: " (correct answer)" }) : null));
     });
-    card.appendChild(opts);
+    box.appendChild(opts);
 
-    var nextBtn = h("button", { class: "btn", type: "button", id: "next", disabled: !answered, onclick: next },
-      session.i + 1 >= n ? "See results" : "Next");
-    card.appendChild(h("div", { class: "row between actions" },
-      h("span", { class: "muted small hint", text: answered ? "Enter: next" : "Keys 1-4 or A-D" }),
-      nextBtn));
+    // Confirm and Next share one slot, so the row never changes size.
+    var go = done
+      ? h("button", { class: "btn", type: "button", id: "go", "data-fid": "go", onclick: next }, "Next")
+      : h("button", { class: "btn", type: "button", id: "go", "data-fid": "go", disabled: card.sel < 0, onclick: confirm }, "Confirm");
+    box.appendChild(h("div", { class: "row between actions" },
+      h("span", { class: "muted small hint", text: done ? "Enter: next" : card.sel < 0 ? "Keys 1-4 or A-D to select" : "Enter: confirm · you can still change" }),
+      go));
 
     var fb = h("div", { class: "feedback", "aria-live": "polite" });
-    if (answered) fb.appendChild(explain(q, session.perm, session.chosen, true));
-    card.appendChild(fb);
-    main.appendChild(card);
-    if (answered) nextBtn.focus({ preventScroll: true });
+    if (done) fb.appendChild(explain(q, card.perm, card.chosen, true));
+    box.appendChild(fb);
+    main.appendChild(box);
   }
 
-  // Explanation block, shared with the mock review. perm maps displayed position -> original index.
+  // Explanation block, shared with the exam review. perm maps displayed position -> original index.
   function explain(q, perm, chosen, withRead) {
     var pos = function (orig) { return U.letter(perm.indexOf(orig)); };
     var ok = chosen === q.answer;
@@ -253,58 +188,185 @@ var Quiz = (function () {
     return box;
   }
 
-  function renderSummary(main) {
-    var r = session.results, right = r.filter(function (x) { return x.ok; }).length;
-    var missed = r.filter(function (x) { return !x.ok; }).map(function (x) { return x.id; });
-    main.appendChild(h("h1", { text: session.title + ": done" }));
-    var top = h("div", { class: "card summary" },
-      U.ring(r.length ? right / r.length : 0, U.pct(right, r.length) + "%", right + " / " + r.length),
-      h("dl", { class: "facts" },
-        h("dt", { text: "Time" }), h("dd", { class: "tnum", text: U.clock(session.endedAt - session.startedAt) }),
-        h("dt", { text: "Missed" }), h("dd", { class: "tnum", text: String(missed.length) }),
-        h("dt", { text: "Streak" }), h("dd", { class: "tnum", text: Store.streak() + (Store.streak() === 1 ? " day" : " days") })));
-    main.appendChild(top);
+  // ---------- views ----------
 
+  function renderRound(main, key) {
+    var title = roundTitle(key);
+    if (!scope(key).length) {
+      main.appendChild(h("h1", { text: title }));
+      main.appendChild(emptyData());
+      return;
+    }
+    var r = getRound(key);
+    backHref = location.hash;
+    if (!card || card.ctx !== key || (card.chosen < 0 && (card.id in r.done || !QB.has(card.id)))) {
+      var id = nextInRound(r);
+      card = id ? freshCard(key, id) : null;
+    }
+    var s = roundStatus(key);
+    if (!card) { renderRoundDone(main, key, r, s); return; }
+    var restart = h("button", { class: "quiet-link", type: "button", onclick: function () {
+      U.confirm("Start a new round?", "The " + s.answered + " questions answered in this round go back into the pool. Your mistakes and review schedule stay.", "New round")
+        .then(function (yes) { if (yes) { newRound(key); card = null; App.render(); } });
+    } }, "New round");
+    var answeredNow = s.answered - (card.chosen >= 0 ? 1 : 0);
+    renderQuestion(main, QB.get(card.id), title + " · " + s.answered + " / " + s.total + " answered",
+      answeredNow / s.total, s.answered / s.total, restart);
+  }
+
+  function renderRoundDone(main, key, r, s) {
+    card = null;
+    main.appendChild(h("h1", { text: roundTitle(key) + ": round complete" }));
+    main.appendChild(h("div", { class: "card summary" },
+      U.ring(s.total ? s.right / s.total : 0, U.pct(s.right, s.total) + "%", s.right + " / " + s.total),
+      h("dl", { class: "facts" },
+        h("dt", { text: "Right" }), h("dd", { class: "tnum", text: String(s.right) }),
+        h("dt", { text: "Wrong" }), h("dd", { class: "tnum", text: String(s.total - s.right) }),
+        h("dt", { text: "Mistakes due" }), h("dd", { class: "tnum", text: String(dueMistakes().length) }))));
+    var results = scope(key).filter(function (q) { return q.id in r.done; }).map(function (q) { return { topic: q.topic, ok: r.done[q.id] === 1 }; });
+    if (key.charAt(0) !== "t") main.appendChild(topicTable(results));
+    var due = dueMistakes().length;
+    main.appendChild(h("div", { class: "row wrap" },
+      h("button", { class: "btn", type: "button", onclick: function () { newRound(key); App.render(); } }, "Start new round"),
+      due ? h("a", { class: "btn ghost", href: "#/review" }, "Review mistakes (" + due + ")") : null,
+      h("a", { class: "btn ghost", href: key === "all" ? "#/" : "#/topics" }, key === "all" ? "Home" : "All topics")));
+  }
+
+  function topicTable(results) {
     var byTopic = new Map();
-    r.forEach(function (x) { var a = byTopic.get(x.topic) || { r: 0, n: 0 }; a.n++; if (x.ok) a.r++; byTopic.set(x.topic, a); });
+    results.forEach(function (x) { var a = byTopic.get(x.topic) || { r: 0, n: 0 }; a.n++; if (x.ok) a.r++; byTopic.set(x.topic, a); });
     var rows = Array.from(byTopic.entries()).sort(function (a, b) { return a[1].r / a[1].n - b[1].r / b[1].n; });
     var table = h("table", { class: "tbl" }, h("caption", { text: "Result by topic, weakest first" }),
       h("thead", null, h("tr", null, h("th", { scope: "col", text: "Topic" }), h("th", { scope: "col", class: "num", text: "Right" }))));
     var tb = h("tbody");
     rows.forEach(function (e) {
-      var t = U.topic(e[0]);
-      tb.appendChild(h("tr", null, h("td", null, LEARN.get(e[0]) ? h("a", { href: "#/learn/" + encodeURIComponent(e[0]) }, t ? t.name : e[0]) : (t ? t.name : e[0])),
+      var t = U.topic(e[0]), name = t ? t.name : e[0];
+      tb.appendChild(h("tr", null, h("td", null, LEARN.get(e[0]) ? h("a", { href: "#/learn/" + encodeURIComponent(e[0]) }, name) : name),
         h("td", { class: "num tnum", text: e[1].r + " / " + e[1].n })));
     });
     table.appendChild(tb);
-    main.appendChild(h("div", { class: "card scroll-x" }, table));
+    return h("div", { class: "card scroll-x" }, table);
+  }
 
-    var acts = h("div", { class: "row wrap" });
-    if (missed.length) acts.appendChild(h("button", { class: "btn", type: "button", onclick: function () {
-      start(U.shuffle(missed.slice()), "Retry missed", "retry");
-    } }, "Retry the " + missed.length + " I missed"));
-    acts.appendChild(h("a", { class: "btn ghost", href: "#/practice", onclick: function () { session = null; } }, "New practice"));
-    acts.appendChild(h("a", { class: "btn ghost", href: "#/", onclick: function () { session = null; } }, "Home"));
-    main.appendChild(acts);
+  // Per topic: total, answered (distinct, at least once), right and wrong by the latest answer.
+  function topicStats(questions) {
+    var s = { total: questions.length, answered: 0, right: 0, wrong: 0 };
+    questions.forEach(function (q) {
+      if (!Store.entry(q.id)) return;
+      s.answered++;
+      if (Store.lastRight(q.id)) s.right++; else s.wrong++;
+    });
+    return s;
+  }
+
+  function statBar(s, label) {
+    var track = h("div", { class: "bar", role: "img", "aria-label": label });
+    var a = h("span", { class: "bar-ok" }), b = h("span", { class: "bar-bad" });
+    a.style.width = (s.total ? s.right / s.total * 100 : 0).toFixed(1) + "%";
+    b.style.width = (s.total ? s.wrong / s.total * 100 : 0).toFixed(1) + "%";
+    track.appendChild(a); track.appendChild(b);
+    return track;
+  }
+
+  function statText(s) {
+    return s.answered + " / " + s.total + " answered · " + s.right + " right · " + s.wrong + " wrong";
+  }
+
+  function renderTopics(main) {
+    main.appendChild(h("h1", { text: "By topic" }));
+    var all = QB.all();
+    if (!all.length) { main.appendChild(emptyData()); return; }
+    main.appendChild(h("p", { class: "muted", text: "Each topic or phase runs as its own round. Right and wrong count your latest answer to each question." }));
+    U.phases().forEach(function (p) {
+      var topics = U.topicsOf(p.id);
+      var inPhase = all.filter(function (q) { var t = U.topic(q.topic); return t && t.phase === p.id; });
+      var ps = topicStats(inPhase);
+      var sec = h("section", { class: "card" },
+        h("div", { class: "row between wrap phase-head" }, h("h2", { text: p.name }),
+          inPhase.length ? h("a", { class: "btn ghost small", href: "#/phase/" + encodeURIComponent(p.id) }, "Whole phase (" + inPhase.length + ")") : null),
+        h("p", { class: "small muted tnum", text: statText(ps) }));
+      var ul = h("ul", { class: "topic-stats" });
+      topics.forEach(function (t) {
+        var s = topicStats(all.filter(function (q) { return q.topic === t.id; }));
+        var name = s.total ? h("a", { href: "#/topic/" + encodeURIComponent(t.id) }, t.name) : h("span", { class: "muted", text: t.name });
+        ul.appendChild(h("li", null,
+          h("div", { class: "row between wrap" }, h("span", null, name, " ", U.bonusTag(t)),
+            h("span", { class: "small muted tnum", text: s.total ? statText(s) : "no questions yet" })),
+          statBar(s, t.name + ": " + statText(s))));
+      });
+      sec.appendChild(ul);
+      main.appendChild(sec);
+    });
+    main.appendChild(h("p", { class: "legend small muted" },
+      h("span", { class: "sw sw-ok", "aria-hidden": "true" }), "right ",
+      h("span", { class: "sw sw-bad", "aria-hidden": "true" }), "wrong (latest answer)"));
+  }
+
+  function renderReviewStart(main) {
+    var n = dueMistakes().length;
+    main.appendChild(h("h1", { text: "Review mistakes" }));
+    if (!n) {
+      main.appendChild(h("div", { class: "card empty" },
+        h("p", { text: "No mistakes are due for review. Questions you get wrong come back here the same day; after you answer them right they return after 1, 3, 7, 14 and 30 days." }),
+        h("a", { class: "btn", href: "#/random" }, "Random questions")));
+      return;
+    }
+    main.appendChild(h("div", { class: "card" },
+      h("p", { text: n + (n === 1 ? " question is" : " questions are") + " due: ones you got wrong before. Each right answer moves it to a longer interval." }),
+      h("button", { class: "btn big", type: "button", onclick: function () {
+        startReview(U.shuffle(dueMistakes()).map(function (q) { return q.id; }), "Review mistakes");
+      } }, "Start review")));
+  }
+
+  function renderReviewRun(main) {
+    if (!review) { location.replace("#/review"); return; }
+    backHref = "#/review/run";
+    if (review.endedAt) { renderReviewDone(main); return; }
+    while (review.i < review.ids.length && !QB.has(review.ids[review.i])) review.i++;
+    if (review.i >= review.ids.length) { review.endedAt = Date.now(); renderReviewDone(main); return; }
+    if (!card || card.ctx !== "review" || card.id !== review.ids[review.i]) card = freshCard("review", review.ids[review.i]);
+    var n = review.ids.length, doneNow = review.i + (card.chosen >= 0 ? 1 : 0);
+    renderQuestion(main, QB.get(card.id), review.title + " · " + (review.i + 1) + " of " + n, review.i / n, doneNow / n,
+      h("a", { class: "quiet-link", href: "#/review", onclick: function () { review = null; card = null; } }, "End review"));
+  }
+
+  function renderReviewDone(main) {
+    card = null;
+    var r = review.results, right = r.filter(function (x) { return x.ok; }).length;
+    var missed = r.filter(function (x) { return !x.ok; }).map(function (x) { return x.id; });
+    main.appendChild(h("h1", { text: review.title + ": done" }));
+    main.appendChild(h("div", { class: "card summary" },
+      U.ring(r.length ? right / r.length : 0, U.pct(right, r.length) + "%", right + " / " + r.length),
+      h("dl", { class: "facts" },
+        h("dt", { text: "Time" }), h("dd", { class: "tnum", text: U.clock(review.endedAt - review.startedAt) }),
+        h("dt", { text: "Missed" }), h("dd", { class: "tnum", text: String(missed.length) }))));
+    if (r.length) main.appendChild(topicTable(r));
+    main.appendChild(h("div", { class: "row wrap" },
+      missed.length ? h("button", { class: "btn", type: "button", onclick: function () { startReview(U.shuffle(missed), "Retry missed"); } },
+        "Retry the " + missed.length + " I missed") : null,
+      h("a", { class: "btn ghost", href: "#/", onclick: function () { review = null; } }, "Home")));
   }
 
   function emptyData() {
     return h("div", { class: "card empty" }, h("p", { text: "No questions are loaded yet. Question packs go in data/questions/ (see docs/CONTENT_GUIDE.md)." }));
   }
 
-  // Keyboard: 1-4 or A-D answer; Enter or Space goes on (when focus is not on another control).
+  // Keyboard: 1-4 or A-D select; Enter confirms, Enter again goes to the next question.
+  // Enter on another control (a link, "New round") keeps its normal action.
   function onKey(e) {
-    if (!session || session.endedAt) return;
+    if (!card) return;
     var k = e.key.toLowerCase();
     var idx = "1234".indexOf(k) >= 0 ? "1234".indexOf(k) : "abcd".indexOf(k);
-    if (k.length === 1 && idx >= 0 && session.chosen < 0) { e.preventDefault(); answer(idx); return; }
-    var tag = e.target && e.target.tagName;
-    if ((k === "enter" || k === " ") && session.chosen >= 0 && tag !== "BUTTON" && tag !== "A" && tag !== "INPUT") {
-      e.preventDefault(); next();
-    }
+    if (k.length === 1 && idx >= 0) { if (card.chosen < 0) { e.preventDefault(); select(idx); } return; }
+    if (k !== "enter" && k !== " ") return;
+    var el = e.target, tag = el && el.tagName;
+    var ours = tag === "BODY" || tag === "MAIN" || (tag === "BUTTON" && /^(o\d|go)$/.test(el.getAttribute("data-fid") || ""));
+    if (!ours || (k === " " && tag === "BUTTON")) return;
+    e.preventDefault();
+    if (card.chosen >= 0) next(); else confirm();
   }
 
-  return { renderSetup: renderSetup, renderRun: renderRun, renderReviewStart: renderReviewStart, startTopics: startTopics,
-    explain: explain, order: order, dueMistakes: dueMistakes, onKey: onKey, emptyData: emptyData,
-    active: function () { return !!session && !session.endedAt; } };
+  return { renderRound: renderRound, renderTopics: renderTopics, renderReviewStart: renderReviewStart, renderReviewRun: renderReviewRun,
+    explain: explain, dueMistakes: dueMistakes, roundStatus: roundStatus, topicStats: topicStats, onKey: onKey, emptyData: emptyData,
+    backHref: function () { return backHref; } };
 })();

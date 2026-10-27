@@ -9,12 +9,14 @@ var Store = (function () {
   var MASTERED_BOX = 3;
   var MAX_MOCKS = 20;
   var ID_RE = /^[A-Za-z0-9._-]{1,64}$/;
+  // Round keys: "all" (Random mode), "t:<topic id>" or "p:<phase id>" (Topic mode).
+  var ROUND_RE = /^(all|[tp]:[A-Za-z0-9._-]{1,64})$/;
 
   var storageOk = true;
   var state = clean(read());
 
   function fresh() {
-    return { v: 1, theme: "system", q: Object.create(null), streak: { last: "", n: 0 }, mocks: [], activeMock: null, lastMock: null };
+    return { v: 1, theme: "system", q: Object.create(null), streak: { last: "", n: 0 }, mocks: [], activeMock: null, lastMock: null, rounds: Object.create(null) };
   }
 
   function read() {
@@ -50,9 +52,26 @@ var Store = (function () {
         return { at: num(m.at, 0, 1e14, 0), mode: m.mode === "full" ? "full" : "quick", n: int(m.n, 0, 1000, 0), right: int(m.right, 0, 1000, 0) };
       }).filter(function (m) { return m.right <= m.n; });
     }
+    if (raw.rounds && typeof raw.rounds === "object") {
+      Object.keys(raw.rounds).slice(0, 100).forEach(function (k) {
+        var r = cleanRound(raw.rounds[k]);
+        if (ROUND_RE.test(k) && r) s.rounds[k] = r;
+      });
+    }
     s.activeMock = cleanMock(raw.activeMock);
     s.lastMock = cleanMock(raw.lastMock);
     return s;
+  }
+
+  // A round: a random order of question ids and the result (1 right, 0 wrong) of each one answered in it.
+  function cleanRound(r) {
+    if (!r || typeof r !== "object" || !Array.isArray(r.order) || r.order.length > 5000) return null;
+    var out = { order: r.order.filter(function (id) { return typeof id === "string" && ID_RE.test(id); }),
+      done: Object.create(null), start: num(r.start, 0, 1e14, 0) };
+    if (r.done && typeof r.done === "object") Object.keys(r.done).forEach(function (id) {
+      if (ID_RE.test(id) && (r.done[id] === 0 || r.done[id] === 1)) out.done[id] = r.done[id];
+    });
+    return out;
   }
 
   function cleanMock(m) {
@@ -129,11 +148,17 @@ var Store = (function () {
     return true;
   }
 
+  function round(key) { return Object.prototype.hasOwnProperty.call(state.rounds, key) ? state.rounds[key] : null; }
+  function setRound(key, r) { if (ROUND_RE.test(key)) state.rounds[key] = r; }
+  // Latest answer per question: box 0 means the last answer was wrong, any higher box means right.
+  function lastRight(id) { var e = state.q[id]; return !!e && e.box > 0; }
+
   function reset() { var theme = state.theme; state = fresh(); state.theme = theme; save(); }
 
   return {
     get: function () { return state; },
     save: save, record: record, entry: entry, isMastered: isMastered, isDueMistake: isDueMistake,
+    round: round, setRound: setRound, lastRight: lastRight,
     streak: streak, studiedToday: studiedToday, addMock: addMock, exportJson: exportJson, importJson: importJson, reset: reset,
     storageOk: function () { return storageOk; }
   };
